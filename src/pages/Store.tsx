@@ -1,6 +1,7 @@
-import { Grid } from "@mui/material";
+import { Grid, Card, CardHeader, CardMedia, CardContent } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
 import { products as procutsArr, Product } from "../ProductData";
 
@@ -10,11 +11,9 @@ const Store = () => {
   return (
     <MainContent>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={3}>
-          {products.map((productCard) => (
-            <Grid bgcolor={"blue"} item xs={6} md={4}>
-              {productCard.designer}
-            </Grid>
+        <Grid container spacing={2} alignItems="stretch">
+          {products.map((product) => (
+            <GridItem product={product} />
           ))}
         </Grid>
       </Box>
