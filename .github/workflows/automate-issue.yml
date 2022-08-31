@@ -9,4 +9,4 @@ jobs:
         uses: peter-evans/create-or-update-project-card@v2
         with:
           project-name: Kanban
-          column-name: To do
+          column-name: Todo
