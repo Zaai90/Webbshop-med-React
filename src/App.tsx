@@ -19,7 +19,6 @@ function App() {
           <Route path="product/:id" element={<ProductPage />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="admin" element={<Admin />} />
-          <Route path="*" element={<MainContent><div>404</div></MainContent>} />
         </Route>
       </Routes>
     </>
