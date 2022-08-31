@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
@@ -11,7 +12,11 @@ interface Props {
 }
 
 const MainContent = ({ children }: Props) => {
-  return <MainStyled>{children}</MainStyled>;
+  return (
+    <Container maxWidth="lg">
+      <MainStyled>{children}</MainStyled>
+    </Container>
+  );
 };
 
 export default MainContent;
