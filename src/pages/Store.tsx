@@ -1,9 +1,11 @@
-import React from 'react'
+import MainContent from "../components/MainContent";
 
 const Store = () => {
   return (
-    <div>Store</div>
-  )
-}
+    <MainContent>
+      <div>Store</div>
+    </MainContent>
+  );
+};
 
-export default Store
+export default Store;

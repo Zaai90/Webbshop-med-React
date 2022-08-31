@@ -1,9 +1,11 @@
-import React from 'react'
+import MainContent from "../components/MainContent";
 
 const Checkout = () => {
   return (
-    <div>Checkout</div>
-  )
-}
+    <MainContent>
+      <div>Checkout</div>
+    </MainContent>
+  );
+};
 
-export default Checkout
+export default Checkout;

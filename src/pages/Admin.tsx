@@ -1,9 +1,11 @@
-import React from 'react'
+import MainContent from "../components/MainContent";
 
 const Admin = () => {
   return (
-    <div>Admin</div>
-  )
-}
+    <MainContent>
+      <div>Admin</div>
+    </MainContent>
+  );
+};
 
-export default Admin
+export default Admin;
