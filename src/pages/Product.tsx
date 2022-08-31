@@ -8,7 +8,6 @@ const ContainerStyled = styled.main`
   margin: 5rem 0;
   display: flex;
   gap: 1rem;
-  align-items: center;
   justify-content: center;
   min-width: 100%;
 `;
@@ -27,7 +26,7 @@ const ImageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 10%;
+  gap: 1rem;
   height: 100%;
 `;
 
@@ -51,14 +50,13 @@ const DescriptionStyled = styled.p`
   font-weight: 400;
 `;
 
-
 const ImageStyled = styled.img`
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 150px;
+  max-height: 150px;
   object-fit: contain;
   cursor: pointer;
+  border: 1px solid black;
 `;
-
 
 const SelectImageShow = styled.img`
   max-width: 600px;
@@ -70,19 +68,17 @@ const SelectImageShow = styled.img`
 
 const ProductPage = () => {
   const { id } = useParams();
-  const product: Product = products.find(p => p.id === Number(id)) ?? products[0];
+  const product: Product = products.find((p) => p.id === Number(id)) ?? products[0];
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
 
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {
-    return (
-      <ImageStyled key={index} src={img} alt={product.title} onClick={() => setSelectedImg(img)} />
-    );
+    return <ImageStyled draggable="false" key={index} src={img} alt={product.title} onMouseEnter={() => setSelectedImg(img)} />;
   });
 
   return (
     <ContainerStyled>
       <ImageContainer>{images}</ImageContainer>
-      <SelectImageShow src={selectedImg} />
+      <SelectImageShow draggable="false" src={selectedImg} />
       <InfoContainer>
         <div style={{ display: "flex", flexDirection: "row", gap: "8rem", padding: 0, margin: 0 }}>
           <DesignerStyled>{product.designer}</DesignerStyled>
@@ -90,14 +86,11 @@ const ProductPage = () => {
         </div>
         <TitleStyled>{product.title}</TitleStyled>
         <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
-        <h3>
-          Description:
-        </h3>
+        <h3>Description:</h3>
         <p>{product.description}</p>
       </InfoContainer>
-    </ContainerStyled >
+    </ContainerStyled>
   );
-
 };
 
 
