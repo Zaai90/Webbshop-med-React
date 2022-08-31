@@ -2,7 +2,7 @@ export interface Product {
   id: number;
   designer: string;
   title: string;
-  descripton: string;
+  description: string;
   price: number;
   category: string;
   img: string[];
@@ -15,7 +15,7 @@ export const products: Product[] = [
     id: 1,
     designer: "Oscar Stenson",
     title: "Kånken",
-    descripton: "Generic hipster bag",
+    description: "Generic hipster bag",
     price: 250,
     category: "Accessories",
     img: [
@@ -29,7 +29,7 @@ export const products: Product[] = [
     id: 2,
     designer: "Tom Sachs",
     title: "General purpose shoe",
-    descripton: "A shoe that is made for wearing and can withstand tough conditions",
+    description: "A shoe that is made for wearing and can withstand tough conditions",
     price: 1500,
     category: "Shoe",
     img: [
@@ -43,7 +43,7 @@ export const products: Product[] = [
     id: 3,
     designer: "Carne Bollente",
     title: "Life is bootie-full",
-    descripton: "A shirt made from wool and linen, printed with people dancing naked.",
+    description: "A shirt made from wool and linen, printed with people dancing naked.",
     price: 1900,
     category: "Shirt",
     img: [
@@ -57,7 +57,7 @@ export const products: Product[] = [
     id: 4,
     designer: "Layered",
     title: "Poppykalas rug flower field",
-    descripton: "A rug from layered woven by hand. Made from wool and tencel",
+    description: "A rug from layered woven by hand. Made from wool and tencel",
     price: 9900,
     category: "Rug",
     img: [
@@ -71,7 +71,7 @@ export const products: Product[] = [
     id: 5,
     designer: "Birkenstock",
     title: "Arizona leather black",
-    descripton: "Black leather sandals made for people with tender little hearts. Preferably worn with multicolored socks.",
+    description: "Black leather sandals made for people with tender little hearts. Preferably worn with multicolored socks.",
     price: 1300,
     category: "Shoe",
     img: [
@@ -85,7 +85,7 @@ export const products: Product[] = [
     id: 6,
     designer: "Lemaire",
     title: "Twisted belted pants",
-    descripton: "Workwear inspired pants, designed with twisted seams alongside the outer leg which provides a fit with a lot of volume.",
+    description: "Workwear inspired pants, designed with twisted seams alongside the outer leg which provides a fit with a lot of volume.",
     price: 2300,
     category: "Pants",
     img: [
@@ -99,7 +99,7 @@ export const products: Product[] = [
     id: 7,
     designer: "Atelier Yuchi",
     title: "Capri woven blanket",
-    descripton: "Blanket from Atelier Yuchi made from hand woven wool, 138 x 184cm",
+    description: "Blanket from Atelier Yuchi made from hand woven wool, 138 x 184cm",
     price: 2400,
     category: "blanket",
     img: [
@@ -113,7 +113,7 @@ export const products: Product[] = [
     id: 8,
     designer: "Layered",
     title: "Modern oriental rug",
-    descripton: "Oriental rug made from 100% wool. Inspired by the Romanian sculptor Constantin Brancusi.",
+    description: "Oriental rug made from 100% wool. Inspired by the Romanian sculptor Constantin Brancusi.",
     price: 8900,
     category: "Rug",
     img: [
