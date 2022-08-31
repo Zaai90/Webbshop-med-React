@@ -11,7 +11,7 @@ const Store = () => {
   return (
     <MainContent>
       <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2} alignItems="stretch">
+        <Grid container>
           {products.map((product) => (
             <GridItem product={product} />
           ))}

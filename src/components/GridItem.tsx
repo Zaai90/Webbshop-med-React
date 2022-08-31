@@ -1,5 +1,14 @@
 import { Card, CardContent, CardMedia, Grid } from "@mui/material";
+import styled from "styled-components";
 import { Product } from "../ProductData";
+
+const CardImageStyled = styled.div<{ imgUrl: string }>`
+  background: url(${(props) => props.imgUrl});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50%;
+`;
 
 interface Props {
   product: Product;
@@ -7,13 +16,11 @@ interface Props {
 
 const GridItem = ({ product }: Props) => {
   return (
-    <Grid item component={Card} xs={6} md={4}>
-      {/* <Card sx={{ padding: "1rem", minHeight: "300px" }}> */}
-      <CardMedia component="img" image={product.img[0]} />
+    <Grid item component={Card} minHeight="350px" xs={6} md={4}>
+      <CardImageStyled imgUrl={product.img[0]} />
       <CardContent sx={{ height: "100%" }}>
         <p>{product.designer}</p>
       </CardContent>
-      {/* </Card> */}
     </Grid>
   );
 };
