@@ -5,9 +5,9 @@ import Footer from './components/Footer'
 const Layout = () => {
   return (
     <>
-    <AppBar />
-    <Outlet />
-    <Footer />
+      <AppBar />
+      <Outlet />
+      <Footer />
     </>
   )
 }
