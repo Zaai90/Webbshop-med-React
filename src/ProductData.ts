@@ -11,34 +11,34 @@ export interface Product {
 }
 
 export const products: Product[] = [
-  {
-    id: 1,
-    designer: "Oscar Stenson",
-    title: "Kånken",
-    description: "Generic hipster bag",
-    price: 250,
-    category: "Accessories",
-    img: [
-      "https://www.fotoagent.dk/single_picture/12535/138/custom1/138450752.jpg",
-      "https://www.fotoagent.dk/single_picture/12535/138/mega/138450751.jpg",
-      "https://www.fotoagent.dk/single_picture/12535/138/mega/138450753.jpg",
-    ],
-    color: "Orange",
-  },
-  {
-    id: 2,
-    designer: "Tom Sachs",
-    title: "General purpose shoe",
-    description: "A shoe that is made for wearing and can withstand tough conditions",
-    price: 1500,
-    category: "Shoe",
-    img: [
-      "https://sneakernews.com/wp-content/uploads/2022/08/Tom-Sachs-Nike-GPS-Dark-Sulfur-2.jpg?w=1140",
-      "https://sneakernews.com/wp-content/uploads/2022/08/Tom-Sachs-Nike-GPS-Dark-Sulfur-5.jpg?w=1140",
-      "https://sneakernews.com/wp-content/uploads/2022/08/Tom-Sachs-Nike-GPS-Dark-Sulfur-1.jpg?w=1140",
-    ],
-    color: "yellow",
-  },
+  // {
+  //   id: 1,
+  //   designer: "Oscar Stenson",
+  //   title: "Kånken",
+  //   description: "Generic hipster bag",
+  //   price: 250,
+  //   category: "Accessories",
+  //   img: [
+  //     "https://www.fotoagent.dk/single_picture/12535/138/custom1/138450752.jpg",
+  //     "https://www.fotoagent.dk/single_picture/12535/138/mega/138450751.jpg",
+  //     "https://www.fotoagent.dk/single_picture/12535/138/mega/138450753.jpg",
+  //   ],
+  //   color: "Orange",
+  // },
+  // {
+  //   id: 2,
+  //   designer: "Tom Sachs",
+  //   title: "General purpose shoe",
+  //   description: "A shoe that is made for wearing and can withstand tough conditions",
+  //   price: 1500,
+  //   category: "Shoe",
+  //   img: [
+  //     "https://sneakernews.com/wp-content/uploads/2022/08/Tom-Sachs-Nike-GPS-Dark-Sulfur-2.jpg?w=1140",
+  //     "https://sneakernews.com/wp-content/uploads/2022/08/Tom-Sachs-Nike-GPS-Dark-Sulfur-5.jpg?w=1140",
+  //     "https://sneakernews.com/wp-content/uploads/2022/08/Tom-Sachs-Nike-GPS-Dark-Sulfur-1.jpg?w=1140",
+  //   ],
+  //   color: "yellow",
+  // },
   {
     id: 3,
     designer: "Carne Bollente",
@@ -56,7 +56,7 @@ export const products: Product[] = [
   {
     id: 4,
     designer: "Layered",
-    title: "Poppykalas rug flower field",
+    title: "Poppykalas rug",
     description: "A rug from layered woven by hand. Made from wool and tencel",
     price: 9900,
     category: "Rug",
