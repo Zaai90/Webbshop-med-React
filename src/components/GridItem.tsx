@@ -1,6 +1,7 @@
 import * as Icon from "@mui/icons-material";
 import { Card, IconButton } from "@mui/material";
 import styled from "styled-components";
+import { useCart } from "../contexts/CartContext";
 import { Product } from "../ProductData";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
@@ -53,6 +54,8 @@ interface Props {
 }
 
 const GridItem = ({ product }: Props) => {
+  const { addToCart } = useCart();
+
   return (
     <CardStyled>
       <CardImageStyled imgUrl={product.img[0]} />
@@ -64,7 +67,11 @@ const GridItem = ({ product }: Props) => {
         </div>
 
         <IconButtonStyled color="primary" aria-label="add to shopping cart">
-          <Icon.AddShoppingCart />
+          <Icon.AddShoppingCart
+            onClick={() => {
+              addToCart(product, 1);
+            }}
+          />
         </IconButtonStyled>
       </CardBottomStyled>
     </CardStyled>
