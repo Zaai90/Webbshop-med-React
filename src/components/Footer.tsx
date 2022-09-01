@@ -8,14 +8,16 @@ import RedeemOutlinedIcon from "@mui/icons-material/RedeemOutlined";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import styled from "styled-components";
 
-const FooterStyled = styled.footer``;
+const FooterStyled = styled.footer`
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+`;
 const BenefitContainerStyled = styled.div`
   padding: 30px 15px;
   background-color: #f7f7f7;
   display: flex;
   gap: 4rem;
   justify-content: center;
-  border-top: 1px solid #eee;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 
   svg {
     width: 3rem;
