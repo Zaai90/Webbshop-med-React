@@ -80,19 +80,18 @@ const LinkContainer = styled.div`
 `;
 
 const SocialsContainer = styled.div`
-  width: 1000px;
-
-  h4 {
-    width: fit-content;
-    border-bottom: 1px solid black;
-    padding-bottom: 0.5rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  text-align: center;
 `;
 
 const SocialsContent = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+  border-top: 1px solid black;
+  padding-top: 1rem;
 `;
 
 const LinksWrapper = styled.div`
