@@ -1,8 +1,7 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Product, products } from "../ProductData";
+import { Product, Products } from "../ProductData";
 
 const ContainerStyled = styled.main`
   margin: 5rem 0;
@@ -51,14 +50,12 @@ const DescriptionStyled = styled.p`
   font-weight: 400;
 `;
 
-
 const ImageStyled = styled.img`
   max-width: 200px;
   max-height: 200px;
   object-fit: contain;
   cursor: pointer;
 `;
-
 
 const SelectImageShow = styled.img`
   max-width: 600px;
@@ -70,13 +67,11 @@ const SelectImageShow = styled.img`
 
 const ProductPage = () => {
   const { id } = useParams();
-  const product: Product = products.find(p => p.id === Number(id)) ?? products[0];
+  const product: Product = Products.find((p) => p.id === Number(id)) ?? Products[0];
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
 
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {
-    return (
-      <ImageStyled key={index} src={img} alt={product.title} onClick={() => setSelectedImg(img)} />
-    );
+    return <ImageStyled key={index} src={img} alt={product.title} onClick={() => setSelectedImg(img)} />;
   });
 
   return (
@@ -90,15 +85,11 @@ const ProductPage = () => {
         </div>
         <TitleStyled>{product.title}</TitleStyled>
         <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
-        <h3>
-          Description:
-        </h3>
+        <h3>Description:</h3>
         <p>{product.description}</p>
       </InfoContainer>
-    </ContainerStyled >
+    </ContainerStyled>
   );
-
 };
-
 
 export default ProductPage;
