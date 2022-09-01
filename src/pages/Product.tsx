@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { Product, Products } from "../ProductData";
+import { useProducts } from "../contexts/ProductContext";
 
 const ContainerStyled = styled.main`
   margin: 5rem 0;
@@ -67,7 +67,11 @@ const SelectImageShow = styled.img`
 
 const ProductPage = () => {
   const { id } = useParams();
-  const product: Product = Products.find((p) => p.id === Number(id)) ?? Products[0];
+
+  const { products } = useProducts();
+
+  const product = products.find((p) => p.id === Number(id)) ?? products[0];
+
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
 
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {
