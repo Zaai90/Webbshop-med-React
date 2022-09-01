@@ -16,7 +16,7 @@ const AppBar = () => {
   const { products } = useProducts();
 
   // addToCart is for testing only, remove later
-  const { cart, addToCart } = useCart();
+  const { cart, addToCart, getCartQty } = useCart();
 
   function toggleLinkDrawer() {
     setIsLinkDrawerOpen((prev) => !prev);
@@ -45,7 +45,7 @@ const AppBar = () => {
           <button onClick={() => addToCart(products[0], 1)}>Add dummy</button>
           <button onClick={() => addToCart(products[1], 1)}>Add dummy item</button>
           <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <Badge badgeContent={cart.length} showZero color="primary">
+            <Badge badgeContent={getCartQty()} showZero color="primary">
               <ShoppingCartOutlinedIcon />
             </Badge>
           </IconButton>
