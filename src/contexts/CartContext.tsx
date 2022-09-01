@@ -23,7 +23,7 @@ interface CartProviderProps {
 const CartContextProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (item: Product, amount: number = 1) => {
+  const addToCart = (item: Product, quantity: number = 1) => {
     const existingItem = cart.find((i) => i.product.id === item.id);
     if (existingItem) {
       existingItem.quantity += quantity;
