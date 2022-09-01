@@ -1,4 +1,4 @@
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import * as Icon from "@mui/icons-material";
 import { Card, IconButton } from "@mui/material";
 import styled from "styled-components";
 import { Product } from "../ProductData";
@@ -29,6 +29,7 @@ const IconButtonStyled = styled(IconButton)`
   position: absolute !important;
   right: 2%;
   top: 10%;
+  color: black !important;
 `;
 
 const CardStyled = styled(Card)`
@@ -63,7 +64,7 @@ const GridItem = ({ product }: Props) => {
         </div>
 
         <IconButtonStyled color="primary" aria-label="add to shopping cart">
-          <AddShoppingCartIcon />
+          <Icon.AddShoppingCart />
         </IconButtonStyled>
       </CardBottomStyled>
     </CardStyled>
