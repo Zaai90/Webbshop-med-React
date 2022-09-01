@@ -1,22 +1,29 @@
-import { Grid, Card, CardHeader, CardMedia, CardContent } from "@mui/material";
-import { Box } from "@mui/system";
 import { useState } from "react";
+import styled from "styled-components";
 import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
-import { products as procutsArr, Product } from "../ProductData";
+import { Product, products as procutsArr } from "../ProductData";
 
 const Store = () => {
   const [products, setProduct] = useState<Product[]>(procutsArr);
 
+  const StoreGridStyled = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+  `;
+
   return (
     <MainContent>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container>
-          {products.map((product) => (
-            <GridItem product={product} />
-          ))}
-        </Grid>
-      </Box>
+      <StoreGridStyled>
+        {products.map((product) => (
+          <GridItem product={product} />
+        ))}
+      </StoreGridStyled>
     </MainContent>
   );
 };
