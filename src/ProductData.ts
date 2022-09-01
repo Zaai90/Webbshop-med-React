@@ -10,7 +10,7 @@ export interface Product {
   color?: string;
 }
 
-export const products: Product[] = [
+export const Products: Product[] = [
   {
     id: 1,
     designer: "Oscar Stenson",

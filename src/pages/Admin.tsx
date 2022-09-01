@@ -1,8 +1,13 @@
+import { useEffect, useState } from "react";
 import AdminProductCard from "../components/AdminProductCard";
 import MainContent from "../components/MainContent";
-import { products } from "../ProductData";
+import { useProducts } from "../contexts/ProductContext";
+import { Product } from "../ProductData";
 
 const Admin = () => {
+  const [productsState, setProductsState] = useState<Product[]>();
+  const { products } = useProducts();
+
   return (
     <MainContent>
       <div>Admin</div>
