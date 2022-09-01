@@ -7,7 +7,7 @@ import { Product } from "../ProductData";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
   background: url(${(props) => props.imgUrl});
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
   height: 80%;
@@ -25,6 +25,12 @@ const CardBottomStyled = styled.div`
   position: relative;
   @media (min-width: 450px) {
     margin: auto 0;
+  }
+  @media (max-width: 450px) {
+    font-size: 10px !important;
+  }
+  @media (max-height: 600px) {
+    font-size: 10px !important;
   }
 `;
 
@@ -47,6 +53,9 @@ const CardStyled = styled(Card)`
     height: 40vh;
   }
   @media (min-width: 1050px) {
+    height: 50vh;
+  }
+  @media (max-height: 600px) {
     height: 60vh;
   }
 `;
