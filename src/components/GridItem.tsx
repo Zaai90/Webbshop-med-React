@@ -45,7 +45,7 @@ const CardStyled = styled(Card)`
     height: 40vh;
   }
   @media (min-width: 1050px) {
-    height: 60vh;
+    height: 50vh;
   }
 `;
 
