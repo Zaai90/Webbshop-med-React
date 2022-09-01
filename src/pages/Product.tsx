@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
 
-const ContainerStyled = styled.main`
-  margin: 5rem 0;
+const ContainerStyled = styled.div`
   display: flex;
   gap: 1rem;
-  align-items: center;
   justify-content: center;
   min-width: 100%;
 `;
@@ -26,7 +25,7 @@ const ImageContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 10%;
+  gap: 1rem;
   height: 100%;
 `;
 
@@ -41,7 +40,7 @@ const DesignerStyled = styled.h2`
 
 const PriceStyled = styled.p`
   font-size: 1.5rem;
-  margin-top: -1rem;
+  margin-top: -1.05rem;
   font-weight: 500;
 `;
 
@@ -51,48 +50,53 @@ const DescriptionStyled = styled.p`
 `;
 
 const ImageStyled = styled.img`
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 150px;
+  max-height: 150px;
   object-fit: contain;
   cursor: pointer;
+  border: 1px solid black;
+`;
+
+const SelectedImageContainer = styled.div`
+  display: flex;
 `;
 
 const SelectImageShow = styled.img`
-  max-width: 600px;
-  max-height: 600px;
-  flex-shrink: 5;
+  max-width: 400px;
+  max-height: 400px;
   object-fit: contain;
   border: 1px solid black;
 `;
 
 const ProductPage = () => {
   const { id } = useParams();
-
   const { products } = useProducts();
-
   const product = products.find((p) => p.id === Number(id)) ?? products[0];
-
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
 
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {
-    return <ImageStyled key={index} src={img} alt={product.title} onClick={() => setSelectedImg(img)} />;
+    return <ImageStyled draggable="false" key={index} src={img} alt={product.title} onMouseEnter={() => setSelectedImg(img)} />;
   });
 
   return (
-    <ContainerStyled>
-      <ImageContainer>{images}</ImageContainer>
-      <SelectImageShow src={selectedImg} />
-      <InfoContainer>
-        <div style={{ display: "flex", flexDirection: "row", gap: "8rem", padding: 0, margin: 0 }}>
-          <DesignerStyled>{product.designer}</DesignerStyled>
-          <PriceStyled>{product.price} Kr</PriceStyled>
-        </div>
-        <TitleStyled>{product.title}</TitleStyled>
-        <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
-        <h3>Description:</h3>
-        <p>{product.description}</p>
-      </InfoContainer>
-    </ContainerStyled>
+    <MainContent>
+      <ContainerStyled>
+        <ImageContainer>{images}</ImageContainer>
+        <SelectedImageContainer>
+          <SelectImageShow draggable="false" src={selectedImg} />
+        </SelectedImageContainer>
+        <InfoContainer>
+          <div style={{ display: "flex", flexDirection: "row", gap: "12rem", padding: 0, margin: 0 }}>
+            <DesignerStyled>{product.designer}</DesignerStyled>
+            <PriceStyled>{product.price}Kr</PriceStyled>
+          </div>
+          <TitleStyled>{product.title}</TitleStyled>
+          <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
+          <h4>Description:</h4>
+          <DescriptionStyled>{product.description}</DescriptionStyled>
+        </InfoContainer>
+      </ContainerStyled>
+    </MainContent>
   );
 };
 
