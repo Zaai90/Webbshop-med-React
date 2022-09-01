@@ -5,25 +5,46 @@ import { Container } from "@mui/system";
 import { useState } from "react";
 import { useCart } from "../contexts/CartContext";
 import AppBarDrawer from "./AppBarDrawer";
+import CartDrawerContent from "./CartDrawerContent";
+import LinksDrawerContent from "./LinksDrawerContent";
 
 const AppBar = () => {
+  const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
+  const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
+
   const { cart } = useCart();
 
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  function toggleDrawer() {
-    setIsDrawerOpen((prev) => !prev);
+  function toggleLinkDrawer() {
+    setIsLinkDrawerOpen((prev) => !prev);
   }
+
+  function toggleCartDrawer() {
+    setIsCartDrawerOpen((prev) => !prev);
+  }
+
   return (
     <MUIAppBar color="default" position="fixed">
       <Container maxWidth="lg">
         <Toolbar sx={{ justifyContent: "space-between" }}>
-          <AppBarDrawer isOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-          <IconButton onClick={toggleDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+          {/* Link drawer */}
+          <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
+            <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
+          </AppBarDrawer>
+
+          {/* Cart drawer */}
+          <AppBarDrawer anchor="top" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
+            <CartDrawerContent />
+          </AppBarDrawer>
+
+          <IconButton onClick={toggleLinkDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
           </IconButton>
-          <Badge badgeContent={cart.length} showZero color="primary">
-            <ShoppingCartOutlinedIcon />
-          </Badge>
+
+          <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+            <Badge badgeContent={cart.length} showZero color="primary">
+              <ShoppingCartOutlinedIcon />
+            </Badge>
+          </IconButton>
         </Toolbar>
       </Container>
     </MUIAppBar>
