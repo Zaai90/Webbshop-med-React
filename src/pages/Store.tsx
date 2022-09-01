@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
-import { Product, products as procutsArr } from "../ProductData";
+import { Product, Products as procutsArr } from "../ProductData";
 
 const Store = () => {
   const [products, setProduct] = useState<Product[]>(procutsArr);

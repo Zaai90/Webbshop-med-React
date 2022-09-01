@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
+import { useProducts } from "../contexts/ProductContext";
 import { Product } from "../ProductData";
 
 const ProductCard = styled.div`
@@ -37,6 +38,8 @@ interface Props {
 const AdminProductCard = ({ product }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const { deleteProduct, editProduct } = useProducts();
+
   return (
     <ProductCard key={product.id} onClick={() => setIsOpen(!isOpen)}>
       <Row>
@@ -52,8 +55,8 @@ const AdminProductCard = ({ product }: Props) => {
         <div>{product.color}</div>
         <div>{product.size}</div>
         <ButtonContainer>
-          <Button>Edit</Button>
-          <Button>Delete</Button>
+          <Button onClick={() => editProduct}>Edit</Button>
+          <Button onClick={() => deleteProduct(product)}>Delete</Button>
         </ButtonContainer>
       </Info>
     </ProductCard>
