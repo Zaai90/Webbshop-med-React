@@ -36,7 +36,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     const exisitingItem = cart.find((i) => i.product.id === id);
     if (exisitingItem) {
       if (exisitingItem.quantity > amount) {
-        exisitingItem.quantity -= amount;
+        exisitingItem.quantity -= quantity;
       } else {
         setCart((prev) => prev.filter((item) => item.product.id !== id));
       }
