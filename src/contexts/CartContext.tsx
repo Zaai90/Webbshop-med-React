@@ -7,6 +7,7 @@ interface CartContext {
   addToCart(item: Product, quantity?: number): void;
   removeFromCart(id: number, quantity?: number): void;
   clearCart(): void;
+  getCartQty(): number;
 }
 
 const CartContext = createContext<CartContext>({
@@ -14,6 +15,7 @@ const CartContext = createContext<CartContext>({
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
+  getCartQty: () => 0,
 });
 
 interface CartProviderProps {
@@ -23,20 +25,34 @@ interface CartProviderProps {
 const CartContextProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (item: Product, quantity: number = 1) => {
+  const addToCart = (item: Product, quantity: number = 5) => {
     const existingItem = cart.find((i) => i.product.id === item.id);
     if (existingItem) {
-      existingItem.quantity += quantity;
+      setCart(
+        cart.map((i) => {
+          if (i.product.id === item.id) i.quantity += quantity;
+          return i;
+        })
+      );
     } else {
-      setCart((prev) => [...prev, { product: item, quantity: quantity}]);
+      setCart((prev) => [...prev, { product: item, quantity: quantity }]);
     }
+  };
+
+  const getCartQty = (): number => {
+    return cart.reduce((acc, curr) => (acc += curr.quantity), 0);
   };
 
   const removeFromCart = (id: number, quantity: number = 1) => {
     const exisitingItem = cart.find((i) => i.product.id === id);
     if (exisitingItem) {
       if (exisitingItem.quantity > quantity) {
-        exisitingItem.quantity -= quantity;
+        setCart((prev) => {
+          return prev.map((i) => {
+            if (i.product.id === id) i.quantity -= quantity;
+            return i;
+          });
+        });
       } else {
         setCart((prev) => prev.filter((item) => item.product.id !== id));
       }
@@ -47,7 +63,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     setCart([]);
   };
 
-  return <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={{ cart, getCartQty, addToCart, removeFromCart, clearCart }}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => {
