@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { CartItem } from "../models/CartItem";
 import { Product } from "../ProductData";
 
@@ -7,6 +7,9 @@ interface CartContext {
   addToCart(item: Product, quantity?: number): void;
   removeFromCart(id: number, quantity?: number): void;
   clearCart(): void;
+  getCartQty(): number;
+  getTotalAmount(): number;
+  getItemQty(id: number): number;
 }
 
 const CartContext = createContext<CartContext>({
@@ -14,6 +17,9 @@ const CartContext = createContext<CartContext>({
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
+  getCartQty: () => 0,
+  getTotalAmount: () => 0,
+  getItemQty: () => 0,
 });
 
 interface CartProviderProps {
@@ -23,20 +29,43 @@ interface CartProviderProps {
 const CartContextProvider = ({ children }: CartProviderProps) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (item: Product, quantity: number = 1) => {
+  const addToCart = (item: Product, quantity: number = 5) => {
     const existingItem = cart.find((i) => i.product.id === item.id);
     if (existingItem) {
-      existingItem.quantity += quantity;
+      setCart(
+        cart.map((i) => {
+          if (i.product.id === item.id) i.quantity += quantity;
+          return i;
+        })
+      );
     } else {
-      setCart((prev) => [...prev, { product: item, quantity: quantity}]);
+      setCart((prev) => [...prev, { product: item, quantity: quantity }]);
     }
   };
 
+  const getTotalAmount = (): number => {
+    return cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
+  };
+
+  const getCartQty = (): number => {
+    return cart.reduce((acc, curr) => acc + curr.quantity, 0);
+  };
+
+  const getItemQty = (id: number): number => {
+    const item = cart.find((i) => i.product.id === id);
+    return item ? item.quantity : 0;
+  }
+
   const removeFromCart = (id: number, quantity: number = 1) => {
-    const exisitingItem = cart.find((i) => i.product.id === id);
-    if (exisitingItem) {
-      if (exisitingItem.quantity > quantity) {
-        exisitingItem.quantity -= quantity;
+
+    const index = cart.findIndex((i) => i.product.id === id);
+    if (index !== -1) {
+      if (cart[index].quantity > quantity) {
+        setCart((prev) => [
+          ...prev.slice(0, index),
+          { product: cart[index].product, quantity: cart[index].quantity - quantity },
+          ...prev.slice(index + 1),
+        ]);
       } else {
         setCart((prev) => prev.filter((item) => item.product.id !== id));
       }
@@ -47,7 +76,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     setCart([]);
   };
 
-  return <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>{children}</CartContext.Provider>;
+  return <CartContext.Provider value={{ cart, getCartQty, getTotalAmount, addToCart, removeFromCart, clearCart, getItemQty }}>{children}</CartContext.Provider>;
 };
 
 export const useCart = () => {

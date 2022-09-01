@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import MainContent from "./components/MainContent";
 import GlobalStyle from "./globalStyles";
 import Layout from "./Layout";
 import Admin from "./pages/Admin";

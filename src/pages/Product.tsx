@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
-import { Product, products } from "../ProductData";
+import { useProducts } from "../contexts/ProductContext";
 
 const ContainerStyled = styled.div`
   display: flex;
@@ -70,7 +70,8 @@ const SelectImageShow = styled.img`
 
 const ProductPage = () => {
   const { id } = useParams();
-  const product: Product = products.find((p) => p.id === Number(id)) ?? products[0];
+  const { products } = useProducts();
+  const product = products.find((p) => p.id === Number(id)) ?? products[0];
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
 
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {

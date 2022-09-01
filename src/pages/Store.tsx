@@ -1,27 +1,26 @@
-import { useState } from "react";
 import styled from "styled-components";
 import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
-import { Product, products as procutsArr } from "../ProductData";
+import { useProducts } from "../contexts/ProductContext";
+
+const StoreGridStyled = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
 
 const Store = () => {
-  const [products, setProduct] = useState<Product[]>(procutsArr);
-
-  const StoreGridStyled = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 1fr 1fr;
-    }
-  `;
+  const { products } = useProducts();
 
   return (
     <MainContent>
       <StoreGridStyled>
         {products.map((product) => (
-          <GridItem product={product} />
+          <GridItem key={product.id} product={product} />
         ))}
       </StoreGridStyled>
     </MainContent>
