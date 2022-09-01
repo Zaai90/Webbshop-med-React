@@ -37,7 +37,7 @@ const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
   return (
     <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer}>
       <CloseButtonStyled onClick={toggleDrawer} />
-      <AppBarBoxStyled width="250px">{children}</AppBarBoxStyled>
+      <AppBarBoxStyled width={anchor === "left" ? "250px" : "100%"}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
 };
