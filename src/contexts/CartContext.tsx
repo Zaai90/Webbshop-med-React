@@ -5,7 +5,7 @@ import { Product } from "../ProductData";
 interface CartContext {
   cart: CartItem[];
   addToCart(item: Product, amount?: number): void;
-  removeFromCart(id: number, amount?: number): void;
+  removeFromCart(id: number, quantity?: number): void;
   clearCart(): void;
 }
 
