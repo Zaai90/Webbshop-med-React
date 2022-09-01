@@ -47,7 +47,7 @@ export const Products: Product[] = [
     category: "Shirt",
     img: [
       "https://02.cdn37.se/ak1/images/2.692903/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
-      "https://02.cdn37.se/ak1/images/2.692910/carne-bollente-life-is-bootie-full-shirt-all-over.png",
+      "https://02.cdn37.se/ak1/images/2.692908/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
       "https://02.cdn37.se/ak1/images/2.677563/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
     ],
     color: "White",
