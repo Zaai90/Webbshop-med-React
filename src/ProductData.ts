@@ -56,7 +56,7 @@ export const Products: Product[] = [
   {
     id: 4,
     designer: "Layered",
-    title: "Poppykalas rug flower field",
+    title: "Poppykalas rug",
     description: "A rug from layered woven by hand. Made from wool and tencel",
     price: 9900,
     category: "Rug",
