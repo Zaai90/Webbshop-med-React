@@ -46,6 +46,19 @@ const BenefitContent = styled.div`
     }
   }
 `;
+
+const LinksContainer = styled.div`
+  padding: 40px 15px;
+  background-color: #eee; 
+  display: flex;
+  gap: 4rem;
+  justify-content: center;
+`;
+
+const LinkContainer = styled.div`
+
+`;
+
 const Footer = () => {
   return (
     <FooterStyled>
@@ -70,6 +83,37 @@ const Footer = () => {
           <span>Lightning fast deliveries</span>
         </BenefitContent>
       </BenefitContainerStyled>
+
+      <LinksContainer>
+        <div>
+          <h4>Contact</h4>
+          <div>Skaraborgsvägen 3</div>
+          <div>506 30 Borås</div>
+          <div>support@tfcstore.dev</div>
+          <div>+46 33-25 54 55</div>
+        </div>
+        <div>
+          <h4>Follow us</h4>
+          <div>Facebook</div>
+          <div>Snapchat</div>
+          <div>Instagram</div>
+        </div>
+        <div>
+          <h4>Shopping</h4>
+          <div>Kategori 1</div>
+          <div>Kategori 2</div>
+          <div>Kategori 3</div>
+          <div>Kategori 4</div>
+        </div>
+        <div>
+          <h4>Gift Card</h4>
+          <div>
+          <RedeemOutlinedIcon />
+          <div>Give a gift card to someone!</div>
+          </div>
+        </div>
+      </LinksContainer>
+
     </FooterStyled>
   );
 }
