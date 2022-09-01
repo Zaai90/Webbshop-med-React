@@ -1,11 +1,11 @@
 import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
 import BoltOutlinedIcon from "@mui/icons-material/BoltOutlined";
+import FacebookIcon from "@mui/icons-material/Facebook";
 import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
+import InstagramIcon from "@mui/icons-material/Instagram";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import RedeemOutlinedIcon from "@mui/icons-material/RedeemOutlined";
-import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import YouTubeIcon from '@mui/icons-material/YouTube';
+import YouTubeIcon from "@mui/icons-material/YouTube";
 import styled from "styled-components";
 
 const FooterStyled = styled.footer``;
@@ -15,6 +15,7 @@ const BenefitContainerStyled = styled.div`
   display: flex;
   gap: 4rem;
   justify-content: center;
+  border-top: 1px solid #eee;
 
   svg {
     width: 3rem;
@@ -77,12 +78,19 @@ const LinkContainer = styled.div`
 `;
 
 const SocialsContainer = styled.div`
-  width: 100%;
+  width: 1000px;
+
+  h4 {
+    width: fit-content;
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+  }
 `;
 
 const SocialsContent = styled.div`
   display: flex;
   gap: 1rem;
+  margin-top: 1rem;
 `;
 
 const LinksWrapper = styled.div`
@@ -119,16 +127,18 @@ const Footer = () => {
           <span>Lightning fast deliveries</span>
         </BenefitContent>
       </BenefitContainerStyled>
+
       <BenefitContainerStyled>
-        <SocialsContainer>
+      <SocialsContainer>
           <h4>Follow us</h4>
           <SocialsContent>
-            <div>X</div>
-            <div>Z</div>
-            <div>Y</div>
+            <FacebookIcon />
+            <InstagramIcon />
+            <YouTubeIcon />
           </SocialsContent>
         </SocialsContainer>
       </BenefitContainerStyled>
+
       <LinksWrapper>
         <LinksContainer>
           <LinkContainer>
@@ -153,7 +163,7 @@ const Footer = () => {
             </GiftContainer>
           </LinkContainer>
         </LinksContainer>
-      </LinksWrapper>
+      </LinksWrapper>     
     </FooterStyled>
   );
 };
