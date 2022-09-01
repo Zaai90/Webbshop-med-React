@@ -3,6 +3,9 @@ import BoltOutlinedIcon from "@mui/icons-material/BoltOutlined";
 import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import RedeemOutlinedIcon from "@mui/icons-material/RedeemOutlined";
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import YouTubeIcon from '@mui/icons-material/YouTube';
 import styled from "styled-components";
 
 const FooterStyled = styled.footer``;
