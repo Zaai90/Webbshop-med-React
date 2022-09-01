@@ -1,5 +1,8 @@
+import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import { FormEvent } from "react";
+import { useProducts } from "../contexts/ProductContext";
 import { Product } from "../ProductData";
 
 interface Props {
@@ -7,6 +10,19 @@ interface Props {
 }
 
 export default function Form({ product }: Props) {
+  const { products } = useProducts();
+
+  const handleOnChange = (e: FormEvent) => {
+    if (product) {
+      //   const prodToUpdate = { ...product, [e.target.name]: e.target.value };
+    }
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    console.log(e.target);
+  };
+
   return (
     <Box
       component="form"
@@ -15,6 +31,7 @@ export default function Form({ product }: Props) {
       }}
       noValidate
       autoComplete="off"
+      onSubmit={handleSubmit}
     >
       <div>
         <TextField
@@ -26,6 +43,8 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          name="title"
+          onChange={handleOnChange}
         />
         <TextField
           required
@@ -98,6 +117,7 @@ export default function Form({ product }: Props) {
           }}
         />
       </div>
+      <Button type="submit">UPDATE 1</Button>
     </Box>
   );
 }
