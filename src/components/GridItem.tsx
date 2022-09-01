@@ -66,12 +66,14 @@ const GridItem = ({ product }: Props) => {
           <p>{product.price}:-</p>
         </div>
 
-        <IconButtonStyled color="primary" aria-label="add to shopping cart">
-          <Icon.AddShoppingCart
-            onClick={() => {
-              addToCart(product, 1);
-            }}
-          />
+        <IconButtonStyled
+          onClick={() => {
+            addToCart(product, 1);
+          }}
+          color="primary"
+          aria-label="add to shopping cart"
+        >
+          <Icon.AddShoppingCart />
         </IconButtonStyled>
       </CardBottomStyled>
     </CardStyled>
