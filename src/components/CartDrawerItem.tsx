@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { CartItem } from "../models/CartItem";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { useState } from "react";
+import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
+import { CartItem } from "../models/CartItem";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -39,11 +39,11 @@ interface Props {
 
 const CartDrawerItem = ({ cartItem }: Props) => {
   const [quantity, setQuantity] = useState(cartItem.quantity);
-  const { addToCart } = useCart();
+  const { addToCart, removeFromCart } = useCart();
 
   // TODO: use update cart functions
   function handleSubstract() {
-    addToCart(cartItem.product, -1);
+    removeFromCart(cartItem.product.id, 1);
     setQuantity(cartItem.quantity);
   }
 
