@@ -20,7 +20,7 @@ const Store = () => {
     <MainContent>
       <StoreGridStyled>
         {products.map((product) => (
-          <GridItem product={product} />
+          <GridItem key={product.id} product={product} />
         ))}
       </StoreGridStyled>
     </MainContent>
