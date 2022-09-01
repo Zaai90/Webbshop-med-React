@@ -4,7 +4,7 @@ import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { Product, products } from "../ProductData";
 
-const ContainerStyled = styled.main`
+const ContainerStyled = styled.div`
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -51,15 +51,19 @@ const DescriptionStyled = styled.p`
 
 const ImageStyled = styled.img`
   max-width: 150px;
-  max-height: auto;
+  max-height: 150px;
   object-fit: contain;
   cursor: pointer;
   border: 1px solid black;
 `;
 
+const SelectedImageContainer = styled.div`
+  display: flex;
+`;
+
 const SelectImageShow = styled.img`
-  max-width: 500px;
-  max-height: auto;
+  max-width: 400px;
+  max-height: 400px;
   object-fit: contain;
   border: 1px solid black;
 `;
@@ -77,7 +81,9 @@ const ProductPage = () => {
     <MainContent>
       <ContainerStyled>
         <ImageContainer>{images}</ImageContainer>
-        <SelectImageShow draggable="false" src={selectedImg} />
+        <SelectedImageContainer>
+          <SelectImageShow draggable="false" src={selectedImg} />
+        </SelectedImageContainer>
         <InfoContainer>
           <div style={{ display: "flex", flexDirection: "row", gap: "12rem", padding: 0, margin: 0 }}>
             <DesignerStyled>{product.designer}</DesignerStyled>
@@ -85,7 +91,7 @@ const ProductPage = () => {
           </div>
           <TitleStyled>{product.title}</TitleStyled>
           <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
-          <h3>Description:</h3>
+          <h4>Description:</h4>
           <DescriptionStyled>{product.description}</DescriptionStyled>
         </InfoContainer>
       </ContainerStyled>
