@@ -1,5 +1,6 @@
 import * as Icon from "@mui/icons-material";
 import { Card, IconButton } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { Product } from "../ProductData";
@@ -12,6 +13,7 @@ const CardImageStyled = styled.div<{ imgUrl: string }>`
   height: 80%;
   width: 100%;
   border-radius: none;
+  cursor: pointer;
 `;
 const CardBottomStyled = styled.div`
   height: 20%;
@@ -58,7 +60,9 @@ const GridItem = ({ product }: Props) => {
 
   return (
     <CardStyled>
-      <CardImageStyled imgUrl={product.img[0]} />
+      <NavLink to={`../product/${product.id}`}>
+        <CardImageStyled imgUrl={product.img[0]} />
+      </NavLink>
       <CardBottomStyled>
         <div>
           <h5>{product.title}</h5>
