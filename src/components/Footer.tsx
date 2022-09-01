@@ -5,9 +5,11 @@ import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import RedeemOutlinedIcon from '@mui/icons-material/RedeemOutlined';
 import styled from "styled-components";
 
+const FooterStyled = styled.footer``;
+
 const Footer = () => {
   return (
-    <div></div>
+    <FooterStyled></FooterStyled>
   );
 }
 
