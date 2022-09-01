@@ -1,10 +1,11 @@
 import { createContext, useContext, useState } from "react";
+import { CartItem } from "../models/CartItem";
 import { Product } from "../ProductData";
 
 interface CartContext {
-  cart: Product[];
-  addToCart(item: Product): void;
-  removeFromCart(id: number): void;
+  cart: CartItem[];
+  addToCart(item: Product, amount?: number): void;
+  removeFromCart(id: number, amount?: number): void;
   clearCart(): void;
 }
 
@@ -20,14 +21,26 @@ interface CartProviderProps {
 }
 
 const CartContextProvider = ({ children }: CartProviderProps) => {
-  const [cart, setCart] = useState<Product[]>([]);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const addToCart = (item: Product) => {
-    setCart((prev) => [...prev, item]);
+  const addToCart = (item: Product, amount: number = 1) => {
+    const existingItem = cart.find((i) => i.product.id === item.id);
+    if (existingItem) {
+      existingItem.quantity += amount;
+    } else {
+      setCart((prev) => [...prev, { product: item, quantity: amount }]);
+    }
   };
 
-  const removeFromCart = (id: number) => {
-    setCart((prev) => prev.filter((item) => item.id !== id));
+  const removeFromCart = (id: number, amount: number = 1) => {
+    const exisitingItem = cart.find((i) => i.product.id === id);
+    if (exisitingItem) {
+      if (exisitingItem.quantity > amount) {
+        exisitingItem.quantity -= amount;
+      } else {
+        setCart((prev) => prev.filter((item) => item.product.id !== id));
+      }
+    }
   };
 
   const clearCart = () => {
