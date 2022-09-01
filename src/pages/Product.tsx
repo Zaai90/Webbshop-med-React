@@ -1,11 +1,10 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import MainContent from "../components/MainContent";
 import { Product, products } from "../ProductData";
 
 const ContainerStyled = styled.main`
-  margin: 5rem 0;
   display: flex;
   gap: 1rem;
   justify-content: center;
@@ -41,7 +40,7 @@ const DesignerStyled = styled.h2`
 
 const PriceStyled = styled.p`
   font-size: 1.5rem;
-  margin-top: -1rem;
+  margin-top: -1.05rem;
   font-weight: 500;
 `;
 
@@ -52,16 +51,15 @@ const DescriptionStyled = styled.p`
 
 const ImageStyled = styled.img`
   max-width: 150px;
-  max-height: 150px;
+  max-height: auto;
   object-fit: contain;
   cursor: pointer;
   border: 1px solid black;
 `;
 
 const SelectImageShow = styled.img`
-  max-width: 600px;
-  max-height: 600px;
-  flex-shrink: 5;
+  max-width: 500px;
+  max-height: auto;
   object-fit: contain;
   border: 1px solid black;
 `;
@@ -76,22 +74,23 @@ const ProductPage = () => {
   });
 
   return (
-    <ContainerStyled>
-      <ImageContainer>{images}</ImageContainer>
-      <SelectImageShow draggable="false" src={selectedImg} />
-      <InfoContainer>
-        <div style={{ display: "flex", flexDirection: "row", gap: "8rem", padding: 0, margin: 0 }}>
-          <DesignerStyled>{product.designer}</DesignerStyled>
-          <PriceStyled>{product.price} Kr</PriceStyled>
-        </div>
-        <TitleStyled>{product.title}</TitleStyled>
-        <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
-        <h3>Description:</h3>
-        <p>{product.description}</p>
-      </InfoContainer>
-    </ContainerStyled>
+    <MainContent>
+      <ContainerStyled>
+        <ImageContainer>{images}</ImageContainer>
+        <SelectImageShow draggable="false" src={selectedImg} />
+        <InfoContainer>
+          <div style={{ display: "flex", flexDirection: "row", gap: "12rem", padding: 0, margin: 0 }}>
+            <DesignerStyled>{product.designer}</DesignerStyled>
+            <PriceStyled>{product.price}Kr</PriceStyled>
+          </div>
+          <TitleStyled>{product.title}</TitleStyled>
+          <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
+          <h3>Description:</h3>
+          <DescriptionStyled>{product.description}</DescriptionStyled>
+        </InfoContainer>
+      </ContainerStyled>
+    </MainContent>
   );
 };
-
 
 export default ProductPage;
