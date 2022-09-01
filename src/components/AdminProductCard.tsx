@@ -26,6 +26,7 @@ const Info = styled.div<{ open: boolean }>`
   display: ${(props) => (props.open ? "flex" : "none")};
   transition: all 2s;
   flex-direction: column;
+  padding: 1rem;
 `;
 
 const ButtonContainer = styled.div`
@@ -56,19 +57,27 @@ const AdminProductCard = ({ product }: Props) => {
         <div>{product.title}</div>
       </Row>
 
-      <Info open={isOpen}>
-        <div>Designer: {product.designer}</div>
-        <div>Description: {product.description}</div>
-        <div>Price: {product.price}</div>
-        <div>Category: {product.category}</div>
-        <div>Color: {product.color}</div>
-        {product.size && <div>Size: {product.size}</div>}
-        <ButtonContainer>
-          <Button onClick={() => setIsEditMode(!isEditMode)}>Edit</Button>
-          <Button onClick={() => deleteProduct(product)}>Delete</Button>
-        </ButtonContainer>
-        {isEditMode && isOpen && <Form product={product} />}
-      </Info>
+      {!isEditMode && (
+        <Info open={isOpen}>
+          <div>Designer: {product.designer}</div>
+          <div>Description: {product.description}</div>
+          <div>Price: {product.price}</div>
+          <div>Category: {product.category}</div>
+          <div>Color: {product.color}</div>
+          {product.size && <div>Size: {product.size}</div>}
+          <ButtonContainer>
+            <Button onClick={() => setIsEditMode(!isEditMode)}>Edit</Button>
+            <Button onClick={() => deleteProduct(product)}>Delete</Button>
+          </ButtonContainer>
+        </Info>
+      )}
+
+      {isEditMode && isOpen && (
+        <div>
+          <Form product={product} />
+          <Button type="submit">Update</Button>
+        </div>
+      )}
     </ProductCard>
   );
 };
