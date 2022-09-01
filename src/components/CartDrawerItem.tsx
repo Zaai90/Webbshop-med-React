@@ -38,18 +38,15 @@ interface Props {
 }
 
 const CartDrawerItem = ({ cartItem }: Props) => {
-  const [quantity, setQuantity] = useState(cartItem.quantity);
-  const { addToCart, removeFromCart } = useCart();
+  const { addToCart, removeFromCart, getItemQty } = useCart();
 
   // TODO: use update cart functions
   function handleSubstract() {
     removeFromCart(cartItem.product.id, 1);
-    setQuantity(cartItem.quantity);
   }
-
+  
   function handleAdd() {
     addToCart(cartItem.product, 1);
-    setQuantity(cartItem.quantity);
   }
 
   return (
@@ -61,7 +58,7 @@ const CartDrawerItem = ({ cartItem }: Props) => {
       </InfoContainer>
       <QuantityContainer>
         <RemoveCircleOutlineIcon onClick={handleSubstract} />
-        <span>{quantity}</span>
+        <span>{getItemQty(cartItem.product.id)}</span>
         <ControlPointIcon onClick={handleAdd} />
       </QuantityContainer>
     </Wrapper>
