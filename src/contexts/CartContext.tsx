@@ -28,7 +28,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     if (existingItem) {
       existingItem.quantity += quantity;
     } else {
-      setCart((prev) => [...prev, { product: item, quantity: amount }]);
+      setCart((prev) => [...prev, { product: item, quantity: quantity}]);
     }
   };
 
