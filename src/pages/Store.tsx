@@ -1,11 +1,10 @@
-import { useState } from "react";
 import styled from "styled-components";
 import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
-import { Product, Products as procutsArr } from "../ProductData";
+import { useProducts } from "../contexts/ProductContext";
 
 const Store = () => {
-  const [products, setProduct] = useState<Product[]>(procutsArr);
+  const { products } = useProducts();
 
   const StoreGridStyled = styled.div`
     display: grid;
