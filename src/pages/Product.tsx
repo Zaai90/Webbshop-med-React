@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
+import { Currency, useCurrency } from "../contexts/CurrencyContext";
 import { useProducts } from "../contexts/ProductContext";
 
 const ContainerStyled = styled.div`
@@ -74,6 +75,10 @@ const ProductPage = () => {
   const product = products.find((p) => p.id === Number(id)) ?? products[0];
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
 
+  const { convertToCurrencyValue, changeCurrency } = useCurrency();
+
+  changeCurrency(Currency.EUR);
+
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {
     return <ImageStyled draggable="false" key={index} src={img} alt={product.title} onMouseEnter={() => setSelectedImg(img)} />;
   });
@@ -88,7 +93,7 @@ const ProductPage = () => {
         <InfoContainer>
           <div style={{ display: "flex", flexDirection: "row", gap: "12rem", padding: 0, margin: 0 }}>
             <DesignerStyled>{product.designer}</DesignerStyled>
-            <PriceStyled>{product.price}Kr</PriceStyled>
+            <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
           </div>
           <TitleStyled>{product.title}</TitleStyled>
           <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
