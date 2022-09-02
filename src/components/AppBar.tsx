@@ -42,7 +42,7 @@ const AppBar = () => {
           </IconButton>
 
           <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <Badge badgeContent={getCartQty()} showZero color="primary">
+            <Badge badgeContent={getCartQty} showZero color="primary">
               <Icon.ShoppingCartOutlined />
             </Badge>
           </IconButton>
