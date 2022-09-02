@@ -1,5 +1,4 @@
-import ControlPointIcon from "@mui/icons-material/ControlPoint";
-import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import * as Icon from "@mui/icons-material/";
 import { useState } from "react";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
@@ -44,7 +43,7 @@ const CartDrawerItem = ({ cartItem }: Props) => {
   function handleSubstract() {
     removeFromCart(cartItem.product.id, 1);
   }
-  
+
   function handleAdd() {
     addToCart(cartItem.product, 1);
   }
@@ -57,9 +56,9 @@ const CartDrawerItem = ({ cartItem }: Props) => {
         <span>{cartItem.product.price * cartItem.quantity} kr</span>
       </InfoContainer>
       <QuantityContainer>
-        <RemoveCircleOutlineIcon onClick={handleSubstract} />
+        <Icon.RemoveCircleOutline onClick={handleSubstract} />
         <span>{getItemQty(cartItem.product.id)}</span>
-        <ControlPointIcon onClick={handleAdd} />
+        <Icon.ControlPoint onClick={handleAdd} />
       </QuantityContainer>
     </Wrapper>
   );
