@@ -7,7 +7,8 @@ import { Product } from "../ProductData";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
   background: url(${(props) => props.imgUrl});
-  background-size: cover;
+  background-size: contain;
+  background-color: #f7f7f7;
   background-repeat: no-repeat;
   background-position: center;
   height: 80%;

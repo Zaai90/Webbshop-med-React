@@ -3,7 +3,7 @@ import { Product, Products } from "../ProductData";
 
 interface ProductContextValue {
   products: Product[];
-  createProduct: () => void;
+  createProduct: (product: Product) => void;
   deleteProduct: (product: Product) => void;
   editProduct: (product: Product) => void;
 }
@@ -22,8 +22,12 @@ interface Props {
 function ProductProvider({ children }: Props) {
   const [products, setProducts] = useState<Product[]>(Products);
 
-  const createProduct = () => {
+  const createProduct = (product: Product) => {
     // TODO: create product =D
+    console.log("created product" + { product });
+    const productsCopy = [...products, { ...product, id: 14 }];
+
+    setProducts(productsCopy);
   };
 
   const deleteProduct = (product: Product) => {
