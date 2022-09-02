@@ -28,7 +28,7 @@ const AppBar = () => {
 
   return (
     <MUIAppBar color="default" position="fixed">
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" fixed>
         <Toolbar sx={{ justifyContent: "space-between" }}>
           {/* Link drawer */}
           <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>

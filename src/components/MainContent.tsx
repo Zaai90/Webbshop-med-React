@@ -13,7 +13,7 @@ interface Props {
 
 const MainContent = ({ children }: Props) => {
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" fixed>
       <MainStyled>{children}</MainStyled>
     </Container>
   );
