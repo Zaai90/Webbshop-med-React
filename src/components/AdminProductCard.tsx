@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+// import { Form } from "formik";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import Form from "../components/Form";
@@ -49,6 +50,11 @@ const AdminProductCard = ({ product }: Props) => {
     if (!isOpen) setIsEditMode(false);
   }, [isOpen]);
 
+  const handleSubmit = (updatedProduct: Product, event: any) => {
+    event.preventDefault();
+    editProduct(updatedProduct);
+  };
+
   return (
     <ProductCard key={product.id}>
       <Row onClick={() => setIsOpen(!isOpen)}>
@@ -74,8 +80,8 @@ const AdminProductCard = ({ product }: Props) => {
 
       {isEditMode && isOpen && (
         <div>
-          <Form product={product} />
-          <Button type="submit">Update</Button>
+          <Form product={product} onSubmit={handleSubmit} />
+          {/* <FormikForm /> */}
         </div>
       )}
     </ProductCard>
