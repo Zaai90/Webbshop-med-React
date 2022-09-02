@@ -16,7 +16,7 @@ const validationSchema = yup.object({
   lastName: yup.string().min(2, "Last name should be of minimum 2 characters length").required("Last name is required"),
   address: yup.string().min(2, "Address should be of minimum 2 characters length").required("Address is required"),
   streetNo: yup.string().min(1, "Password should be of minimum 1 characters length").required("Street No is required"),
-  zipCode: yup.number().strict().min(5, "Password should be of minimum 5 characters length").required("Zip Code is required"),
+  zipCode: yup.string().min(5, "Password should be of minimum 5 characters length").required("Zip Code is required"),
   country: yup.string().min(2, "Password should be of minimum 2 characters length").required("Country is required"),
   phoneNumber: yup.string().min(5, "Password should be of minimum 5 characters length").required("Phone number is required"),
 });
@@ -32,12 +32,17 @@ interface Values {
   phoneNumber: string;
 }
 
-const PaymentForm = () => {
+interface Props {
+  handleSubmit: () => void;
+}
+
+const PaymentForm = ({ handleSubmit }: Props) => {
   const formik = useFormik({
     initialValues: { email: "", firstName: "", lastName: "", address: "", streetNo: "", zipCode: "", country: "", phoneNumber: "" },
 
     validationSchema: validationSchema,
-    onSubmit: (values) => {
+    onSubmit: (values: Values, e) => {
+      handleSubmit();
       alert(JSON.stringify(values, null, 2));
     },
   });
