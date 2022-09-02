@@ -7,8 +7,8 @@ interface CartContext {
   addToCart(item: Product, quantity?: number): void;
   removeFromCart(id: number, quantity?: number): void;
   clearCart(): void;
-  getCartQty: number;
-  getTotalAmount(): number;
+  cartQty: number;
+  totalAmount: number;
   getItemQty(id: number): number;
 }
 
@@ -17,8 +17,8 @@ const CartContext = createContext<CartContext>({
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
-  getCartQty: 0,
-  getTotalAmount: () => 0,
+  cartQty: 0,
+  totalAmount: 0,
   getItemQty: () => 0,
 });
 
@@ -43,9 +43,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  const getTotalAmount = (): number => {
-    return cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
-  };
+  const getTotalAmount = cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
 
   const getCartQty = cart.reduce((acc, curr) => acc + curr.quantity, 0);
 
@@ -74,7 +72,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
   };
 
   return (
-    <CartContext.Provider value={{ cart, getCartQty, getTotalAmount, addToCart, removeFromCart, clearCart, getItemQty }}>
+    <CartContext.Provider value={{ cart, cartQty: getCartQty, totalAmount: getTotalAmount, addToCart, removeFromCart, clearCart, getItemQty }}>
       {children}
     </CartContext.Provider>
   );
