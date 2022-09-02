@@ -1,26 +1,24 @@
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { FormEvent } from "react";
-import { useProducts } from "../contexts/ProductContext";
+import { FormEvent, useState } from "react";
 import { Product } from "../ProductData";
 
 interface Props {
   product?: Product;
+  onSubmit: (product: Product, event: FormEvent<HTMLFormElement>) => void;
 }
 
-export default function Form({ product }: Props) {
-  const { products } = useProducts();
+export default function Form({ product, onSubmit }: Props) {
+  const [updatedProduct, setUpdatedProduct] = useState(
+    product || { id: 0, designer: "", title: "", description: "", price: 0, category: "", img: [""], size: "", color: "" }
+  );
 
-  const handleOnChange = (e: FormEvent) => {
+  const handleOnChange = (e: any) => {
     if (product) {
-      //   const prodToUpdate = { ...product, [e.target.name]: e.target.value };
+      const prodToUpdate = { ...updatedProduct, [e.target.name]: e.target.value };
+      setUpdatedProduct(prodToUpdate);
     }
-  };
-
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    console.log(e.target);
   };
 
   return (
@@ -31,7 +29,9 @@ export default function Form({ product }: Props) {
       }}
       noValidate
       autoComplete="off"
-      onSubmit={handleSubmit}
+      onSubmit={(event) => {
+        onSubmit(updatedProduct, event);
+      }}
     >
       <div>
         <TextField
@@ -65,6 +65,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
         />
         <TextField
           required
@@ -75,6 +76,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
         />
         <TextField
           required
@@ -85,6 +87,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
         />
         <TextField
           required
@@ -95,6 +98,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
         />
         <TextField
           required
@@ -105,6 +109,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
         />
         <TextField
           required
@@ -115,9 +120,10 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
         />
       </div>
-      <Button type="submit">UPDATE 1</Button>
+      <Button type="submit">UPDATE</Button>
     </Box>
   );
 }
