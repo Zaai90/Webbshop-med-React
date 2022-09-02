@@ -1,3 +1,5 @@
+import * as Icon from "@mui/icons-material";
+import Fab from "@mui/material/Fab";
 import { useState } from "react";
 import AdminProductCard from "../components/AdminProductCard";
 import MainContent from "../components/MainContent";
@@ -14,6 +16,9 @@ const Admin = () => {
       {products.map((product) => (
         <AdminProductCard key={product.id} product={product} />
       ))}
+      <Fab color="primary" aria-label="add">
+        <Icon.Add />
+      </Fab>
     </MainContent>
   );
 };
