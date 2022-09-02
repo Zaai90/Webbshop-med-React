@@ -41,8 +41,14 @@ function ProductProvider({ children }: Props) {
     console.log(products);
   };
 
-  const editProduct = () => {
-    // TODO: edit product :)
+  const editProduct = (editedProduct: Product) => {
+    const index = products.findIndex((product) => product.id === editedProduct.id);
+
+    const productsCopy = [...products];
+
+    productsCopy.splice(index, 1, editedProduct);
+
+    setProducts(productsCopy);
   };
 
   return <ProductContext.Provider value={{ products, createProduct, deleteProduct, editProduct }}>{children}</ProductContext.Provider>;
