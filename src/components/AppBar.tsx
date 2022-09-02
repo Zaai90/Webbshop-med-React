@@ -8,14 +8,27 @@ import { useProducts } from "../contexts/ProductContext";
 import AppBarDrawer from "./AppBarDrawer";
 import CartDrawerContent from "./CartDrawerContent";
 import LinksDrawerContent from "./LinksDrawerContent";
+import { useMediaQuery } from "react-responsive";
+import styled from "styled-components";
+
+const CartWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+`;
+
+const Price = styled.div`
+  font-size: 1rem;
+`;
 
 const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
+  const smallScreen = useMediaQuery({ query: "(max-width:900px)" });
 
   const { products } = useProducts();
 
-  const { cart, getCartQty } = useCart();
+  const { cart, cartQty, totalAmount } = useCart();
 
   function toggleLinkDrawer() {
     setIsLinkDrawerOpen((prev) => !prev);
@@ -42,9 +55,12 @@ const AppBar = () => {
           </IconButton>
 
           <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <Badge badgeContent={getCartQty} showZero color="primary">
-              <Icon.ShoppingCartOutlined />
-            </Badge>
+            <CartWrapper>
+              <Badge badgeContent={cartQty} showZero color="primary">
+                <Icon.ShoppingCartOutlined />
+              </Badge>
+              {!smallScreen && <Price>{totalAmount} SEK</Price>}
+            </CartWrapper>
           </IconButton>
         </Toolbar>
       </Container>
