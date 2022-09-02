@@ -7,6 +7,8 @@ import { CartItem } from "../models/CartItem";
 const Wrapper = styled.div`
   width: 100%;
   display: flex;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid gray;
 `;
 
 const ImgContainer = styled.div<{ imgUrl: string }>`
@@ -14,8 +16,8 @@ const ImgContainer = styled.div<{ imgUrl: string }>`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
 `;
 
 const InfoContainer = styled.div`
@@ -27,9 +29,22 @@ const InfoContainer = styled.div`
 
 const QuantityContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding-right: 1rem;
   gap: 0.5rem;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  gap: 0.5rem;
+  align-items: center;
+
+  & span {
+    font-size: 1.3rem;
+  }
 `;
 
 interface Props {
@@ -52,13 +67,22 @@ const CartDrawerItem = ({ cartItem }: Props) => {
     <Wrapper>
       <ImgContainer imgUrl={cartItem.product.img[0]} />
       <InfoContainer>
+        {/* TODO Use mui Typography instead of spans?
+         or at least fix proper style */}
         <span style={{ fontWeight: "700" }}>{cartItem.product.title}</span>
+        <span style={{ fontWeight: "300", textTransform: "uppercase", fontSize: ".7rem" }}>
+          ( {cartItem.product.color && cartItem.product.color}
+          {cartItem.product.size && " " + cartItem.product.size} )
+        </span>
         <span>{cartItem.product.price * cartItem.quantity} kr</span>
       </InfoContainer>
       <QuantityContainer>
-        <Icon.RemoveCircleOutline onClick={handleSubstract} />
-        <span>{getItemQty(cartItem.product.id)}</span>
-        <Icon.ControlPoint onClick={handleAdd} />
+        <Icon.Clear sx={{ fontSize: "1.3rem", alignSelf: "end" }} />
+        <ButtonWrapper>
+          <Icon.Remove onClick={handleSubstract} />
+          <span>{getItemQty(cartItem.product.id)}</span>
+          <Icon.Add onClick={handleAdd} />
+        </ButtonWrapper>
       </QuantityContainer>
     </Wrapper>
   );
