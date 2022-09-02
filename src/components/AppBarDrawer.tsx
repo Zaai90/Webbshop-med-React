@@ -10,6 +10,7 @@ const AppBarDrawerStyled = styled(Drawer)`
 `;
 
 const AppBarBoxStyled = styled(Box)`
+  margin-top: 64px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@ const AppBarBoxStyled = styled(Box)`
 
 const CloseButtonStyled = styled(Icon.HighlightOffSharp)<{ anchor: string }>`
   position: absolute !important;
-  top: 0px !important;
+  top: 64px !important;
   ${(props) => (props.anchor === "left" ? "right: -75px !important;" : "left: -75px !important;")}
   color: white;
   height: 4rem !important;
@@ -37,7 +38,7 @@ const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
   return (
     <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer}>
       <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />
-      <AppBarBoxStyled width={"250px"}>{children}</AppBarBoxStyled>
+      <AppBarBoxStyled width={anchor === "left" ? "250px" : "360px"}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
 };

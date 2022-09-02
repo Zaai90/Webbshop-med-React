@@ -31,40 +31,48 @@ const AppBar = () => {
   const { cart, cartQty, totalAmount } = useCart();
 
   function toggleLinkDrawer() {
+    if (isCartDrawerOpen) setIsCartDrawerOpen(false);
     setIsLinkDrawerOpen((prev) => !prev);
   }
 
   function toggleCartDrawer() {
+    if (isLinkDrawerOpen) setIsLinkDrawerOpen(false);
     setIsCartDrawerOpen((prev) => !prev);
   }
 
   return (
-    <MUIAppBar color="default" position="fixed">
-      <Container maxWidth="lg" fixed>
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* Link drawer */}
-          <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
-            <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
-          </AppBarDrawer>
-          {/* Cart drawer */}
-          <AppBarDrawer anchor="right" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
-            <CartDrawerContent />
-          </AppBarDrawer>
-          <IconButton onClick={toggleLinkDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <MenuIcon />
-          </IconButton>
+    <>
+      <MUIAppBar color="default" position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Container maxWidth="lg" fixed>
+          <Toolbar sx={{ justifyContent: "space-between" }}>
+            {/* Link drawer */}
+            <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
+              <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
+            </AppBarDrawer>
+            {/* Cart drawer */}
+            <AppBarDrawer anchor="right" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
+              <CartDrawerContent />
+            </AppBarDrawer>
+            <IconButton onClick={toggleLinkDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+              <MenuIcon />
+            </IconButton>
 
-          <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-            <CartWrapper>
-              <Badge badgeContent={cartQty} showZero color="primary">
-                <Icon.ShoppingCartOutlined />
-              </Badge>
-              {!smallScreen && <Price>{totalAmount} SEK</Price>}
-            </CartWrapper>
-          </IconButton>
-        </Toolbar>
-      </Container>
-    </MUIAppBar>
+            <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu">
+              {isCartDrawerOpen ? (
+                <Icon.Close />
+              ) : (
+                <CartWrapper>
+                  <Badge badgeContent={cartQty} showZero color="primary">
+                    <Icon.ShoppingCartOutlined sx={{ marginRight: "0 !important" }} />
+                  </Badge>
+                  {!smallScreen && <Price>{totalAmount} SEK</Price>}
+                </CartWrapper>
+              )}
+            </IconButton>
+          </Toolbar>
+        </Container>
+      </MUIAppBar>
+    </>
   );
 };
 
