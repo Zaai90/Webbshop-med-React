@@ -1,5 +1,5 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import * as Icon from "@mui/icons-material/";
 import { AppBar as MUIAppBar, Badge, IconButton, Toolbar } from "@mui/material";
 import { Container } from "@mui/system";
 import { useState } from "react";
@@ -43,7 +43,7 @@ const AppBar = () => {
 
           <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <Badge badgeContent={getCartQty()} showZero color="primary">
-              <ShoppingCartOutlinedIcon />
+              <Icon.ShoppingCartOutlined />
             </Badge>
           </IconButton>
         </Toolbar>

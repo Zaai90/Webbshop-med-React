@@ -1,11 +1,4 @@
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
-import BoltOutlinedIcon from "@mui/icons-material/BoltOutlined";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import ForestOutlinedIcon from "@mui/icons-material/ForestOutlined";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
-import RedeemOutlinedIcon from "@mui/icons-material/RedeemOutlined";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+import * as Icon from "@mui/icons-material/";
 import styled from "styled-components";
 
 const FooterStyled = styled.footer`
@@ -109,33 +102,33 @@ const Footer = () => {
     <FooterStyled>
       <BenefitContainerStyled>
         <BenefitContent>
-          <ForestOutlinedIcon />
+          <Icon.ForestOutlined />
           <span>Sustainable shopping</span>
         </BenefitContent>
 
         <BenefitContent>
-          <LockOpenOutlinedIcon />
+          <Icon.LockOpenOutlined />
           <span>Safe payment options</span>
         </BenefitContent>
 
         <BenefitContent>
-          <AutorenewOutlinedIcon />
+          <Icon.AutorenewOutlined />
           <span>Free returns</span>
         </BenefitContent>
 
         <BenefitContent>
-          <BoltOutlinedIcon />
+          <Icon.BoltOutlined />
           <span>Lightning fast deliveries</span>
         </BenefitContent>
       </BenefitContainerStyled>
 
       <BenefitContainerStyled>
-      <SocialsContainer>
+        <SocialsContainer>
           <h4>Follow us</h4>
           <SocialsContent>
-            <FacebookIcon />
-            <InstagramIcon />
-            <YouTubeIcon />
+            <Icon.Facebook />
+            <Icon.Instagram />
+            <Icon.YouTube />
           </SocialsContent>
         </SocialsContainer>
       </BenefitContainerStyled>
@@ -159,12 +152,12 @@ const Footer = () => {
           <LinkContainer>
             <h4>Gift Card</h4>
             <GiftContainer>
-              <RedeemOutlinedIcon />
+              <Icon.RedeemOutlined />
               <div>Give a gift card to someone!</div>
             </GiftContainer>
           </LinkContainer>
         </LinksContainer>
-      </LinksWrapper>     
+      </LinksWrapper>
     </FooterStyled>
   );
 };
