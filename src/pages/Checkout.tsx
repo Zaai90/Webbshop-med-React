@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { useState } from "react";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useCart } from "../contexts/CartContext";
@@ -32,6 +33,8 @@ const CartButtons = styled.div`
 `;
 
 const Checkout = () => {
+  const [isPayed, setIsPayed] = useState(false);
+
   const { cart, getTotalAmount } = useCart();
   return (
     <MainContent>
