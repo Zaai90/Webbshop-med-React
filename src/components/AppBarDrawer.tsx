@@ -17,10 +17,10 @@ const AppBarBoxStyled = styled(Box)`
   color: black;
 `;
 
-const CloseButtonStyled = styled(Icon.HighlightOffSharp)`
+const CloseButtonStyled = styled(Icon.HighlightOffSharp)<{ anchor: string }>`
   position: absolute !important;
   top: 0px !important;
-  right: -75px !important;
+  ${(props) => (props.anchor === "left" ? "right: -75px !important;" : "left: -75px !important;")}
   color: white;
   height: 4rem !important;
   width: 4rem !important;
@@ -31,13 +31,13 @@ interface Props {
   isOpen: boolean;
   toggleDrawer: () => void;
   children: ReactNode;
-  anchor: "left" | "right" | "top" | "bottom";
+  anchor: "left" | "right";
 }
 const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
   return (
     <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer}>
-      <CloseButtonStyled onClick={toggleDrawer} />
-      <AppBarBoxStyled width={anchor === "left" ? "250px" : "100%"}>{children}</AppBarBoxStyled>
+      <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />
+      <AppBarBoxStyled width={"250px"}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
 };

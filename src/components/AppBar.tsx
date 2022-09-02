@@ -47,7 +47,7 @@ const AppBar = () => {
             <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
           </AppBarDrawer>
           {/* Cart drawer */}
-          <AppBarDrawer anchor="top" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
+          <AppBarDrawer anchor="right" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
             <CartDrawerContent />
           </AppBarDrawer>
           <IconButton onClick={toggleLinkDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
