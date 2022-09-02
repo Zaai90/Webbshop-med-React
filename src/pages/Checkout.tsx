@@ -35,7 +35,7 @@ const CartButtons = styled.div`
 const Checkout = () => {
   const [isPayed, setIsPayed] = useState(false);
 
-  const { cart, getTotalAmount } = useCart();
+  const { cart, totalAmount } = useCart();
   return (
     <MainContent>
       <div>Checkout</div>
@@ -59,7 +59,7 @@ const Checkout = () => {
           </CartItemCard>
         ))}
       </div>
-      <div>{getTotalAmount()}</div>
+      <div>{totalAmount}</div>
     </MainContent>
   );
 };
