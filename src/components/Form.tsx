@@ -7,15 +7,32 @@ import { Product } from "../ProductData";
 interface Props {
   product?: Product;
   onSubmit: (product: Product, event: FormEvent<HTMLFormElement>) => void;
+  isNewProduct?: boolean;
 }
 
-export default function Form({ product, onSubmit }: Props) {
+export default function Form({ product, onSubmit, isNewProduct }: Props) {
   const [updatedProduct, setUpdatedProduct] = useState(
     product || { id: 0, designer: "", title: "", description: "", price: 0, category: "", img: [""], size: "", color: "" }
   );
+  const [newProduct, setNewProduct] = useState<Product>({
+    id: 0,
+    designer: "",
+    title: "",
+    description: "asd",
+    price: 0,
+    category: "",
+    img: [""],
+    size: "",
+    color: "",
+  });
 
   const handleOnChange = (e: any) => {
-    if (product) {
+    if (isNewProduct) {
+      console.log("inne i handleChange");
+      const productToAdd = { ...newProduct, [e.target.name]: e.target.value };
+      console.log(productToAdd);
+      setNewProduct(productToAdd);
+    } else if (product) {
       const prodToUpdate = { ...updatedProduct, [e.target.name]: e.target.value };
       setUpdatedProduct(prodToUpdate);
     }
@@ -30,7 +47,9 @@ export default function Form({ product, onSubmit }: Props) {
       noValidate
       autoComplete="off"
       onSubmit={(event) => {
-        onSubmit(updatedProduct, event);
+        if (isNewProduct) {
+          onSubmit(newProduct, event);
+        } else onSubmit(updatedProduct, event);
       }}
     >
       <div>
@@ -45,6 +64,7 @@ export default function Form({ product, onSubmit }: Props) {
           }}
           name="title"
           onChange={handleOnChange}
+          placeholder="title"
         />
         <TextField
           required
@@ -55,6 +75,9 @@ export default function Form({ product, onSubmit }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
+          onChange={handleOnChange}
+          name="description"
+          placeholder="description"
         />
         <TextField
           required
@@ -66,6 +89,8 @@ export default function Form({ product, onSubmit }: Props) {
             shrink: true,
           }}
           onChange={handleOnChange}
+          name="price"
+          placeholder="price"
         />
         <TextField
           required
@@ -77,6 +102,8 @@ export default function Form({ product, onSubmit }: Props) {
             shrink: true,
           }}
           onChange={handleOnChange}
+          name="designer"
+          placeholder="designer"
         />
         <TextField
           required
@@ -88,6 +115,8 @@ export default function Form({ product, onSubmit }: Props) {
             shrink: true,
           }}
           onChange={handleOnChange}
+          name="category"
+          placeholder="category"
         />
         <TextField
           required
@@ -99,6 +128,8 @@ export default function Form({ product, onSubmit }: Props) {
             shrink: true,
           }}
           onChange={handleOnChange}
+          name="color"
+          placeholder="color"
         />
         <TextField
           required
@@ -110,6 +141,8 @@ export default function Form({ product, onSubmit }: Props) {
             shrink: true,
           }}
           onChange={handleOnChange}
+          name="size"
+          placeholder="size"
         />
         <TextField
           required
@@ -121,9 +154,11 @@ export default function Form({ product, onSubmit }: Props) {
             shrink: true,
           }}
           onChange={handleOnChange}
+          name={`{[...img,}`}
+          placeholder="image URL"
         />
       </div>
-      <Button type="submit">UPDATE</Button>
+      <Button type="submit">{isNewProduct ? "ADD" : "UPDATE"}</Button>
     </Box>
   );
 }
