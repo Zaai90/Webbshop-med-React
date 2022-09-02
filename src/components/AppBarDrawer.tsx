@@ -1,4 +1,4 @@
-import HighlightOffSharpIcon from "@mui/icons-material/HighlightOffSharp";
+import * as Icon from "@mui/icons-material/";
 import { Box, Drawer } from "@mui/material";
 import { ReactNode } from "react";
 import styled from "styled-components";
@@ -17,7 +17,7 @@ const AppBarBoxStyled = styled(Box)`
   color: black;
 `;
 
-const CloseButtonStyled = styled(HighlightOffSharpIcon)`
+const CloseButtonStyled = styled(Icon.HighlightOffSharp)`
   position: absolute !important;
   top: 0px !important;
   right: -75px !important;
