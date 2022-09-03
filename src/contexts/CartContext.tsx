@@ -71,11 +71,8 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
 
   const removeItemFromCart = (cartItem: CartItem) => {
     const cartCopy = [...cart];
-    console.log({ cartCopy });
     const cartItemIndex = cartCopy.findIndex((item) => item.product.id === cartItem.product.id);
     cartCopy.splice(cartItemIndex, 1);
-
-    console.log({ cartCopy });
 
     setCart(cartCopy);
   };

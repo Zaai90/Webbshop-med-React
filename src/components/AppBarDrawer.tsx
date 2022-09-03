@@ -6,7 +6,8 @@ import styled from "styled-components";
 
 const AppBarDrawerStyled = styled(Drawer)<{ anchor: string; isphonescreen: number }>`
   .MuiPaper-root {
-    overflow: ${(props) => (props.anchor === "left" ? "visible" : "scroll")};
+    overflow: visible;
+    display: -webkit-box !important;
     ${(props) => props.anchor === "right" && props.isphonescreen === 1 && "width: 100%;"}
   }
 `;
@@ -53,7 +54,7 @@ const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
   return (
     //TODO fix passing boolean attribute. 1:0 is a workaround. checkout transient props.
     <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer} isphonescreen={isPhoneScreen ? 1 : 0}>
-      {anchor === "left" && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
+      {anchor === "left" || (anchor === "right" && !isPhoneScreen && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />)}
       <AppBarBoxStyled width={drawerWidth(anchor)}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
