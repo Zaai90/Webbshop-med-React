@@ -43,8 +43,14 @@ const CategoryBubbleContainer = styled.div`
   }
 `;
 
+const MiddleContent = styled.div`
+height: 400px;
+border: 1px solid black;
+`
+
 const Home = () => {
   return (
+    <>
     <MainContent>
       <Container>
         <TopContent>
@@ -65,8 +71,10 @@ const Home = () => {
             <div>Textiles</div>
           </CategoryBubbleContainer>
         </TopContent>
+        <MiddleContent></MiddleContent>
       </Container>
     </MainContent>
+    </>
   );
 };
 
