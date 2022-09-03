@@ -77,8 +77,6 @@ const ProductPage = () => {
 
   const { convertToCurrencyValue, changeCurrency } = useCurrency();
 
-  changeCurrency(Currency.EUR);
-
   const images: JSX.Element[] = product.img.map((img: string, index: number) => {
     return <ImageStyled draggable="false" key={index} src={img} alt={product.title} onMouseEnter={() => setSelectedImg(img)} />;
   });
