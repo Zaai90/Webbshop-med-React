@@ -1,9 +1,10 @@
-import MenuIcon from "@mui/icons-material/Menu";
 import * as Icon from "@mui/icons-material/";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar as MUIAppBar, Badge, IconButton, Toolbar } from "@mui/material";
 import { Container } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../contexts/CartContext";
+import { Currency, useCurrency } from "../contexts/CurrencyContext";
 import { useProducts } from "../contexts/ProductContext";
 import AppBarDrawer from "./AppBarDrawer";
 import CartDrawerContent from "./CartDrawerContent";
@@ -12,6 +13,13 @@ import LinksDrawerContent from "./LinksDrawerContent";
 const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
+
+  const { changeCurrency } = useCurrency();
+
+  //TODO add a currencySelector
+  useEffect(() => {
+    changeCurrency(Currency.SEK);
+  }, []);
 
   const { products } = useProducts();
 
