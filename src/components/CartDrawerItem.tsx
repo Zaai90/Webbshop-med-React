@@ -77,7 +77,7 @@ const CartDrawerItem = ({ cartItem }: Props) => {
         <span>{cartItem.product.price * cartItem.quantity} kr</span>
       </InfoContainer>
       <QuantityContainer>
-        <Icon.Clear sx={{ fontSize: "1.3rem", alignSelf: "end" }} />
+        <Icon.DeleteOutline sx={{ fontSize: "1.3rem", alignSelf: "end" }} />
         <ButtonWrapper>
           <Icon.Remove onClick={handleSubstract} />
           <span>{getItemQty(cartItem.product.id)}</span>

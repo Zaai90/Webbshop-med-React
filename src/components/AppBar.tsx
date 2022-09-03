@@ -21,6 +21,15 @@ const Price = styled.div`
   font-size: 1rem;
 `;
 
+const IconButtonStyled = styled(IconButton)`
+  border-radius: 10px !important;
+
+  @media (max-width: 900px) {
+    border-radius: 50% !important;
+  }
+`;
+// const IconButtonStyled = styled(IconButton)``;
+
 const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
@@ -51,24 +60,24 @@ const AppBar = () => {
             </AppBarDrawer>
             {/* Cart drawer */}
             <AppBarDrawer anchor="right" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
-              <CartDrawerContent />
+              <CartDrawerContent toggleDrawer={toggleCartDrawer} />
             </AppBarDrawer>
             <IconButton onClick={toggleLinkDrawer} size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
               <MenuIcon />
             </IconButton>
 
-            <IconButton onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="menu">
+            <IconButtonStyled onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="cart">
               {isCartDrawerOpen ? (
                 <Icon.Close />
               ) : (
                 <CartWrapper>
                   <Badge badgeContent={cartQty} showZero color="primary">
-                    <Icon.ShoppingCartOutlined sx={{ marginRight: "0 !important" }} />
+                    <Icon.LocalMallOutlined sx={{ marginRight: "0 !important" }} />
                   </Badge>
                   {!smallScreen && <Price>{totalAmount} SEK</Price>}
                 </CartWrapper>
               )}
-            </IconButton>
+            </IconButtonStyled>
           </Toolbar>
         </Container>
       </MUIAppBar>

@@ -3,9 +3,9 @@ import { Box, Drawer } from "@mui/material";
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-const AppBarDrawerStyled = styled(Drawer)`
+const AppBarDrawerStyled = styled(Drawer)<{ anchor: string }>`
   .MuiPaper-root {
-    overflow: visible;
+    overflow: ${(props) => (props.anchor === "left" ? "visible" : "scroll")};
   }
 `;
 
@@ -37,7 +37,7 @@ interface Props {
 const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
   return (
     <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer}>
-      <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />
+      {anchor === "left" && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
       <AppBarBoxStyled width={anchor === "left" ? "250px" : "360px"}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
