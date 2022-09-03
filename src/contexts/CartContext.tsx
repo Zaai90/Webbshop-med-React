@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
+import { useLocalStorage } from "../hooks/localStorage";
 import { CartItem } from "../models/CartItem";
 import { Product } from "../ProductData";
 
@@ -7,9 +8,10 @@ interface CartContext {
   addToCart(item: Product, quantity?: number): void;
   removeFromCart(id: number, quantity?: number): void;
   clearCart(): void;
-  getCartQty(): number;
-  getTotalAmount(): number;
+  cartQty: number;
+  totalAmount: number;
   getItemQty(id: number): number;
+  removeItemFromCart: (cartItem: CartItem) => void;
 }
 
 const CartContext = createContext<CartContext>({
@@ -17,9 +19,10 @@ const CartContext = createContext<CartContext>({
   addToCart: () => {},
   removeFromCart: () => {},
   clearCart: () => {},
-  getCartQty: () => 0,
-  getTotalAmount: () => 0,
+  cartQty: 0,
+  totalAmount: 0,
   getItemQty: () => 0,
+  removeItemFromCart: () => {},
 });
 
 interface CartProviderProps {
@@ -27,7 +30,7 @@ interface CartProviderProps {
 }
 
 const CartContextProvider = ({ children }: CartProviderProps) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useLocalStorage<CartItem[]>("cart", []);
 
   const addToCart = (item: Product, quantity: number = 5) => {
     const existingItem = cart.find((i) => i.product.id === item.id);
@@ -43,21 +46,16 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     }
   };
 
-  const getTotalAmount = (): number => {
-    return cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
-  };
+  const getTotalAmount = cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0);
 
-  const getCartQty = (): number => {
-    return cart.reduce((acc, curr) => acc + curr.quantity, 0);
-  };
+  const getCartQty = cart.reduce((acc, curr) => acc + curr.quantity, 0);
 
   const getItemQty = (id: number): number => {
     const item = cart.find((i) => i.product.id === id);
     return item ? item.quantity : 0;
-  }
+  };
 
   const removeFromCart = (id: number, quantity: number = 1) => {
-
     const index = cart.findIndex((i) => i.product.id === id);
     if (index !== -1) {
       if (cart[index].quantity > quantity) {
@@ -72,11 +70,25 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
     }
   };
 
+  const removeItemFromCart = (cartItem: CartItem) => {
+    const cartCopy = [...cart];
+    const cartItemIndex = cartCopy.findIndex((item) => item.product.id === cartItem.product.id);
+    cartCopy.splice(cartItemIndex, 1);
+
+    setCart(cartCopy);
+  };
+
   const clearCart = () => {
     setCart([]);
   };
 
-  return <CartContext.Provider value={{ cart, getCartQty, getTotalAmount, addToCart, removeFromCart, clearCart, getItemQty }}>{children}</CartContext.Provider>;
+  return (
+    <CartContext.Provider
+      value={{ cart, cartQty: getCartQty, totalAmount: getTotalAmount, addToCart, removeFromCart, clearCart, getItemQty, removeItemFromCart }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 };
 
 export const useCart = () => {

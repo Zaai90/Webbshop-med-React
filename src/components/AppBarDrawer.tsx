@@ -1,15 +1,19 @@
 import * as Icon from "@mui/icons-material/";
 import { Box, Drawer } from "@mui/material";
 import { ReactNode } from "react";
+import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 
-const AppBarDrawerStyled = styled(Drawer)`
+const AppBarDrawerStyled = styled(Drawer)<{ anchor: string; isphonescreen: number }>`
   .MuiPaper-root {
     overflow: visible;
+    display: -webkit-box !important;
+    ${(props) => props.anchor === "right" && props.isphonescreen === 1 && "width: 100%;"}
   }
 `;
 
 const AppBarBoxStyled = styled(Box)`
+  margin-top: 64px;
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -17,10 +21,10 @@ const AppBarBoxStyled = styled(Box)`
   color: black;
 `;
 
-const CloseButtonStyled = styled(Icon.HighlightOffSharp)`
+const CloseButtonStyled = styled(Icon.HighlightOffSharp)<{ anchor: string }>`
   position: absolute !important;
-  top: 0px !important;
-  right: -75px !important;
+  top: 64px !important;
+  ${(props) => (props.anchor === "left" ? "right: -75px !important;" : "left: -75px !important;")}
   color: white;
   height: 4rem !important;
   width: 4rem !important;
@@ -31,13 +35,28 @@ interface Props {
   isOpen: boolean;
   toggleDrawer: () => void;
   children: ReactNode;
-  anchor: "left" | "right" | "top" | "bottom";
+  anchor: "left" | "right";
 }
 const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
+  const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
+
+  const drawerWidth = (anchor: "left" | "right") => {
+    if (anchor === "right") {
+      if (isPhoneScreen) {
+        return "100%";
+      } else {
+        return "350px";
+      }
+    } else {
+      return "250px";
+    }
+  };
   return (
-    <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer}>
-      <CloseButtonStyled onClick={toggleDrawer} />
-      <AppBarBoxStyled width={anchor === "left" ? "250px" : "100%"}>{children}</AppBarBoxStyled>
+    //TODO fix passing boolean attribute. 1:0 is a workaround. checkout transient props.
+    <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer} isphonescreen={isPhoneScreen ? 1 : 0}>
+      {anchor === "left" && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
+      {anchor === "right" && !isPhoneScreen && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
+      <AppBarBoxStyled width={drawerWidth(anchor)}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
 };
