@@ -32,8 +32,10 @@ const CurrencyContextProvider = ({ children }: CurrencyProviderProps) => {
   };
 
   const formatCurrency = (value: number) => {
+    const amountOfDigits = currency === Currency.SEK ? 0 : 2;
     return new Intl.NumberFormat(undefined, {
       style: "currency",
+      maximumFractionDigits: amountOfDigits,
       currency: currency,
     }).format(value);
   };
