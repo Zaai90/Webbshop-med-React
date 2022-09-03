@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext } from "react";
+import { useLocalStorage } from "../hooks/localStorage";
 import { Product, Products } from "../ProductData";
 
 interface ProductContextValue {
@@ -20,7 +21,10 @@ interface Props {
 }
 
 function ProductProvider({ children }: Props) {
-  const [products, setProducts] = useState<Product[]>(Products);
+  const LoadProducts = () => {
+    return Products;
+  };
+  const [products, setProducts] = useLocalStorage<Product[]>("products", LoadProducts);
 
   const createProduct = (product: Product) => {
     // TODO: create product =D
