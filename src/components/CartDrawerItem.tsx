@@ -60,7 +60,7 @@ interface Props {
 }
 
 const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
-  const { addToCart, removeFromCart, getItemQty } = useCart();
+  const { addToCart, removeFromCart, getItemQty, removeItemFromCart } = useCart();
 
   // TODO: use update cart functions
   function handleSubstract() {
@@ -69,6 +69,10 @@ const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
 
   function handleAdd() {
     addToCart(cartItem.product, 1);
+  }
+
+  function handleRemove() {
+    removeItemFromCart(cartItem);
   }
 
   return (
@@ -89,16 +93,16 @@ const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
         <span>{cartItem.product.price * cartItem.quantity} kr</span>
       </InfoContainer>
       <QuantityContainer>
-        <IconButton sx={{ alignSelf: "end" }}>
+        <IconButton sx={{ alignSelf: "end" }} onClick={handleRemove}>
           <Icon.DeleteOutline sx={{ fontSize: "1.3rem" }} />
         </IconButton>
         <ButtonWrapper>
-          <IconButton>
-            <Icon.Remove onClick={handleSubstract} />
+          <IconButton onClick={handleSubstract}>
+            <Icon.Remove />
           </IconButton>
           <span>{getItemQty(cartItem.product.id)}</span>
-          <IconButton>
-            <Icon.Add onClick={handleAdd} />
+          <IconButton onClick={handleAdd}>
+            <Icon.Add />
           </IconButton>
         </ButtonWrapper>
       </QuantityContainer>
