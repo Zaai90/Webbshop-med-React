@@ -2,6 +2,7 @@ import * as Icon from "@mui/icons-material";
 import { Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { Product } from "../ProductData";
@@ -74,25 +75,32 @@ const CardStyled = styled(Card)`
 
 const ModalContent = styled.div`
   position: absolute;
+  width: 920px;
   background-color: #fff;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   padding: 16px;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  border: 1px solid white;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   :focus-visible {
     outline: none;
   }
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 `;
 
-const ImagePlaceholder = styled.div`
-  height: 500px;
-  width: 400px;
-  background-color: black;
+const SimpleImageSliderContainer = styled.div`
+  height: 500px !important;
+  width: 400px !important;
+  position: relative !important;
+  .rsis-container div {
+    background-position: center center !important;
+  }
 `;
 
 interface Props {
@@ -112,6 +120,7 @@ const GridItem = ({ product }: Props) => {
   function handleQuickViewClick() {
     setIsModalOpen(true);
   }
+
   return (
     <>
       <CardStyled>
@@ -145,7 +154,9 @@ const GridItem = ({ product }: Props) => {
       </CardStyled>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalContent>
-          <ImagePlaceholder />
+          <SimpleImageSliderContainer>
+            <SimpleImageSlider width={"100%"} height={"100%"} images={product.img} showBullets={true} showNavs={true} navMargin={-10} />
+          </SimpleImageSliderContainer>
           <div>
             <p style={{ color: "rgb(159, 159, 159)" }}>{product.designer}</p>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
