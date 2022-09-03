@@ -1,4 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext } from "react";
+import { useLocalStorage } from "../hooks/localStorage";
 import { CartItem } from "../models/CartItem";
 import { Product } from "../ProductData";
 
@@ -29,7 +30,7 @@ interface CartProviderProps {
 }
 
 const CartContextProvider = ({ children }: CartProviderProps) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useLocalStorage<CartItem[]>("cart", []);
 
   const addToCart = (item: Product, quantity: number = 5) => {
     const existingItem = cart.find((i) => i.product.id === item.id);
