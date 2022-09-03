@@ -35,6 +35,7 @@ const CardBottomStyled = styled.div`
   text-align: center;
   font-size: small;
   position: relative;
+  padding: 10px;
 `;
 
 const IconButtonStyled = styled(IconButton)`
@@ -49,7 +50,7 @@ const QuickView = styled.span`
   bottom: 0px;
   left: 0;
   right: 0;
-  padding: 10px 10px 15px 10px;
+  padding: 15px 20px 20px 20px;
   background: rgba(0, 0, 0, 0.5);
   z-index: 4;
   transition: 0.5s ease all;
@@ -102,6 +103,16 @@ const SimpleImageSliderContainer = styled.div`
   .rsis-container div {
     background-position: center center !important;
   }
+  button {
+    filter: invert(100%);
+    box-shadow: none !important;
+  }
+`;
+
+const ButtonStyled = styled(Button)`
+  margin-top: 20px !important;
+  padding: 15px !important;
+  width: 50%;
 `;
 
 interface Props {
@@ -174,9 +185,16 @@ const GridItem = ({ product }: Props) => {
                 <MenuItem value={5}>XL</MenuItem>
               </Select>
             </FormControl>
-            <Button variant="contained" endIcon={<AddShoppingCartIcon />}>
+            <ButtonStyled
+              variant="contained"
+              endIcon={<AddShoppingCartIcon />}
+              onClick={() => {
+                addToCart(product, 1);
+                setIsModalOpen(false);
+              }}
+            >
               Add to Cart
-            </Button>
+            </ButtonStyled>
           </div>
         </ModalContent>
       </Modal>
