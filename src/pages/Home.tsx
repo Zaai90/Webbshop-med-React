@@ -1,6 +1,7 @@
 import { Container } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
+import { useProducts } from "../contexts/ProductContext";
 
 const TopContent = styled.div`
   padding: 60px;
@@ -44,37 +45,44 @@ const CategoryBubbleContainer = styled.div`
 `;
 
 const MiddleContent = styled.div`
-height: 400px;
-border: 1px solid black;
-`
+  height: 400px;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+`;
 
 const Home = () => {
+  const { products } = useProducts();
   return (
     <>
-      <div>Test</div>
-    <MainContent>
-      <Container>
-        <TopContent>
-          <CategoryBubbleContainer>
-            <CategoryBubble></CategoryBubble>
-            <div>News</div>
-          </CategoryBubbleContainer>
-          <CategoryBubbleContainer>
-            <CategoryBubble></CategoryBubble>
-            <div>Shirts</div>
-          </CategoryBubbleContainer>
-          <CategoryBubbleContainer>
-            <CategoryBubble></CategoryBubble>
-            <div>Dresses</div>
-          </CategoryBubbleContainer>
-          <CategoryBubbleContainer>
-            <CategoryBubble></CategoryBubble>
-            <div>Textiles</div>
-          </CategoryBubbleContainer>
-        </TopContent>
-        <MiddleContent></MiddleContent>
-      </Container>
-    </MainContent>
+      <MiddleContent></MiddleContent>
+      <MainContent>
+        <Container>
+          <TopContent>
+            <CategoryBubbleContainer>
+              <CategoryBubble></CategoryBubble>
+              <div>News</div>
+            </CategoryBubbleContainer>
+            <CategoryBubbleContainer>
+              <CategoryBubble></CategoryBubble>
+              <div>Shirts</div>
+            </CategoryBubbleContainer>
+            <CategoryBubbleContainer>
+              <CategoryBubble></CategoryBubble>
+              <div>Dresses</div>
+            </CategoryBubbleContainer>
+            <CategoryBubbleContainer>
+              <CategoryBubble></CategoryBubble>
+              <div>Textiles</div>
+            </CategoryBubbleContainer>
+          </TopContent>
+          <MiddleContent>
+            <div>Slider goes here</div>
+          </MiddleContent>
+        </Container>
+      </MainContent>
     </>
   );
 };
