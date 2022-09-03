@@ -107,6 +107,9 @@ const FavContainer = styled.div`
     color: #ff5cbb;
     transition: 1s ease all;
   }
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Home = () => {
