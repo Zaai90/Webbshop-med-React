@@ -33,7 +33,9 @@ const IconButtonStyled = styled(IconButton)`
 const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
+  // TODO: Fix global media query consts
   const smallScreen = useMediaQuery({ query: "(max-width:900px)" });
+  const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
 
   const { products } = useProducts();
 
@@ -67,7 +69,7 @@ const AppBar = () => {
             </IconButton>
 
             <IconButtonStyled onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="cart">
-              {isCartDrawerOpen ? (
+              {isCartDrawerOpen && isPhoneScreen ? (
                 <Icon.Close />
               ) : (
                 <CartWrapper>

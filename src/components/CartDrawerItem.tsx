@@ -1,5 +1,7 @@
 import * as Icon from "@mui/icons-material/";
+import { IconButton } from "@mui/material";
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { CartItem } from "../models/CartItem";
@@ -47,12 +49,18 @@ const ButtonWrapper = styled.div`
   }
 `;
 
+const NavLinkStyled = styled(NavLink)`
+  text-decoration: none;
+  color: inherit;
+`;
+
 interface Props {
   cartItem: CartItem;
+  toggleDrawer: () => void;
 }
 
-const CartDrawerItem = ({ cartItem }: Props) => {
-  const { addToCart, removeFromCart, getItemQty } = useCart();
+const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
+  const { addToCart, removeFromCart, getItemQty, removeItemFromCart } = useCart();
 
   // TODO: use update cart functions
   function handleSubstract() {
@@ -63,13 +71,21 @@ const CartDrawerItem = ({ cartItem }: Props) => {
     addToCart(cartItem.product, 1);
   }
 
+  function handleRemove() {
+    removeItemFromCart(cartItem);
+  }
+
   return (
     <Wrapper>
-      <ImgContainer imgUrl={cartItem.product.img[0]} />
+      <NavLink to={`../product/${cartItem.product.id}`} onClick={toggleDrawer}>
+        <ImgContainer imgUrl={cartItem.product.img[0]} />
+      </NavLink>
       <InfoContainer>
         {/* TODO Use mui Typography instead of spans?
          or at least fix proper style */}
-        <span style={{ fontWeight: "700" }}>{cartItem.product.title}</span>
+        <NavLinkStyled to={`../product/${cartItem.product.id}`} onClick={toggleDrawer}>
+          <span style={{ fontWeight: "700" }}>{cartItem.product.title}</span>
+        </NavLinkStyled>
         <span style={{ fontWeight: "300", textTransform: "uppercase", fontSize: ".7rem" }}>
           ( {cartItem.product.color && cartItem.product.color}
           {cartItem.product.size && " " + cartItem.product.size} )
@@ -77,11 +93,17 @@ const CartDrawerItem = ({ cartItem }: Props) => {
         <span>{cartItem.product.price * cartItem.quantity} kr</span>
       </InfoContainer>
       <QuantityContainer>
-        <Icon.DeleteOutline sx={{ fontSize: "1.3rem", alignSelf: "end" }} />
+        <IconButton sx={{ alignSelf: "end" }} onClick={handleRemove}>
+          <Icon.DeleteOutline sx={{ fontSize: "1.3rem" }} />
+        </IconButton>
         <ButtonWrapper>
-          <Icon.Remove onClick={handleSubstract} />
+          <IconButton onClick={handleSubstract}>
+            <Icon.Remove />
+          </IconButton>
           <span>{getItemQty(cartItem.product.id)}</span>
-          <Icon.Add onClick={handleAdd} />
+          <IconButton onClick={handleAdd}>
+            <Icon.Add />
+          </IconButton>
         </ButtonWrapper>
       </QuantityContainer>
     </Wrapper>
