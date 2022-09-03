@@ -65,7 +65,6 @@ const Home = () => {
           </CategoryBubbleContainer>
         </TopContent>
       </Container>
-      <Store />
     </MainContent>
   );
 };
