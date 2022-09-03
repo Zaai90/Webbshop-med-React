@@ -74,14 +74,14 @@ const QuickView = styled.span`
 
 const SwiperContent = styled.div`
   align-items: center;
-  margin: 0 auto;
+  margin-right: 0 auto;
   text-align: center;
 
   .swiper-slide {
     overflow: hidden;
     &:hover {
       ${QuickView} {
-        transform: translateY(-150%);
+        transform: translateY(-160%);
       }
     }
   }
@@ -142,13 +142,12 @@ const FavContainer = styled.div`
 const ItemContentBottom = styled.div`
   position: relative;
   z-index: 999;
-  padding: 20px;
+  padding: 20px 5px;
   background: white;
   margin-top: -10px;
 `;
 
 const Home = () => {
-
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
 
@@ -161,7 +160,6 @@ const Home = () => {
   };
   return (
     <>
-      <SwiperContent></SwiperContent>
       <MainContent>
         <Container>
           <TopContent>
@@ -183,7 +181,7 @@ const Home = () => {
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
-            <h1 style={{padding: '2rem'}}>Newly added</h1>
+            <h1 style={{ padding: "2rem" }}>Newly added</h1>
             <Swiper
               loop={true}
               spaceBetween={15}
@@ -220,7 +218,7 @@ const Home = () => {
                   </QuickView>
                   <ItemContentBottom>
                     <div style={{ display: "flex", background: "white" }}>
-                      <div style={{ margin: "0 auto" }}>{product.title}</div>
+                      <div style={{ marginRight: "auto" }}>{product.title}</div>
                       <FavContainer>
                         {/* TODO: Send product to wishlist */}
                         <div className={isHearted ? "hearted" : undefined} onClick={toggleHearted}>
@@ -230,7 +228,7 @@ const Home = () => {
                         </div>
                       </FavContainer>
                     </div>
-                    <div>{product.price} SEK</div>
+                    <div style={{ textAlign: "left" }}>{product.price} SEK</div>
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}
