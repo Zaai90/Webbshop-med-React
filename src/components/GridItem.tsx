@@ -1,5 +1,6 @@
 import * as Icon from "@mui/icons-material";
-import { Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Button, Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
@@ -173,7 +174,9 @@ const GridItem = ({ product }: Props) => {
                 <MenuItem value={5}>XL</MenuItem>
               </Select>
             </FormControl>
-            <button>Add to cart</button>
+            <Button variant="contained" endIcon={<AddShoppingCartIcon />}>
+              Add to Cart
+            </Button>
           </div>
         </ModalContent>
       </Modal>
