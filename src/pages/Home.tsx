@@ -1,7 +1,6 @@
 import { Container } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
-import Store from "./Store";
 
 const TopContent = styled.div`
   padding: 60px;
@@ -23,10 +22,10 @@ const CategoryBubble = styled.div`
   background-size: contain;
   background-position: center;
   background-color: black;
-  transition: .5s ease all;
-  opacity: .5;
-
+  transition: 0.5s ease all;
+  opacity: 0.5;
 `;
+
 const CategoryBubbleContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -34,12 +33,14 @@ const CategoryBubbleContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   cursor: pointer;
+  transition: 0.5s ease all;
 
   &:hover {
     ${CategoryBubble} {
       opacity: 1;
     }
-}
+    transform: translateY(-5%);
+  }
 `;
 
 const Home = () => {
