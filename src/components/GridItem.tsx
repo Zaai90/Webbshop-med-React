@@ -1,7 +1,9 @@
 import * as Icon from "@mui/icons-material";
-import { Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Button, Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { Product } from "../ProductData";
@@ -33,6 +35,7 @@ const CardBottomStyled = styled.div`
   text-align: center;
   font-size: small;
   position: relative;
+  padding: 10px;
 `;
 
 const IconButtonStyled = styled(IconButton)`
@@ -47,7 +50,7 @@ const QuickView = styled.span`
   bottom: 0px;
   left: 0;
   right: 0;
-  padding: 10px 10px 15px 10px;
+  padding: 15px 20px 20px 20px;
   background: rgba(0, 0, 0, 0.5);
   z-index: 4;
   transition: 0.5s ease all;
@@ -74,25 +77,42 @@ const CardStyled = styled(Card)`
 
 const ModalContent = styled.div`
   position: absolute;
+  width: 920px;
   background-color: #fff;
   box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
   padding: 16px;
   transform: translate(-50%, -50%);
   top: 50%;
   left: 50%;
-  border: 1px solid white;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   :focus-visible {
     outline: none;
   }
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 `;
 
-const ImagePlaceholder = styled.div`
-  height: 500px;
-  width: 400px;
-  background-color: black;
+const SimpleImageSliderContainer = styled.div`
+  height: 500px !important;
+  width: 400px !important;
+  position: relative !important;
+  .rsis-container div {
+    background-position: center center !important;
+  }
+  button {
+    filter: invert(100%);
+    box-shadow: none !important;
+  }
+`;
+
+const ButtonStyled = styled(Button)`
+  margin-top: 20px !important;
+  padding: 15px !important;
+  width: 50%;
 `;
 
 interface Props {
@@ -112,6 +132,7 @@ const GridItem = ({ product }: Props) => {
   function handleQuickViewClick() {
     setIsModalOpen(true);
   }
+
   return (
     <>
       <CardStyled>
@@ -145,7 +166,9 @@ const GridItem = ({ product }: Props) => {
       </CardStyled>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <ModalContent>
-          <ImagePlaceholder />
+          <SimpleImageSliderContainer>
+            <SimpleImageSlider width={"100%"} height={"100%"} images={product.img} showBullets={true} showNavs={true} navMargin={-10} />
+          </SimpleImageSliderContainer>
           <div>
             <p style={{ color: "rgb(159, 159, 159)" }}>{product.designer}</p>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
@@ -162,7 +185,16 @@ const GridItem = ({ product }: Props) => {
                 <MenuItem value={5}>XL</MenuItem>
               </Select>
             </FormControl>
-            <button>Add to cart</button>
+            <ButtonStyled
+              variant="contained"
+              endIcon={<AddShoppingCartIcon />}
+              onClick={() => {
+                addToCart(product, 1);
+                setIsModalOpen(false);
+              }}
+            >
+              Add to Cart
+            </ButtonStyled>
           </div>
         </ModalContent>
       </Modal>
