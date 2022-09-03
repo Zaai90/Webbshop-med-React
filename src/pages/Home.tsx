@@ -51,6 +51,7 @@ border: 1px solid black;
 const Home = () => {
   return (
     <>
+      <div>Test</div>
     <MainContent>
       <Container>
         <TopContent>
