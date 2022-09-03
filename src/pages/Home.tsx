@@ -140,7 +140,7 @@ const Home = () => {
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
-            <h1>Slider goes here</h1>
+            <h1>Newly added</h1>
             <Swiper
               loop={true}
               spaceBetween={15}
