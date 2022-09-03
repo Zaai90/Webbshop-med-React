@@ -38,7 +38,7 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
           <Wrapper>
             <Title>CART</Title>
             {cart.map((cartItem) => (
-              <CartDrawerItem key={cartItem.product.id} cartItem={cartItem} />
+              <CartDrawerItem key={cartItem.product.id} cartItem={cartItem} toggleDrawer={toggleDrawer} />
             ))}
           </Wrapper>
           <Total>
