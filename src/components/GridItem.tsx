@@ -97,6 +97,7 @@ const ImagePlaceholder = styled.div`
 
 interface Props {
   product: Product;
+  openSnackBar: (productTitle: string) => void;
 }
 
 const GridItem = ({ product }: Props) => {
