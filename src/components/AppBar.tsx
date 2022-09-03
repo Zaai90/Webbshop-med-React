@@ -1,9 +1,10 @@
-import MenuIcon from "@mui/icons-material/Menu";
 import * as Icon from "@mui/icons-material/";
+import MenuIcon from "@mui/icons-material/Menu";
 import { AppBar as MUIAppBar, Badge, IconButton, Toolbar } from "@mui/material";
 import { Container } from "@mui/system";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "../contexts/CartContext";
+import { Currency, useCurrency } from "../contexts/CurrencyContext";
 import { useProducts } from "../contexts/ProductContext";
 import AppBarDrawer from "./AppBarDrawer";
 import CartDrawerContent from "./CartDrawerContent";
@@ -36,6 +37,13 @@ const AppBar = () => {
   // TODO: Fix global media query consts
   const smallScreen = useMediaQuery({ query: "(max-width:900px)" });
   const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
+
+  const { changeCurrency } = useCurrency();
+
+  //TODO add a currencySelector
+  useEffect(() => {
+    changeCurrency(Currency.SEK);
+  }, []);
 
   const { products } = useProducts();
 
