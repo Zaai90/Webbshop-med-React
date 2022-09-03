@@ -4,10 +4,10 @@ import { ReactNode } from "react";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 
-const AppBarDrawerStyled = styled(Drawer)<{ anchor: string; isPhoneScreen: boolean }>`
+const AppBarDrawerStyled = styled(Drawer)<{ anchor: string; isphonescreen: number }>`
   .MuiPaper-root {
     overflow: ${(props) => (props.anchor === "left" ? "visible" : "scroll")};
-    ${(props) => props.anchor === "right" && props.isPhoneScreen && "width: 100%;"}
+    ${(props) => props.anchor === "right" && props.isphonescreen === 1 && "width: 100%;"}
   }
 `;
 
@@ -51,7 +51,8 @@ const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
     }
   };
   return (
-    <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer} isPhoneScreen={isPhoneScreen}>
+    //TODO fix passing boolean attribute. 1:0 is a workaround. checkout transient props.
+    <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer} isphonescreen={isPhoneScreen ? 1 : 0}>
       {anchor === "left" && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
       <AppBarBoxStyled width={drawerWidth(anchor)}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
