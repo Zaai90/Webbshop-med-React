@@ -55,13 +55,35 @@ const CategoryBubbleContainer = styled.div`
   }
 `;
 
+// TODO: Move quickView to it's own component?
+const QuickView = styled.span`
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  padding: 15px 20px 20px 20px;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  transition: 0.5s ease all;
+  text-align: center;
+  cursor: pointer;
+  font-size: 12px;
+  color: white;
+  text-shadow: 2px 2px 4px black;
+`;
+
 const SwiperContent = styled.div`
   align-items: center;
   margin: 0 auto;
   text-align: center;
 
-  .swiper {
-    /* position: relative !important; */
+  .swiper-slide {
+    overflow: hidden;
+    &:hover {
+      ${QuickView} {
+        transform: translateY(-150%);
+      }
+    }
   }
   .swiper-button-next {
     right: 5px;
@@ -100,6 +122,11 @@ const SliderImage = styled.img`
   object-fit: cover;
   height: 100%;
   width: 100%;
+  transition: 0.5s ease all;
+
+  &:hover {
+    scale: 1.05;
+  }
 `;
 
 const FavContainer = styled.div`
@@ -112,9 +139,22 @@ const FavContainer = styled.div`
   }
 `;
 
+const ItemContentBottom = styled.div`
+  position: relative;
+  z-index: 999;
+  padding: 20px;
+  background: white;
+  margin-top: -10px;
+`;
+
 const Home = () => {
+
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
+
+  function handleQuickViewClick() {
+    console.log("I'm here!");
+  }
 
   const toggleHearted = () => {
     setHearted(!isHearted);
@@ -171,18 +211,27 @@ const Home = () => {
                     <SliderImage src={product.img[0]} />
                   </a>
                   {/* TODO: Clean up */}
-                  <div style={{ display: "flex" }}>
-                    <div style={{ margin: "0 auto" }}>{product.title}</div>
-                    <FavContainer>
-                      {/* TODO: Send product to wishlist */}
-                      <div className={isHearted ? "hearted" : undefined} onClick={toggleHearted}>
-                        {/* TODO: Check state on each instead of all */}
-                        {isHearted && <FavoriteIcon />}
-                        {!isHearted && <FavoriteBorderIcon />}
-                      </div>
-                    </FavContainer>
-                  </div>
-                  <div>{product.price} SEK</div>
+                  <QuickView
+                    onClick={() => {
+                      handleQuickViewClick();
+                    }}
+                  >
+                    Quick View
+                  </QuickView>
+                  <ItemContentBottom>
+                    <div style={{ display: "flex", background: "white" }}>
+                      <div style={{ margin: "0 auto" }}>{product.title}</div>
+                      <FavContainer>
+                        {/* TODO: Send product to wishlist */}
+                        <div className={isHearted ? "hearted" : undefined} onClick={toggleHearted}>
+                          {/* TODO: Check state on each instead of all */}
+                          {isHearted && <FavoriteIcon />}
+                          {!isHearted && <FavoriteBorderIcon />}
+                        </div>
+                      </FavContainer>
+                    </div>
+                    <div>{product.price} SEK</div>
+                  </ItemContentBottom>
                 </SwiperSlide>
               ))}
             </Swiper>
