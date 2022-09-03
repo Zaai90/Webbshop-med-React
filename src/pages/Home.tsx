@@ -183,7 +183,7 @@ const Home = () => {
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
-            <h1>Newly added</h1>
+            <h1 style={{padding: '2rem'}}>Newly added</h1>
             <Swiper
               loop={true}
               spaceBetween={15}
