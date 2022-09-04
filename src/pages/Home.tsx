@@ -1,5 +1,4 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Container } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
@@ -10,9 +9,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import { useState } from "react";
-import { Navigation } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
+import RandomProduct from "../components/RandomProduct";
 
 const TopContent = styled.div`
   padding: 60px;
@@ -86,7 +87,7 @@ const SwiperContent = styled.div`
     }
   }
   .swiper-button-next {
-    right: 5px;
+    right: 0px;
   }
   .swiper-button-prev {
     left: 0px;
@@ -135,9 +136,22 @@ const ItemContentBottom = styled.div`
   margin-top: -10px;
 `;
 
+const TopSwiper = styled.div`
+  margin-top: 4rem;
+  height: 500px;
+
+  .topSwiper {
+    height: 100%;
+  }
+  .swiper-slide {
+    background: orange;
+  }
+`;
+
 const Home = () => {
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
+
 
   function handleQuickViewClick() {
     console.log("I'm here!");
@@ -148,7 +162,31 @@ const Home = () => {
   };
   return (
     <>
+      
+      <TopSwiper>
+        <Swiper
+          loop={true}
+          spaceBetween={0}
+          centeredSlides={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          modules={[Autoplay, Pagination]}
+          className="topSwiper"
+        >
+          <SwiperSlide>Test</SwiperSlide>
+          <SwiperSlide>Slide 1</SwiperSlide>
+          <SwiperSlide>Slide 1</SwiperSlide>
+        </Swiper>
+      </TopSwiper>
       <MainContent>
+        <Container>
+          <RandomProduct />
+        </Container>
         <Container>
           <TopContent>
             <CategoryBubbleContainer>
@@ -212,15 +250,10 @@ const Home = () => {
                     <div style={{ display: "flex", background: "white" }}>
                       <div style={{ marginRight: "auto" }}>{product.title}</div>
                       <FavContainer>
-                        {/* TODO: Send product to wishlist */}
-                        <div className={isHearted ? "hearted" : undefined} onClick={toggleHearted}>
-                          {/* TODO: Check state on each instead of all */}
-                          {isHearted && <FavoriteIcon />}
-                          {!isHearted && <FavoriteBorderIcon />}
-                        </div>
+                          <FavoriteIcon onClick={toggleHearted} className={ isHearted ? "hearted" : undefined} />
                       </FavContainer>
                     </div>
-                    <div style={{ textAlign: "left" }}>{product.price} SEK</div>
+                    <div style={{ textAlign: "left" }}>{product.price}</div>
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}
