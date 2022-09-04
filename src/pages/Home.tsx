@@ -6,11 +6,11 @@ import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
 
 // Import Swiper React components
-import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import { useState } from "react";
+import { Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -98,18 +98,6 @@ const SwiperContent = styled.div`
     padding: 30px;
     top: 45%;
   }
-
-  @media screen and (max-width: 360px) {
-    .swiper-container {
-      width: 300px;
-    }
-  }
-
-  @media screen and (min-width: 768px) {
-    .swiper-container {
-      width: 768px;
-    }
-  }
   @media only screen and (max-width: 1200px) {
     .swiper-button-next,
     .swiper-button-prev {
@@ -186,20 +174,24 @@ const Home = () => {
               loop={true}
               spaceBetween={15}
               centeredSlides={true}
+              slidesPerGroup={1}
+              loopFillGroupWithBlank={false}
               grabCursor={true}
-              slidesPerView={3}
+              slidesPerView={1}
               navigation={true}
               modules={[Navigation]}
               breakpoints={{
-                // when window width is >= 360px
-                360: {
-                  width: 300,
-                  slidesPerView: 1,
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 10,
                 },
-                // when window width is >= 768px
                 768: {
-                  width: 1100,
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                1024: {
                   slidesPerView: 3,
+                  spaceBetween: 10,
                 },
               }}
             >
