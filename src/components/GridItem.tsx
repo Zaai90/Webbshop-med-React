@@ -130,12 +130,11 @@ interface Props {
   openSnackBar: (productTitle: string) => void;
 }
 
-const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
-
 const GridItem = ({ product, openSnackBar }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
+  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
   const { addToCart } = useCart();
 
   const handleChange = (event: SelectChangeEvent) => {
