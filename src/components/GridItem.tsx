@@ -1,11 +1,14 @@
 import * as Icon from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { Button, Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
+import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
@@ -115,14 +118,26 @@ const ButtonStyled = styled(Button)`
   width: 50%;
 `;
 
+const FavoriteButtonStyled = styled(IconButton)`
+  position: absolute;
+  left: 5%;
+  top: 10%;
+  z-index: 200;
+  color: black;
+`;
 interface Props {
   product: Product;
   openSnackBar: (productTitle: string) => void;
 }
 
+
+  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+
 const GridItem = ({ product, openSnackBar }: Props) => {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
+  const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
   const { addToCart } = useCart();
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -133,14 +148,31 @@ const GridItem = ({ product, openSnackBar }: Props) => {
     setIsModalOpen(true);
   }
 
+
+  function checkIfIsFavorite(): boolean {
+    if (favorites.length === 0) {
+      return false;
+    }
+    return favorites.find((favorite) => favorite.id === product.id) ? true : false;
+
+  }
+
+  function toggleFavorite() {
+    !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
+    setIsFavorite(!isFavorite);
+
   function handleAdd() {
     addToCart(product, 1);
     openSnackBar(product.title);
+
   }
 
   return (
     <>
       <CardStyled>
+        <FavoriteButtonStyled onClick={toggleFavorite} color="secondary">
+          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </FavoriteButtonStyled>
         <NavLink to={`../product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
         </NavLink>
