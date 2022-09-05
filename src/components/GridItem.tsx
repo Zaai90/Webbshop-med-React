@@ -130,8 +130,11 @@ interface Props {
   openSnackBar: (productTitle: string) => void;
 }
 
-const GridItem = ({ product }: Props) => {
+
   const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+
+const GridItem = ({ product, openSnackBar }: Props) => {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
@@ -145,6 +148,7 @@ const GridItem = ({ product }: Props) => {
     setIsModalOpen(true);
   }
 
+
   function checkIfIsFavorite(): boolean {
     if (favorites.length === 0) {
       return false;
@@ -156,6 +160,11 @@ const GridItem = ({ product }: Props) => {
   function toggleFavorite() {
     !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
     setIsFavorite(!isFavorite);
+
+  function handleAdd() {
+    addToCart(product, 1);
+    openSnackBar(product.title);
+
   }
 
   return (
@@ -181,13 +190,7 @@ const GridItem = ({ product }: Props) => {
             <p>{product.price}:-</p>
           </div>
 
-          <IconButtonStyled
-            onClick={() => {
-              addToCart(product, 1);
-            }}
-            color="primary"
-            aria-label="add to shopping cart"
-          >
+          <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
             <Icon.AddShoppingCart />
           </IconButtonStyled>
         </CardBottomStyled>
