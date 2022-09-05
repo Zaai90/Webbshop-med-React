@@ -130,11 +130,9 @@ interface Props {
   openSnackBar: (productTitle: string) => void;
 }
 
-
-  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
 
 const GridItem = ({ product, openSnackBar }: Props) => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
@@ -148,89 +146,87 @@ const GridItem = ({ product, openSnackBar }: Props) => {
     setIsModalOpen(true);
   }
 
-
   function checkIfIsFavorite(): boolean {
     if (favorites.length === 0) {
       return false;
     }
     return favorites.find((favorite) => favorite.id === product.id) ? true : false;
-
   }
 
   function toggleFavorite() {
     !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
     setIsFavorite(!isFavorite);
 
-  function handleAdd() {
-    addToCart(product, 1);
-    openSnackBar(product.title);
+    function handleAdd() {
+      addToCart(product, 1);
+      openSnackBar(product.title);
+    }
 
-  }
-
-  return (
-    <>
-      <CardStyled>
-        <FavoriteButtonStyled onClick={toggleFavorite} color="secondary">
-          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-        </FavoriteButtonStyled>
-        <NavLink to={`../product/${product.id}`}>
-          <CardImageStyled imgUrl={product.img[0]} />
-        </NavLink>
-        <QuickView
-          onClick={() => {
-            handleQuickViewClick();
-          }}
-        >
-          Quick View
-        </QuickView>
-        <CardBottomStyled>
-          <div>
-            <h5>{product.title}</h5>
-            <p>{product.designer}</p>
-            <p>{product.price}:-</p>
-          </div>
-
-          <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
-            <Icon.AddShoppingCart />
-          </IconButtonStyled>
-        </CardBottomStyled>
-      </CardStyled>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalContent>
-          <SimpleImageSliderContainer>
-            <SimpleImageSlider width={"100%"} height={"100%"} images={product.img} showBullets={true} showNavs={true} navMargin={-10} />
-          </SimpleImageSliderContainer>
-          <div>
-            <p style={{ color: "rgb(159, 159, 159)" }}>{product.designer}</p>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
-              <h3>{product.title}</h3>
-              <h2>{product.price}</h2>
+    return (
+      <>
+        <CardStyled>
+          <FavoriteButtonStyled onClick={toggleFavorite} color="secondary">
+            {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </FavoriteButtonStyled>
+          <NavLink to={`../product/${product.id}`}>
+            <CardImageStyled imgUrl={product.img[0]} />
+          </NavLink>
+          <QuickView
+            onClick={() => {
+              handleQuickViewClick();
+            }}
+          >
+            Quick View
+          </QuickView>
+          <CardBottomStyled>
+            <div>
+              <h5>{product.title}</h5>
+              <p>{product.designer}</p>
+              <p>{product.price}:-</p>
             </div>
-            <FormControl fullWidth>
-              <InputLabel>Size</InputLabel>
-              <Select id="demo-simple-select" value={size} label="Size" onChange={handleChange}>
-                <MenuItem value={1}>XS</MenuItem>
-                <MenuItem value={2}>S</MenuItem>
-                <MenuItem value={3}>M</MenuItem>
-                <MenuItem value={4}>L</MenuItem>
-                <MenuItem value={5}>XL</MenuItem>
-              </Select>
-            </FormControl>
-            <ButtonStyled
-              variant="contained"
-              endIcon={<AddShoppingCartIcon />}
-              onClick={() => {
-                addToCart(product, 1);
-                setIsModalOpen(false);
-              }}
-            >
-              Add to Cart
-            </ButtonStyled>
-          </div>
-        </ModalContent>
-      </Modal>
-    </>
-  );
+
+            <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
+              <Icon.AddShoppingCart />
+            </IconButtonStyled>
+          </CardBottomStyled>
+        </CardStyled>
+        <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <ModalContent>
+            <SimpleImageSliderContainer>
+              <SimpleImageSlider width={"100%"} height={"100%"} images={product.img} showBullets={true} showNavs={true} navMargin={-10} />
+            </SimpleImageSliderContainer>
+            <div>
+              <p style={{ color: "rgb(159, 159, 159)" }}>{product.designer}</p>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
+                <h3>{product.title}</h3>
+                <h2>{product.price}</h2>
+              </div>
+              <FormControl fullWidth>
+                <InputLabel>Size</InputLabel>
+                <Select id="demo-simple-select" value={size} label="Size" onChange={handleChange}>
+                  <MenuItem value={1}>XS</MenuItem>
+                  <MenuItem value={2}>S</MenuItem>
+                  <MenuItem value={3}>M</MenuItem>
+                  <MenuItem value={4}>L</MenuItem>
+                  <MenuItem value={5}>XL</MenuItem>
+                </Select>
+              </FormControl>
+              <ButtonStyled
+                variant="contained"
+                endIcon={<AddShoppingCartIcon />}
+                onClick={() => {
+                  addToCart(product, 1);
+                  setIsModalOpen(false);
+                }}
+              >
+                Add to Cart
+              </ButtonStyled>
+            </div>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
 };
 
 export default GridItem;
