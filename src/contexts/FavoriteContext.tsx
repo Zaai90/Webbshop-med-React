@@ -23,7 +23,6 @@ interface Props {
 const FavoritesProvider = ({ children }: Props) => {
   const [favorites, setFavorites] = useLocalStorage<Product[]>("Favorites", []);
 
-  // const { products } = useProducts();
 
   const addToFavorites = (favoriteProduct: Product) => {
     const existingProduct = favorites.find((product) => product.id === favoriteProduct.id);
