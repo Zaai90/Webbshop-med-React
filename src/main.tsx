@@ -8,7 +8,7 @@ import FavoritesProvider from "./contexts/FavoriteContext";
 import ProductProvider from "./contexts/ProductContext";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <CurrencyContextProvider>
         <ProductProvider>
@@ -20,5 +20,5 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </ProductProvider>
       </CurrencyContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 );
