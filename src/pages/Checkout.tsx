@@ -1,4 +1,5 @@
-import { Button } from "@mui/material";
+import * as Icon from "@mui/icons-material/";
+import { Button, IconButton } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
@@ -16,7 +17,7 @@ const Image = styled.img`
 
 const Checkout = () => {
   const [isPayed, setIsPayed] = useState(false);
-
+  const handleSubmit = () => {};
   const { cart, totalAmount } = useCart();
   return (
     <MainContent>
@@ -25,25 +26,29 @@ const Checkout = () => {
         {cart.map((cartItem) => (
           <CartItemCard key={cartItem.product.id}>
             <a href={`/product/${cartItem.product.id}`}>
-            <Image src={cartItem.product.img[0]} />
+              <Image src={cartItem.product.img[0]} />
             </a>
-            
-            <div style={{width: '100%', padding: '1rem'}}>
 
-              <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between'}}>
-            <div style={{flex: 1}}>
-              <div>{cartItem.product.title}</div>
-              <div>{cartItem.product.designer}</div>
-              <div>{cartItem.product.price}</div>
-            </div>
-            
-            <div style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
-              <Button>+</Button>
-              <Button>-</Button>
-            </div>
-            <div style={{flex: 1, display: 'flex', justifyContent: 'end'}}>
-                <Button>Delete</Button>
-              </div>
+            <div style={{ width: "100%", padding: "1rem" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+                <div style={{ flex: 1 }}>
+                  <div>{cartItem.product.title}</div>
+                  <div>{cartItem.product.designer}</div>
+                  <div>{cartItem.product.price}</div>
+                </div>
+
+                <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
+                  <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+                    <Button>+</Button>
+                    <div>{cartItem.quantity}</div>
+                    <Button>-</Button>
+                  </div>
+                  <div style={{ flex: 1, display: "flex", justifyContent: "end" }}>
+                    <IconButton sx={{ alignSelf: "end" }} onClick={() => console.log("Hello")}>
+                      <Icon.DeleteOutline sx={{ fontSize: "1.3rem" }} />
+                    </IconButton>
+                  </div>
+                </div>
               </div>
               <div>{cartItem.product.price * cartItem.quantity}</div>
             </div>
@@ -51,7 +56,6 @@ const Checkout = () => {
         ))}
       </div>
       <div>{totalAmount}</div>
-      <button>Pay now 🤑</button>
     </MainContent>
   );
 };
