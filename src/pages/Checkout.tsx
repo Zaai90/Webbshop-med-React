@@ -12,24 +12,6 @@ const CartItemCard = styled.div`
 
 const Image = styled.img`
   height: 200px;
-  flex: 1;
-`;
-
-const CartItemInfo = styled.div`
-  flex: 1;
-`;
-
-const Title = styled.div`
-  font-weight: bold;
-`;
-
-const Right = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const CartButtons = styled.div`
-  flex: 1;
 `;
 
 const Checkout = () => {
@@ -42,24 +24,34 @@ const Checkout = () => {
       <div>
         {cart.map((cartItem) => (
           <CartItemCard key={cartItem.product.id}>
+            <a href={`/product/${cartItem.product.id}`}>
             <Image src={cartItem.product.img[0]} />
-            <CartItemInfo>
-              <Title>{cartItem.product.title}</Title>
+            </a>
+            
+            <div style={{width: '100%', padding: '1rem'}}>
+
+              <div style={{display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between'}}>
+            <div style={{flex: 1}}>
+              <div>{cartItem.product.title}</div>
               <div>{cartItem.product.designer}</div>
+              <div>{cartItem.product.price}</div>
+            </div>
+            
+            <div style={{flex: 1, display: 'flex', justifyContent: 'center'}}>
               <Button>+</Button>
               <Button>-</Button>
-            </CartItemInfo>
-            <Right>
-              <CartButtons>
-                <Button>🩲</Button>
-                <Button>🗑</Button>
-              </CartButtons>
+            </div>
+            <div style={{flex: 1, display: 'flex', justifyContent: 'end'}}>
+                <Button>Delete</Button>
+              </div>
+              </div>
               <div>{cartItem.product.price * cartItem.quantity}</div>
-            </Right>
+            </div>
           </CartItemCard>
         ))}
       </div>
       <div>{totalAmount}</div>
+      <button>Pay now 🤑</button>
     </MainContent>
   );
 };
