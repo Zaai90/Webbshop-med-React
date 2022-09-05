@@ -13,7 +13,6 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import RandomProduct from "../components/RandomProduct";
 
 const TopContent = styled.div`
   padding: 60px;
@@ -152,7 +151,6 @@ const Home = () => {
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
 
-
   function handleQuickViewClick() {
     console.log("I'm here!");
   }
@@ -162,7 +160,6 @@ const Home = () => {
   };
   return (
     <>
-      
       <TopSwiper>
         <Swiper
           loop={true}
@@ -184,9 +181,6 @@ const Home = () => {
         </Swiper>
       </TopSwiper>
       <MainContent>
-        <Container>
-          <RandomProduct />
-        </Container>
         <Container>
           <TopContent>
             <CategoryBubbleContainer>
@@ -250,7 +244,7 @@ const Home = () => {
                     <div style={{ display: "flex", background: "white" }}>
                       <div style={{ marginRight: "auto" }}>{product.title}</div>
                       <FavContainer>
-                          <FavoriteIcon onClick={toggleHearted} className={ isHearted ? "hearted" : undefined} />
+                        <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
                       </FavContainer>
                     </div>
                     <div style={{ textAlign: "left" }}>{product.price}</div>
