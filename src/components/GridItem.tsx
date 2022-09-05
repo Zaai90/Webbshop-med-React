@@ -2,7 +2,7 @@ import * as Icon from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Button, Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
+import { Button, Card, Fade, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
@@ -118,12 +118,16 @@ const ButtonStyled = styled(Button)`
   width: 50%;
 `;
 
-const FavoriteButtonStyled = styled(IconButton)`
+const FavoriteButtonStyled = styled.div`
   position: absolute;
-  left: 5%;
-  top: 10%;
+  left: 0%;
+  top: 0%;
   z-index: 200;
-  color: black;
+  padding: 0.75rem;
+  cursor: pointer;
+  svg {
+    transition: 2s ease all;
+  }
 `;
 interface Props {
   product: Product;
@@ -166,8 +170,16 @@ const GridItem = ({ product, openSnackBar }: Props) => {
   return (
     <>
       <CardStyled>
-        <FavoriteButtonStyled onClick={toggleFavorite} color="secondary">
-          {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        <FavoriteButtonStyled onClick={toggleFavorite}>
+          <Tooltip
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 500 }}
+            title={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+            placement="right"
+            arrow
+          >
+            {isFavorite ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
+          </Tooltip>
         </FavoriteButtonStyled>
         <NavLink to={`../product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
