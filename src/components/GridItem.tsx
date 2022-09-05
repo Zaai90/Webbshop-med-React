@@ -149,10 +149,8 @@ const GridItem = ({ product }: Props) => {
     if (favorites.length === 0) {
       return false;
     }
-    const alreadyFavorite = favorites.find((favorite) => favorite.id === product.id);
-    if (alreadyFavorite) {
-      return true;
-    } else return false;
+    return favorites.find((favorite) => favorite.id === product.id) ? true : false;
+
   }
 
   function toggleFavorite() {
