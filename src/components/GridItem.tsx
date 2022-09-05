@@ -130,11 +130,9 @@ interface Props {
   openSnackBar: (productTitle: string) => void;
 }
 
-
-  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
 
 const GridItem = ({ product, openSnackBar }: Props) => {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
@@ -148,23 +146,21 @@ const GridItem = ({ product, openSnackBar }: Props) => {
     setIsModalOpen(true);
   }
 
-
   function checkIfIsFavorite(): boolean {
     if (favorites.length === 0) {
       return false;
     }
     return favorites.find((favorite) => favorite.id === product.id) ? true : false;
-
   }
 
   function toggleFavorite() {
     !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
     setIsFavorite(!isFavorite);
+  }
 
   function handleAdd() {
     addToCart(product, 1);
     openSnackBar(product.title);
-
   }
 
   return (
