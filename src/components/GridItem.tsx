@@ -120,7 +120,7 @@ interface Props {
   openSnackBar: (productTitle: string) => void;
 }
 
-const GridItem = ({ product }: Props) => {
+const GridItem = ({ product, openSnackBar }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
   const { addToCart } = useCart();
@@ -131,6 +131,11 @@ const GridItem = ({ product }: Props) => {
 
   function handleQuickViewClick() {
     setIsModalOpen(true);
+  }
+
+  function handleAdd() {
+    addToCart(product, 1);
+    openSnackBar(product.title);
   }
 
   return (
@@ -153,13 +158,7 @@ const GridItem = ({ product }: Props) => {
             <p>{product.price}:-</p>
           </div>
 
-          <IconButtonStyled
-            onClick={() => {
-              addToCart(product, 1);
-            }}
-            color="primary"
-            aria-label="add to shopping cart"
-          >
+          <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
             <Icon.AddShoppingCart />
           </IconButtonStyled>
         </CardBottomStyled>
