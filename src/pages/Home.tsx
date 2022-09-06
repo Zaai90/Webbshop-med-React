@@ -9,10 +9,16 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import { useState } from "react";
-import { Autoplay, Navigation, Pagination } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+
+const images: string[] = [
+  "https://images.pexels.com/photos/6347538/pexels-photo-6347538.jpeg?cs=srgb&dl=pexels-liza-summer-6347538.jpg&fm=jpg",
+  "https://images.unsplash.com/photo-1445205170230-053b83016050?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2671&q=80",
+  "https://images.pexels.com/photos/1212179/pexels-photo-1212179.jpeg?cs=srgb&dl=pexels-wendy-van-zyl-1212179.jpg&fm=jpg",
+];
 
 const TopContent = styled.div`
   padding: 60px;
@@ -137,7 +143,7 @@ const ItemContentBottom = styled.div`
 
 const TopSwiper = styled.div`
   margin-top: 4rem;
-  height: 500px;
+  height: 70vh;
 
   .topSwiper {
     height: 100%;
@@ -145,6 +151,11 @@ const TopSwiper = styled.div`
   .swiper-slide {
     background: orange;
   }
+`;
+
+const SliderImg = styled.img`
+  width: 100%;
+  object-fit: contain;
 `;
 
 const Home = () => {
@@ -165,19 +176,24 @@ const Home = () => {
           loop={true}
           spaceBetween={0}
           centeredSlides={true}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
+          // autoplay={{
+          //   delay: 3000,
+          //   disableOnInteraction: false,
+          // }}
           pagination={{
             clickable: true,
           }}
-          modules={[Autoplay, Pagination]}
+          modules={[Pagination]}
           className="topSwiper"
         >
-          <SwiperSlide>Test</SwiperSlide>
+          {images.map((img) => (
+            <SwiperSlide>
+              <SliderImg src={img} />
+            </SwiperSlide>
+          ))}
+          {/* <SwiperSlide>Test</SwiperSlide>
           <SwiperSlide>Slide 1</SwiperSlide>
-          <SwiperSlide>Slide 1</SwiperSlide>
+          <SwiperSlide>Slide 1</SwiperSlide> */}
         </Swiper>
       </TopSwiper>
       <MainContent>
