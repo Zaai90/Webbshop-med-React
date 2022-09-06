@@ -35,18 +35,13 @@ function ProductProvider({ children }: Props) {
   };
 
   const deleteProduct = (product: Product) => {
-    // TODO: deleteProduct =D
-    const index = products.findIndex((p) => p.id === product.id);
+    // TODO: deleteProducts =D
 
-    const productsCopy = [...products];
+    const test: number[] = [1];
 
-    productsCopy.splice(index, 1);
+    const newProducts = products.filter((product) => !test.includes(product.id));
 
-    console.log(productsCopy);
-
-    setProducts(productsCopy);
-
-    console.log(products);
+    console.log(newProducts);
   };
 
   const editProduct = (editedProduct: Product) => {
