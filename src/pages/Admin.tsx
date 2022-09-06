@@ -3,6 +3,7 @@ import Fab from "@mui/material/Fab";
 import { useState } from "react";
 import AddProduct from "../components/AdminAddProduct";
 import AdminProductCard from "../components/AdminProductCard";
+import AdminTable from "../components/AdminTable";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
 import { Product } from "../ProductData";
@@ -23,6 +24,7 @@ const Admin = () => {
         <Icon.Add />
       </Fab>
       <AddProduct isOpen={formIsOpen} />
+      <AdminTable />
     </MainContent>
   );
 };
