@@ -1,7 +1,7 @@
 import * as Icon from "@mui/icons-material/";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar as MUIAppBar, Badge, IconButton, Toolbar, useMediaQuery } from "@mui/material";
+import { AppBar as MUIAppBar, Badge, IconButton, Toolbar } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 // import { useMediaQuery } from "react-responsive";
@@ -11,7 +11,7 @@ import { useCart } from "../contexts/CartContext";
 import { Currency, useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { useProducts } from "../contexts/ProductContext";
-import { theme } from "../utils/Theme";
+import { smScreen, tabletScreen } from "../utils/MediaQueries";
 import AppBarDrawer from "./AppBarDrawer";
 import CartDrawerContent from "./CartDrawerContent";
 import LinksDrawerContent from "./LinksDrawerContent";
@@ -40,11 +40,6 @@ const IconButtonStyled = styled(IconButton)`
 const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
-  // TODO: Fix global media query consts
-  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const isPhoneScreen = useMediaQuery(theme.breakpoints.down("tablet"));
-  // const smallScreen = useMediaQuery({ query: "(max-width:900px)" });
-  // const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
 
   const { changeCurrency } = useCurrency();
 
@@ -95,14 +90,14 @@ const AppBar = () => {
               </NavLink>
 
               <IconButtonStyled sx={{ marginLeft: "1rem" }} onClick={toggleCartDrawer} size="large" edge="start" color="inherit" aria-label="cart">
-                {isCartDrawerOpen && isPhoneScreen ? (
+                {isCartDrawerOpen && smScreen ? (
                   <Icon.Close />
                 ) : (
                   <CartWrapper>
                     <Badge badgeContent={cartQty} showZero color="primary">
                       <Icon.LocalMallOutlined sx={{ marginRight: "0 !important" }} />
                     </Badge>
-                    {!smallScreen && <Price>{totalAmount} SEK</Price>}
+                    {!tabletScreen && <Price>{totalAmount} SEK</Price>}
                   </CartWrapper>
                 )}
               </IconButtonStyled>
