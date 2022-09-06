@@ -176,19 +176,19 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  selectedTitle: string[];
+  selectedId: number[];
   products: Product[];
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const { numSelected } = props;
 
-  const handleSelectedId = (selectedTitle: string[]) => {
-    console.log(selectedTitle);
+  const handleSelectedId = (selectedId: number[]) => {
+    console.log(selectedId);
 
-    let checker = (arr: string[], target: Product[]) => target.every((v) => arr.includes(v.title));
+    // let checker = (arr: string[], target: Product[]) => target.every((v) => arr.includes(v.title));
 
-    console.log(checker(selectedTitle, props.products));
+    // console.log(checker(selectedId, props.products));
 
     // selectedTitle.every();
   };
@@ -214,7 +214,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={() => handleSelectedId(props.selectedTitle)}>
+          <IconButton onClick={() => handleSelectedId(props.selectedId)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -232,7 +232,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 export default function AdminTable() {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Product>("id");
-  const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<number[]>([]);
   const [page, setPage] = useState(0);
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -247,19 +247,19 @@ export default function AdminTable() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = products.map((n) => n.title);
+      const newSelected = products.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, title: string) => {
-    const selectedIndex = selected.indexOf(title);
-    let newSelected: string[] = [];
+  const handleClick = (event: React.MouseEvent<unknown>, id: number) => {
+    const selectedIndex = selected.indexOf(id);
+    let newSelected: number[] = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, title);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -285,7 +285,7 @@ export default function AdminTable() {
     setDense(event.target.checked);
   };
 
-  const isSelected = (title: string) => selected.indexOf(title) !== -1;
+  const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
@@ -293,7 +293,7 @@ export default function AdminTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar products={products} selectedTitle={selected} numSelected={selected.length} />
+        <EnhancedTableToolbar products={products} selectedId={selected} numSelected={selected.length} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
             <EnhancedTableHead
@@ -313,13 +313,13 @@ export default function AdminTable() {
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((product, index) => {
-                  const isItemSelected = isSelected(product.title);
+                  const isItemSelected = isSelected(product.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, product.title)}
+                      onClick={(event) => handleClick(event, product.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
