@@ -1,16 +1,17 @@
 import * as Icon from "@mui/icons-material/";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar as MUIAppBar, Badge, IconButton, Toolbar } from "@mui/material";
+import { AppBar as MUIAppBar, Badge, IconButton, Toolbar, useMediaQuery } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive";
+// import { useMediaQuery } from "react-responsive";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { Currency, useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { useProducts } from "../contexts/ProductContext";
+import { theme } from "../utils/Theme";
 import AppBarDrawer from "./AppBarDrawer";
 import CartDrawerContent from "./CartDrawerContent";
 import LinksDrawerContent from "./LinksDrawerContent";
@@ -40,8 +41,10 @@ const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
   // TODO: Fix global media query consts
-  const smallScreen = useMediaQuery({ query: "(max-width:900px)" });
-  const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
+  const smallScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const isPhoneScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+  // const smallScreen = useMediaQuery({ query: "(max-width:900px)" });
+  // const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
 
   const { changeCurrency } = useCurrency();
 
