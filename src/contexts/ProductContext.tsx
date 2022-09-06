@@ -5,14 +5,14 @@ import { Product, Products } from "../ProductData";
 interface ProductContextValue {
   products: Product[];
   createProduct: (product: Product) => void;
-  deleteProduct: (product: Product) => void;
+  deleteProducts: (selectedIds: number[]) => void;
   editProduct: (product: Product) => void;
 }
 
 const ProductContext = createContext<ProductContextValue>({
   products: [],
   createProduct: () => {},
-  deleteProduct: () => {},
+  deleteProducts: () => {},
   editProduct: () => {},
 });
 
@@ -27,21 +27,15 @@ function ProductProvider({ children }: Props) {
   const [products, setProducts] = useLocalStorage<Product[]>("products", LoadProducts);
 
   const createProduct = (product: Product) => {
-    // TODO: create product =D
-    console.log("created product" + { product });
     const productsCopy = [...products, { ...product, id: 14 }];
 
     setProducts(productsCopy);
   };
 
-  const deleteProduct = (product: Product) => {
-    // TODO: deleteProducts =D
+  const deleteProducts = (selectedIds: number[]) => {
+    const newProducts = products.filter((product) => !selectedIds.includes(product.id));
 
-    const test: number[] = [1];
-
-    const newProducts = products.filter((product) => !test.includes(product.id));
-
-    console.log(newProducts);
+    setProducts(newProducts);
   };
 
   const editProduct = (editedProduct: Product) => {
@@ -54,7 +48,7 @@ function ProductProvider({ children }: Props) {
     setProducts(productsCopy);
   };
 
-  return <ProductContext.Provider value={{ products, createProduct, deleteProduct, editProduct }}>{children}</ProductContext.Provider>;
+  return <ProductContext.Provider value={{ products, createProduct, deleteProducts, editProduct }}>{children}</ProductContext.Provider>;
 }
 
 export const useProducts = () => useContext(ProductContext);
