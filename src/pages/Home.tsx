@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Container } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -144,6 +145,7 @@ const ItemContentBottom = styled.div`
 const TopSwiper = styled.div`
   margin-top: 4rem;
   height: 70vh;
+  position: relative;
 
   .topSwiper {
     height: 100%;
@@ -156,6 +158,65 @@ const TopSwiper = styled.div`
 const SliderImg = styled.img`
   width: 100%;
   object-fit: contain;
+`;
+
+const SliderInformation = styled.div`
+  position: absolute;
+  width: 600px;
+  height: 500px;
+  top: 10rem;
+  left: 35rem;
+  z-index: 20;
+  background-color: #fcfcfc7f;
+  color: white;
+  font-size: 50px;
+`;
+
+const SliderInformation2 = styled.div`
+  position: absolute;
+  width: 600px;
+  height: 500px;
+  top: 10rem;
+  left: 80rem;
+  z-index: 20;
+  background-color: #fcfcfc7f;
+  color: white;
+  font-size: 50px;
+`;
+
+const SliderText = styled.div`
+  font-size: 180px;
+  position: absolute;
+  top: 30vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 3px 1px black;
+  z-index: 20;
+`;
+
+const BtnContainer = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  right: 0;
+  left: 0;
+  top: 55vh;
+`;
+
+const EnterBtn = styled(Button)`
+  background-color: rgba(164, 122, 122, 0) !important;
+  color: white !important;
+  border: 2px solid white !important;
+  font-size: 50px !important;
+  z-index: 20 !important;
+  margin: 0 auto !important;
+  text-shadow: 1px 1px 1px black;
+
+  &:hover {
+    box-shadow: 1px -1px 1px 0px rgba(0, 0, 0, 0.75) inset, -1px 1px 1px 0px rgba(0, 0, 0, 0.75) inset;
+  }
 `;
 
 const Home = () => {
@@ -196,6 +257,14 @@ const Home = () => {
           <SwiperSlide>Slide 1</SwiperSlide> */}
         </Swiper>
       </TopSwiper>
+      {/* <SliderInformation>INFORMATION!!!</SliderInformation>
+      <SliderInformation2>INFORMATION!!! 2!!</SliderInformation2> */}
+      <BtnContainer>
+        <NavLink to={"store"} style={{ textDecoration: "none" }}>
+          <EnterBtn>SHOP NOW</EnterBtn>
+        </NavLink>
+      </BtnContainer>
+      <SliderText>TEXTILE FASHION CENTER</SliderText>
       <MainContent>
         <Container>
           <TopContent>
