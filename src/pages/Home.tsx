@@ -1,9 +1,10 @@
+import { Typography } from "@mui/material";
 import MainContent from "../components/MainContent";
 
 const Home = () => {
   return (
     <MainContent>
-      <div>Home</div>
+      <Typography>Test</Typography>
     </MainContent>
   );
 };
