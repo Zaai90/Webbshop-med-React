@@ -185,7 +185,7 @@ const SliderInformation2 = styled.div`
 `;
 
 const SliderText = styled.div`
-  font-size: 180px;
+  font-size: calc(40px + (180 - 40) * ((100vw - 360px) / (2600 - 300)));
   position: absolute;
   top: 30vh;
   left: 0;
