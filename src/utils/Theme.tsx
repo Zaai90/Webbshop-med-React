@@ -1,6 +1,6 @@
 // Link to default MUI theme  https://mui.com/material-ui/customization/default-theme
 
-import { createTheme } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -8,7 +8,7 @@ declare module "@mui/material/styles" {
   }
 }
 
-export const theme = createTheme({
+const theme = createTheme({
   breakpoints: {
     keys: ["xs", "sm", "tablet", "md", "lg", "xl"],
     values: {
@@ -24,3 +24,5 @@ export const theme = createTheme({
     fontFamily: "'Poppins','Roboto', 'Helvetica', sans-serif",
   },
 });
+
+export default theme;
