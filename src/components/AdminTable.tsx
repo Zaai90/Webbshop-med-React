@@ -162,15 +162,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  selectedId: number[];
+  selectedIds: number[];
   products: Product[];
+  deleteProducts: (selectedIds: number[]) => void;
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const { numSelected } = props;
 
-  const handleSelectedId = (selectedId: number[]) => {
-    
+  const handleSelectedIds = (selectedId: number[]) => {
+    props.deleteProducts(selectedId);
   };
 
   return (
@@ -194,7 +195,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={() => handleSelectedId(props.selectedId)}>
+          <IconButton onClick={() => handleSelectedIds(props.selectedIds)}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -217,7 +218,7 @@ export default function AdminTable() {
   const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const { products, editProduct, deleteProduct } = useProducts();
+  const { products, editProduct, deleteProducts } = useProducts();
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Product) => {
     const isAsc = orderBy === property && order === "asc";
@@ -273,7 +274,7 @@ export default function AdminTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar products={products} selectedId={selected} numSelected={selected.length} />
+        <EnhancedTableToolbar products={products} deleteProducts={deleteProducts} selectedIds={selected} numSelected={selected.length} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
             <EnhancedTableHead
