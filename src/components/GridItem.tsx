@@ -2,7 +2,8 @@ import * as Icon from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Button, Card, Fade, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Tooltip } from "@mui/material";
+import { Button, Card, Divider, Fade, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Tooltip } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
@@ -131,10 +132,10 @@ const FavoriteButtonStyled = styled.div`
 `;
 interface Props {
   product: Product;
-  openSnackBar: (productTitle: string) => void;
 }
 
-const GridItem = ({ product, openSnackBar }: Props) => {
+const GridItem = ({ product }: Props) => {
+  const { enqueueSnackbar } = useSnackbar();
   const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
   const { addToCart } = useCart();
 
@@ -164,7 +165,31 @@ const GridItem = ({ product, openSnackBar }: Props) => {
 
   function handleAdd() {
     addToCart(product, 1);
-    openSnackBar(product.title);
+
+    // Styled toast
+    enqueueSnackbar(
+      <div style={{ display: "flex", flexDirection: "column", width: "300px" }}>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <Icon.AddShoppingCart />
+          <div>Added to cart!</div>
+        </div>
+        <Divider sx={{ bgcolor: "primary.dark", margin: "1rem 0" }} />
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <img draggable="false" width={100} src={product.img[0]} />
+          <div>
+            <h4>{product.title}</h4>
+            <h3>{product.price}</h3>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", margin: "1rem 0", width: "100%" }}>
+          <NavLink style={{ width: "100%" }} to="/checkout">
+            <Button variant="contained" color="success" fullWidth>
+              CHECKOUT
+            </Button>
+          </NavLink>
+        </div>
+      </div>
+    );
   }
 
   return (
