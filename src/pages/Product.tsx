@@ -50,6 +50,7 @@ const DesignerStyled = styled.h2`
 const PriceStyled = styled.p`
   font-size: 1.1rem;
   font-weight: 500;
+
   @media (min-width: 768px) {
     font-size: 1.5rem;
     margin-top: -1.05rem;
@@ -61,6 +62,18 @@ const DescriptionStyled = styled.p`
   @media (min-width: 768px) {
     font-size: 1.5rem;
     font-weight: 400;
+  }
+`;
+
+const HeaderContainer = styled.div`
+  display: flex;
+  flex-direction: "row";
+  gap: 1rem;
+  padding: 0 1rem 0 0;
+  margin: 0;
+
+  @media (min-width: 768px) {
+    gap: 12rem;
   }
 `;
 
@@ -76,10 +89,10 @@ const ProductPage = () => {
       <ContainerStyled>
         <ImagePresenter product={product} />
         <InfoContainer>
-          <div style={{ display: "flex", flexDirection: "row", gap: "5rem", padding: 0, margin: 0 }}>
+          <HeaderContainer>
             <DesignerStyled>{product.designer}</DesignerStyled>
             <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
-          </div>
+          </HeaderContainer>
           <TitleStyled>{product.title}</TitleStyled>
           <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
           <h4>Description:</h4>
