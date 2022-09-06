@@ -41,20 +41,6 @@ function getComparator<Key extends keyof Record<string, any>>(order: Order, orde
   return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-// function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
-//   const stabilizedThis = array.map((el, index) => [el, index] as [T, number]);
-//   stabilizedThis.sort((a, b) => {
-//     const order = comparator(a[0], b[0]);
-//     if (order !== 0) {
-//       return order;
-//     }
-//     return a[1] - b[1];
-//   });
-//   return stabilizedThis.map((el) => el[0]);
-// }
-
 interface HeadCell {
   disablePadding: boolean;
   id: keyof Product;
@@ -184,13 +170,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const { numSelected } = props;
 
   const handleSelectedId = (selectedId: number[]) => {
-    console.log(selectedId);
-
-    // let checker = (arr: string[], target: Product[]) => target.every((v) => arr.includes(v.title));
-
-    // console.log(checker(selectedId, props.products));
-
-    // selectedTitle.every();
+    
   };
 
   return (
@@ -305,9 +285,6 @@ export default function AdminTable() {
               rowCount={products.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-              rows.slice().sort(getComparator(order, orderBy)) */}
-
               {products
                 .slice()
                 .sort(getComparator(order, orderBy))
