@@ -1,0 +1,145 @@
+.slider {
+  padding: 32px;
+}
+
+.slider .swiper-container1 {
+  width: 95%;
+  height: 100%;
+}
+
+.slider .swiper-container2 {
+  width: 100%;
+  height: 100%;
+}
+
+.slider__flex {
+  display: flex;
+  justify-content: center;
+  gap: .5rem;
+  align-items: center;
+  flex-grow: 1;
+  flex: 1;
+  justify-content: center;
+  max-width: 1000px;
+}
+
+.slider__col {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+.slider__prev,
+.slider__next {
+  position: relative;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.slider__prev:focus,
+.slider__next:focus {
+  outline: none;
+}
+
+.slider__thumbs {
+  height: calc(500px - 96px);
+}
+
+.slider__thumbs .slider__image {
+  transition: 0.25s;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.slider__thumbs .slider__image:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.slider__thumbs .swiper-slide-thumb-active .slider__image {
+  -webkit-filter: grayscale(0%);
+  filter: grayscale(0%);
+  opacity: 1;
+  border: 1px solid #ccc;
+}
+
+.slider__images {
+  height: 500px;
+  width: 85%;
+}
+
+.slider__images .slider__image img {
+  transition: 3s;
+}
+
+.slider__image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: grab;
+}
+
+.slider__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .slider__flex {
+    flex-direction: column-reverse;
+  }
+
+  .slider__col {
+    display: none;
+  }
+
+  .slider__images {
+    width: 100%;
+  }
+
+  .slider__thumbs {
+    height: 100px;
+    width: calc(100% - 96px);
+    margin: 0 16px;
+  }
+
+  .slider__prev,
+  .slider__next {
+    height: auto;
+    width: 32px;
+  }
+}
+
+.slider__next .swiper-button-next,
+.slider__prev .swiper-button-prev {
+  left: 50%;
+  transform: rotate(90deg);
+  transform-origin: left center;
+  color: #ccc;
+}
+
+.slider__prev .swiper-button-prev {
+  top: 0;
+}
+
+.slider__next .swiper-button-next {
+  bottom: 0;
+}
+
+.slider {
+  max-width: 1000px;
+  margin: 0 auto;
+}

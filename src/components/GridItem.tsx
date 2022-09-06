@@ -1,11 +1,15 @@
 import * as Icon from "@mui/icons-material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import { Button, Card, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent } from "@mui/material";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Button, Card, Divider, Fade, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Tooltip } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
+import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
@@ -115,15 +119,29 @@ const ButtonStyled = styled(Button)`
   width: 50%;
 `;
 
+const FavoriteButtonStyled = styled.div`
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  z-index: 200;
+  padding: 0.75rem;
+  cursor: pointer;
+  svg {
+    transition: 2s ease all;
+  }
+`;
 interface Props {
   product: Product;
-  openSnackBar: (productTitle: string) => void;
 }
 
 const GridItem = ({ product }: Props) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+  const { addToCart } = useCart();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
-  const { addToCart } = useCart();
+  const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
 
   const handleChange = (event: SelectChangeEvent) => {
     setSize(event.target.value as string);
@@ -133,9 +151,61 @@ const GridItem = ({ product }: Props) => {
     setIsModalOpen(true);
   }
 
+  function checkIfIsFavorite(): boolean {
+    if (favorites.length === 0) {
+      return false;
+    }
+    return favorites.find((favorite) => favorite.id === product.id) ? true : false;
+  }
+
+  function toggleFavorite() {
+    !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
+    setIsFavorite(!isFavorite);
+  }
+
+  function handleAdd() {
+    addToCart(product, 1);
+
+    // Styled toast
+    enqueueSnackbar(
+      <div style={{ display: "flex", flexDirection: "column", width: "300px" }}>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+          <Icon.AddShoppingCart />
+          <div>Added to cart!</div>
+        </div>
+        <Divider sx={{ bgcolor: "primary.dark", margin: "1rem 0" }} />
+        <div style={{ display: "flex", gap: "1rem" }}>
+          <img draggable="false" width={100} src={product.img[0]} />
+          <div>
+            <h4>{product.title}</h4>
+            <h3>{product.price}</h3>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "center", margin: "1rem 0", width: "100%" }}>
+          <NavLink style={{ width: "100%" }} to="/checkout">
+            <Button variant="contained" color="success" fullWidth>
+              CHECKOUT
+            </Button>
+          </NavLink>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <CardStyled>
+        <FavoriteButtonStyled onClick={toggleFavorite}>
+          <Tooltip
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 500 }}
+            title={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+            placement="right"
+            arrow
+          >
+            {isFavorite ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
+          </Tooltip>
+        </FavoriteButtonStyled>
         <NavLink to={`../product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
         </NavLink>
@@ -153,13 +223,7 @@ const GridItem = ({ product }: Props) => {
             <p>{product.price}:-</p>
           </div>
 
-          <IconButtonStyled
-            onClick={() => {
-              addToCart(product, 1);
-            }}
-            color="primary"
-            aria-label="add to shopping cart"
-          >
+          <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
             <Icon.AddShoppingCart />
           </IconButtonStyled>
         </CardBottomStyled>
