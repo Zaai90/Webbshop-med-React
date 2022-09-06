@@ -3,7 +3,13 @@ import { useFormik } from "formik";
 import styled from "styled-components";
 import * as yup from "yup";
 
-const Form = styled.form``;
+const Form = styled.form`
+display: flex;
+flex-direction: column;
+gap: .5rem;
+padding-top: 2rem;
+width: 90%;
+`;
 
 const Input = styled(TextField)`
   margin-bottom: 2rem;
@@ -43,11 +49,12 @@ const PaymentForm = ({ handleSubmit }: Props) => {
     validationSchema: validationSchema,
     onSubmit: (values: Values, e) => {
       handleSubmit();
-      alert(JSON.stringify(values, null, 2));
+      // alert(JSON.stringify(values, null, 2));
     },
   });
   return (
     <div>
+      <div>Personal information</div>
       <Form onSubmit={formik.handleSubmit}>
         <Input
           fullWidth
@@ -137,7 +144,7 @@ const PaymentForm = ({ handleSubmit }: Props) => {
           helperText={formik.touched.phoneNumber && formik.errors.phoneNumber}
         />
         <Button color="primary" variant="contained" fullWidth type="submit">
-          Submit
+          Next step
         </Button>
       </Form>
     </div>
