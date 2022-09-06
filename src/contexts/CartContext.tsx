@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/localStorage";
 import { CartItem } from "../models/CartItem";
 import { Product } from "../ProductData";
+import { useFavorites } from "./FavoriteContext";
 
 interface CartContext {
   cart: CartItem[];
@@ -12,6 +13,7 @@ interface CartContext {
   totalAmount: number;
   getItemQty(id: number): number;
   removeItemFromCart: (cartItem: CartItem) => void;
+  addAllFavorites: () => void;
 }
 
 const CartContext = createContext<CartContext>({
@@ -23,6 +25,7 @@ const CartContext = createContext<CartContext>({
   totalAmount: 0,
   getItemQty: () => 0,
   removeItemFromCart: () => {},
+  addAllFavorites: () => {},
 });
 
 interface CartProviderProps {
@@ -30,6 +33,7 @@ interface CartProviderProps {
 }
 
 const CartContextProvider = ({ children }: CartProviderProps) => {
+  const { favorites } = useFavorites();
   const [cart, setCart] = useLocalStorage<CartItem[]>("cart", []);
 
   const addToCart = (item: Product, quantity: number = 5) => {
@@ -43,6 +47,12 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
       );
     } else {
       setCart((prev) => [...prev, { product: item, quantity: quantity }]);
+    }
+  };
+
+  const addAllFavorites = () => {
+    for (let i = 0; i < favorites.length; i++) {
+      addToCart(favorites[i], 1);
     }
   };
 
@@ -84,7 +94,17 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
 
   return (
     <CartContext.Provider
-      value={{ cart, cartQty: getCartQty, totalAmount: getTotalAmount, addToCart, removeFromCart, clearCart, getItemQty, removeItemFromCart }}
+      value={{
+        addAllFavorites,
+        cart,
+        cartQty: getCartQty,
+        totalAmount: getTotalAmount,
+        addToCart,
+        removeFromCart,
+        clearCart,
+        getItemQty,
+        removeItemFromCart,
+      }}
     >
       {children}
     </CartContext.Provider>
