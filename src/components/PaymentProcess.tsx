@@ -14,48 +14,13 @@ const steps = ["Personal information", "Payment selection", "Confirm"];
 
 const PaymentProcess = () => {
   const [activeStep, setActiveStep] = React.useState(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
-
-  const isStepOptional = (step: number) => {
-    return step === 1;
-  };
-
-  const isStepSkipped = (step: number) => {
-    return skipped.has(step);
-  };
 
   const handleNext = () => {
-    let newSkipped = skipped;
-    if (isStepSkipped(activeStep)) {
-      newSkipped = new Set(newSkipped.values());
-      newSkipped.delete(activeStep);
-    }
-
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped(newSkipped);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
-
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      // You probably want to guard against something like this,
-      // it should never occur unless someone's actively trying to break something.
-      throw new Error("You can't skip a step that isn't optional.");
-    }
-
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-    setSkipped((prevSkipped) => {
-      const newSkipped = new Set(prevSkipped.values());
-      newSkipped.add(activeStep);
-      return newSkipped;
-    });
-  };
-
-  const handleReset = () => {
-    setActiveStep(0);
   };
 
   return (
@@ -63,51 +28,36 @@ const PaymentProcess = () => {
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
-          const labelProps: {
-            optional?: React.ReactNode;
-          } = {};
-        //   if (isStepOptional(index)) {
-        //     labelProps.optional = <Typography variant="caption">Optional</Typography>;
-        //   }
-        //   if (isStepSkipped(index)) {
-        //     stepProps.completed = false;
-        //   }
           return (
             <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
+              <StepLabel>{label}</StepLabel>
             </Step>
           );
         })}
       </Stepper>
+      {/* This happens after final step */}
       {activeStep === steps.length ? (
         <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
+          <Typography sx={{ mt: 2, mb: 1 }}>Thank you for your purchase!</Typography>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            {/* TODO: Add Complete component */}
           </Box>
         </React.Fragment>
       ) : (
         <React.Fragment>
-          {/* <Typography sx={{ mt: 2, mb: 1 }}>Fill this form</Typography> */}
-          <div style={{ marginTop: '5rem', display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <Box sx={{ marginTop: "5rem", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {activeStep === 0 && <PaymentForm handleSubmit={handleNext} />}
-            {activeStep === 1 && <PaymentOptions />}
-            {activeStep === 2 && <Confirmation />}
+            {activeStep === 1 && <PaymentOptions handleSubmit={handleNext} />}
+            {activeStep === 2 && <Confirmation handleSubmit={handleNext} />}
             <CurrentOrder />
-          </div>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            {/* <Box sx={{ flex: "1 1 auto" }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
-              </Button>
-            )} */}
-            <Button onClick={handleNext}>{activeStep === steps.length - 1 && "Finish"}</Button>
           </Box>
+          {activeStep !== 0 && (
+            <Box sx={{ pt: 2 }}>
+              <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
+                Back
+              </Button>
+            </Box>
+          )}
         </React.Fragment>
       )}
     </Box>
