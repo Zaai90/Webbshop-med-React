@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material/";
 import TextField from "@mui/material/TextField";
 import { FormEvent, useState } from "react";
 import { Product } from "../ProductData";
