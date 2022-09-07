@@ -1,14 +1,15 @@
 import * as Icon from "@mui/icons-material/";
-import { Box, Drawer } from "@mui/material";
+import { Box, Drawer, useMediaQuery } from "@mui/material";
 import { ReactNode } from "react";
-import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
+import theme from "../utils/Theme";
 
 const AppBarDrawerStyled = styled(Drawer)<{ anchor: string; isphonescreen: number }>`
   .MuiPaper-root {
     overflow: visible;
     display: -webkit-box !important;
     ${(props) => props.anchor === "right" && props.isphonescreen === 1 && "width: 100%;"}
+    background-color:"#E2DDD8";
   }
 `;
 
@@ -38,11 +39,11 @@ interface Props {
   anchor: "left" | "right";
 }
 const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
-  const isPhoneScreen = useMediaQuery({ query: "(max-width:768px)" });
+  const smallScreen = useMediaQuery(theme.breakpoints.down("tablet"));
 
   const drawerWidth = (anchor: "left" | "right") => {
     if (anchor === "right") {
-      if (isPhoneScreen) {
+      if (smallScreen) {
         return "100%";
       } else {
         return "350px";
@@ -53,9 +54,11 @@ const AppBarDrawer = ({ toggleDrawer, isOpen, children, anchor }: Props) => {
   };
   return (
     //TODO fix passing boolean attribute. 1:0 is a workaround. checkout transient props.
-    <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer} isphonescreen={isPhoneScreen ? 1 : 0}>
+    <AppBarDrawerStyled anchor={anchor} open={isOpen} onClose={toggleDrawer} isphonescreen={smallScreen ? 1 : 0}>
       {anchor === "left" && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
-      {anchor === "right" && !isPhoneScreen && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
+
+      {anchor === "right" && !smallScreen && <CloseButtonStyled onClick={toggleDrawer} anchor={anchor} />}
+
       <AppBarBoxStyled width={drawerWidth(anchor)}>{children}</AppBarBoxStyled>
     </AppBarDrawerStyled>
   );
