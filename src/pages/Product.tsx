@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import ImagePresenter from "../components/ImagePresenter";
 import MainContent from "../components/MainContent";
-import { useCurrency } from "../contexts/CurrencyContext";
+import ProductInfo from "../components/ProductInfo";
 import { useProducts } from "../contexts/ProductContext";
 
 const ContainerStyled = styled.div`
@@ -17,87 +17,16 @@ const ContainerStyled = styled.div`
   }
 `;
 
-const InfoContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  justify-content: center;
-  gap: 0.1rem;
-  padding: 1rem;
-`;
-
-const TitleStyled = styled.h1`
-  font-size: 1rem;
-  font-weight: 500;
-  color: grey;
-
-  @media (min-width: 768px) {
-    font-size: 1.5rem;
-    color: black;
-  }
-`;
-
-const DesignerStyled = styled.h2`
-  font-weight: 500;
-  font-size: 1.1rem;
-
-  @media (min-width: 768px) {
-    font-size: 0.8rem;
-    color: grey;
-  }
-`;
-
-const PriceStyled = styled.p`
-  font-size: 1.1rem;
-  font-weight: 500;
-
-  @media (min-width: 768px) {
-    font-size: 1.5rem;
-    margin-top: -1.05rem;
-    font-weight: 500;
-  }
-`;
-
-const DescriptionStyled = styled.p`
-  @media (min-width: 768px) {
-    font-size: 1.5rem;
-    font-weight: 400;
-  }
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  flex-direction: "row";
-  gap: 1rem;
-  padding: 0 1rem 0 0;
-  margin: 0;
-
-  @media (min-width: 768px) {
-    gap: 12rem;
-  }
-`;
-
 const ProductPage = () => {
   const { id } = useParams();
   const { products } = useProducts();
   const product = products.find((p) => p.id === Number(id)) ?? products[0];
 
-  const { convertToCurrencyValue } = useCurrency();
-
   return (
     <MainContent>
       <ContainerStyled>
         <ImagePresenter product={product} />
-        <InfoContainer>
-          <HeaderContainer>
-            <DesignerStyled>{product.designer}</DesignerStyled>
-            <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
-          </HeaderContainer>
-          <TitleStyled>{product.title}</TitleStyled>
-          <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
-          <h4>Description:</h4>
-          <DescriptionStyled>{product.description}</DescriptionStyled>
-        </InfoContainer>
+        <ProductInfo product={product} />
       </ContainerStyled>
     </MainContent>
   );
