@@ -1,7 +1,7 @@
 import * as Icon from "@mui/icons-material/";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import MenuIcon from "@mui/icons-material/Menu";
-import { AppBar as MUIAppBar, Badge, Box, Button, IconButton, List, ListItem, Toolbar, Typography, useMediaQuery } from "@mui/material";
+import { AppBar as MUIAppBar, Badge, Box, Button, IconButton, Toolbar, Typography, useMediaQuery } from "@mui/material";
 import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -11,9 +11,9 @@ import { Currency, useCurrency } from "../../contexts/CurrencyContext";
 import { useFavorites } from "../../contexts/FavoriteContext";
 import { useProducts } from "../../contexts/ProductContext";
 import theme from "../../utils/Theme";
-import AppBarDrawer from "./AppBarDrawer";
 import CartDrawerContent from "../Drawers/CartDrawerContent";
-import LinksDrawerContent from "../LinksDrawerContent";
+import LinksDrawerContent from "../Drawers/LinksDrawerContent";
+import AppBarDrawer from "./AppBarDrawer";
 
 const CartWrapper = styled.div`
   display: flex;

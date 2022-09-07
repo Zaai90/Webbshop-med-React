@@ -13,8 +13,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import * as React from "react";
 import { useState } from "react";
-import { useProducts } from "../contexts/ProductContext";
-import { Product } from "../ProductData";
+import { useProducts } from "../../contexts/ProductContext";
+import { Product } from "../../ProductData";
 import { AdminTableHead } from "./AdminTableHead";
 import { AdminTableToolbar } from "./AdminTableToolbar";
 

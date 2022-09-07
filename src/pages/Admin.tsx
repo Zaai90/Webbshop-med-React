@@ -1,9 +1,9 @@
 import * as Icon from "@mui/icons-material";
 import Fab from "@mui/material/Fab";
+import { Form } from "formik";
 import { useState } from "react";
 import AddProduct from "../components/Admin/AdminAddProduct";
-import AdminTable from "../components/AdminTable";
-import Form from "../components/Form";
+import AdminTable from "../components/Admin/AdminTable";
 import MainContent from "../components/MainContent";
 import { Product } from "../ProductData";
 
