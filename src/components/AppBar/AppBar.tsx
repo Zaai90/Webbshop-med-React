@@ -23,30 +23,6 @@ const CartWrapper = styled.div`
   gap: 0.7rem;
 `;
 
-const HeaderLinks = styled(Box)`
-  display: flex;
-  font-size: 18px;
-  line-height: normal;
-  margin-right: auto;
-  margin-left: 2rem;
-
-  a {
-    padding: 15px;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: #ffffff;
-    transition: 0.5s ease all;
-  }
-
-  a:hover {
-    color: #8d8d8d;
-  }
-`;
-
-const CartAndFavoritesDiv = styled.div`
-  /* gap: 0.5rem; */
-`;
-
 const Price = styled.div`
   font-size: 1rem;
 `;
@@ -86,42 +62,19 @@ const AppBar = () => {
       <MUIAppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Container maxWidth="lg" fixed>
           <Toolbar sx={{ color: "white", minHeight: smScreen ? "80" : "64" }} disableGutters>
-            {/* break out components */}
+            {/* Left side AppBar */}
+
             <NavLink to={""}>
               <LogoSvg backgroundColor="#42454A" forgroundColor="#FFF" small={88} large={120} />
             </NavLink>
             {desktopScreen ? (
               <AppBarLinks pages={["store", "checkout", "admin"]} />
             ) : (
-              // <HeaderLinks>
-              //   <NavLink to="store">
-              //     <Button size="large">
-              //       <Typography variant="h6" color={(theme) => theme.palette.common.white}>
-              //         Store
-              //       </Typography>
-              //     </Button>
-              //   </NavLink>
-
-              //   <NavLink to="checkout">
-              //     <Button size="large">
-              //       <Typography variant="h6" color={(theme) => theme.palette.common.white}>
-              //         Checkout
-              //       </Typography>
-              //     </Button>
-              //   </NavLink>
-
-              //   <NavLink to="admin">
-              //     <Button size="large">
-              //       <Typography variant="h6" color={(theme) => theme.palette.common.white}>
-              //         Admin
-              //       </Typography>
-              //     </Button>
-              //   </NavLink>
-              // </HeaderLinks>
               <IconButton onClick={toggleLinkDrawer} edge="start" aria-label="menu" sx={{ color: "white", marginRight: "auto", marginLeft: ".2rem" }}>
                 <MenuIcon sx={{ fontSize: "2rem" }} />
               </IconButton>
             )}
+            {/* Right side AppBar */}
 
             <Box>
               <NavLink to={"favorites"}>
@@ -144,17 +97,19 @@ const AppBar = () => {
                 )}
               </IconButton>
             </Box>
-            {/* Link drawer */}
-            <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
-              <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
-            </AppBarDrawer>
-            {/* Cart drawer */}
-            <AppBarDrawer anchor="right" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
-              <CartDrawerContent toggleDrawer={toggleCartDrawer} />
-            </AppBarDrawer>
           </Toolbar>
         </Container>
       </MUIAppBar>
+
+      {/* DRAWERS */}
+
+      <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
+        <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
+      </AppBarDrawer>
+
+      <AppBarDrawer anchor="right" isOpen={isCartDrawerOpen} toggleDrawer={toggleCartDrawer}>
+        <CartDrawerContent toggleDrawer={toggleCartDrawer} />
+      </AppBarDrawer>
     </>
   );
 };
