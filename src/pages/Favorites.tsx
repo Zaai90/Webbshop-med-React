@@ -1,6 +1,7 @@
 import * as Icon from "@mui/icons-material/";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Stack } from "@mui/system";
@@ -66,11 +67,9 @@ const ButtonStyled = styled(Button)`
 `;
 
 const StackStyled = styled(Stack)`
+  display: flex;
+  justify-content: center;
   margin: 1rem 0;
-
-  @media (max-width: 600px) {
-    margin: 1rem auto;
-  }
 `;
 
 const Image = styled.img`
@@ -90,37 +89,41 @@ const Favorites = () => {
 
   return (
     <MainContent>
-      <FavoritesContainer>
-        <FavoriteCard>
-          {favorites.map((favorite: Product) => (
-            <CardInfoWrapper>
-              <Image src={favorite.img[0]} alt="" />
-              <CardInfo>
-                <h5>{favorite.title}</h5>
-                <p>{favorite.designer}</p>
-                <p>{convertToCurrencyValue(favorite.price)}</p>
-              </CardInfo>
+      {favorites.length === 0 ? (
+        <Typography align="center" variant="h5">
+          Wishlist is empty...
+        </Typography>
+      ) : (
+        <FavoritesContainer>
+          <FavoriteCard>
+            {favorites.map((favorite: Product) => (
+              <CardInfoWrapper key={favorite.id}>
+                <Image src={favorite.img[0]} alt="" />
+                <CardInfo>
+                  <h5>{favorite.title}</h5>
+                  <p>{favorite.designer}</p>
+                  <p>{convertToCurrencyValue(favorite.price)}</p>
+                </CardInfo>
 
-              <ButtonContainer>
-                <Stack direction="row" spacing={3}>
-                  <IconButton onClick={() => removeFromFavorites(favorite)} aria-label="delete">
-                    <FavoriteIcon sx={{ fontSize: "2rem", color: "#9c27b0" }} />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => {
-                      addToCart(favorite, 1);
-                      removeFromFavorites(favorite);
-                    }}
-                  >
-                    <Icon.LocalMallOutlined sx={{ fontSize: "2rem" }} />
-                  </IconButton>
-                </Stack>
-              </ButtonContainer>
-            </CardInfoWrapper>
-          ))}
-        </FavoriteCard>
+                <ButtonContainer>
+                  <Stack direction="row" spacing={3}>
+                    <IconButton onClick={() => removeFromFavorites(favorite)} aria-label="delete">
+                      <FavoriteIcon sx={{ fontSize: "2rem", color: "#9c27b0" }} />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => {
+                        addToCart(favorite, 1);
+                        removeFromFavorites(favorite);
+                      }}
+                    >
+                      <Icon.LocalMallOutlined sx={{ fontSize: "2rem" }} />
+                    </IconButton>
+                  </Stack>
+                </ButtonContainer>
+              </CardInfoWrapper>
+            ))}
+          </FavoriteCard>
 
-        <FavoritesFooter>
           <StackStyled direction="row" spacing={2}>
             <ButtonStyled onClick={() => removeAllFavorites()} variant="outlined" startIcon={<DeleteIcon />}>
               Remove all
@@ -136,8 +139,8 @@ const Favorites = () => {
               Add all to cart
             </ButtonStyled>
           </StackStyled>
-        </FavoritesFooter>
-      </FavoritesContainer>
+        </FavoritesContainer>
+      )}
     </MainContent>
   );
 };
