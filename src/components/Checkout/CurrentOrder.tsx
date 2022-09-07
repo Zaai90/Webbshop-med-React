@@ -1,4 +1,5 @@
-import { Fade, Icon, IconButton, Tooltip } from "@mui/material";
+import * as Icon from "@mui/icons-material";
+import { Fade, IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
