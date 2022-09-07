@@ -1,5 +1,3 @@
-import { useProducts } from "../contexts/ProductContext";
-import { Product } from "../ProductData";
 import Form from "./Form";
 
 interface Props {
@@ -7,19 +5,11 @@ interface Props {
 }
 
 const AddProduct = ({ isOpen }: Props) => {
-  const { createProduct } = useProducts();
-
-  const handleSubmit = (newProduct: Product, event: any) => {
-    event.preventDefault();
-    console.log(newProduct);
-    createProduct(newProduct);
-  };
-
   return (
     <div>
       {isOpen && (
         <div>
-          <Form isNewProduct onSubmit={handleSubmit} />
+          <Form isNewProduct={true} />
         </div>
       )}
     </div>
