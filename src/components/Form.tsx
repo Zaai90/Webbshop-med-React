@@ -11,20 +11,11 @@ interface Props {
   isNewProduct: boolean;
 }
 
-interface Values {
-  title: string;
-  designer: string;
-  description: string;
-  price: number;
-  category: string;
-  size?: string;
-  color: string;
-  img: string;
-  img2?: string;
-  img3?: string;
-}
+export type ProductCreate = Omit<Product, "id">;
 
-const validationSchema = yup.object({
+type YupObject = Record<keyof ProductCreate, yup.AnySchema>;
+
+const validationSchema = yup.object<YupObject>({
   title: yup.string().min(1, "Product must have a title with atleast 1 character").required("title is required"),
   designer: yup.string().min(2, "Product must have a designer with atleast 2 characters").required("designer name is required"),
   description: yup.string().min(2, "Product must have a description with atleast 2 characters").required("description is required"),
@@ -32,43 +23,22 @@ const validationSchema = yup.object({
   category: yup.string().min(1, "Product must have a category with atleast 2 characters").required("category is required"),
   size: yup.string().min(1, "Product must have a size with atleast 1 character ").notRequired(),
   color: yup.string().min(2, "Product must have a color with atleast 2 characters").required("color is required"),
-  img: yup.string().min(5, "Product must have a valid url").required("img url is required"),
-  img2: yup.string().min(5, "Product must have a valid url").notRequired(),
-  img3: yup.string().min(5, "Product must have a valid url").notRequired(),
+  img: yup.array().min(1, "Product must have a valid url").required("img url is required"),
 });
 
-export default function Form({ product, isNewProduct }: Props) {
+export default function Form({ product }: Props) {
   const { createProduct, editProduct } = useProducts();
 
-  function addProduct(values: Values, id?: number) {
-    return {
-      id: id ? id : 0,
-      title: values.title,
-      designer: values.designer,
-      description: values.description,
-      price: values.price,
-      category: values.category,
-      size: values.size,
-      color: values.color,
-      img: [values.img, values.img2, values.img3],
-    } as Product;
-  }
-
-  const handleSubmit = (isNewProduct: boolean, values: Values, product?: Product) => {
-    if (!isNewProduct && product) {
-      editProduct(addProduct(values, product.id));
-    }
-    if (isNewProduct) {
-      createProduct(addProduct(values));
-    }
-  };
-
-  const formik = useFormik({
-    initialValues: { title: "", description: "", price: 0, designer: "", category: "", color: "", img: "" },
+  const formik = useFormik<ProductCreate>({
+    initialValues: product || { title: "", description: "", price: 0, designer: "", category: "", color: "", size: "", img: [] },
     validationSchema: validationSchema,
-    onSubmit: (values: Values, e) => {
-      handleSubmit(isNewProduct, values);
-      alert(JSON.stringify(values, null, 2));
+    enableReinitialize: true,
+    onSubmit: (values, e) => {
+      if (product) {
+        editProduct({ ...values, id: product.id });
+      } else {
+        createProduct(values);
+      }
     },
   });
 
@@ -86,7 +56,6 @@ export default function Form({ product, isNewProduct }: Props) {
           id="title"
           name="title"
           label="Title"
-          // defaultValue={product?.title}
           value={formik.values.title}
           variant="standard"
           InputLabelProps={{
@@ -99,6 +68,7 @@ export default function Form({ product, isNewProduct }: Props) {
         <TextField
           id="designer"
           label="Designer"
+          name="designer"
           value={formik.values.designer}
           variant="standard"
           InputLabelProps={{
@@ -112,7 +82,6 @@ export default function Form({ product, isNewProduct }: Props) {
           id="description"
           name="description"
           label="Description"
-          // defaultValue={product?.description}
           value={formik.values.description}
           variant="standard"
           InputLabelProps={{
@@ -126,7 +95,6 @@ export default function Form({ product, isNewProduct }: Props) {
           id="price"
           name="price"
           label="Price"
-          // defaultValue={product?.price}
           value={formik.values.price}
           variant="standard"
           InputLabelProps={{
@@ -136,13 +104,12 @@ export default function Form({ product, isNewProduct }: Props) {
           error={formik.touched.price && Boolean(formik.errors.price)}
           helperText={formik.touched.price && formik.errors.price}
         />
-
         <TextField
           id="category"
-          label="Category"
           name="category"
-          // defaultValue={product?.category}
+          label="Category"
           variant="standard"
+          value={formik.values.category}
           InputLabelProps={{
             shrink: true,
           }}
@@ -151,11 +118,11 @@ export default function Form({ product, isNewProduct }: Props) {
           helperText={formik.touched.category && formik.errors.category}
         />
         <TextField
-          required
           id="color"
           label="Color"
-          // defaultValue={product?.color}
+          name="color"
           variant="standard"
+          value={formik.values.color}
           InputLabelProps={{
             shrink: true,
           }}
@@ -167,8 +134,8 @@ export default function Form({ product, isNewProduct }: Props) {
           id="size"
           label="Size"
           name="size"
-          // defaultValue={product?.size}
           variant="standard"
+          value={formik.values.size}
           InputLabelProps={{
             shrink: true,
           }}
@@ -177,22 +144,21 @@ export default function Form({ product, isNewProduct }: Props) {
           helperText={formik.touched.size && formik.errors.size}
         />
         <TextField
-          required
           id="img"
           label="Img url"
           name="img"
-          // defaultValue={product?.img[0]}
           variant="standard"
+          value={formik.values.img}
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={formik.handleChange}
+          onChange={(e) => formik.setFieldValue("img", [e.target.value])}
           error={formik.touched.img && Boolean(formik.errors.img)}
           helperText={formik.touched.img && formik.errors.img}
         />
       </div>
       <Button color="primary" variant="contained" type="submit">
-        {isNewProduct ? "ADD" : "UPDATE"}
+        {!product ? "ADD" : "UPDATE"}
       </Button>
     </Box>
   );
