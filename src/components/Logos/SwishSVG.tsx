@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 const SwishSVG = () => {
   return (
     <Box>
-      <svg xmlns="http://www.w3.org/2000/svg" height="800" width="1200" viewBox="-86.643 -43.95675 750.906 263.7405">
+      <svg xmlns="http://www.w3.org/2000/svg" height="100%" width="100%" viewBox="-86.643 -43.95675 750.906 263.7405">
         <linearGradient
           gradientUnits="userSpaceOnUse"
           gradientTransform="scale(.90026 1.1108)"
