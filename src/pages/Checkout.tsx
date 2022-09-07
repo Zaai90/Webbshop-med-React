@@ -1,5 +1,5 @@
+import PaymentProcess from "../components/Checkout/PaymentProcess";
 import MainContent from "../components/MainContent";
-import PaymentProcess from "../components/PaymentProcess";
 
 const Checkout = () => {
   return (

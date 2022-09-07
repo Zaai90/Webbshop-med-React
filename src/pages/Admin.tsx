@@ -1,8 +1,8 @@
 import * as Icon from "@mui/icons-material";
 import Fab from "@mui/material/Fab";
 import { useState } from "react";
-import AddProduct from "../components/AdminAddProduct";
-import AdminTable from "../components/AdminTable";
+import AddProduct from "../components/Admin/AdminAddProduct";
+import AdminTable from "../components/Admin/AdminTable";
 import Form from "../components/Form";
 import MainContent from "../components/MainContent";
 import { Product } from "../ProductData";

@@ -1,8 +1,8 @@
 import * as Icon from "@mui/icons-material/";
-import { Button, Container, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useCart } from "../contexts/CartContext";
+import { useCart } from "../../contexts/CartContext";
 import CartDrawerItem from "./CartDrawerItem";
 
 const Wrapper = styled.div`
