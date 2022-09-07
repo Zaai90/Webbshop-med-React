@@ -1,10 +1,11 @@
 import { createContext, ReactNode, useContext } from "react";
+import { ProductCreate } from "../components/Form";
 import { useLocalStorage } from "../hooks/localStorage";
 import { Product, Products } from "../ProductData";
 
 interface ProductContextValue {
   products: Product[];
-  createProduct: (product: Product) => void;
+  createProduct: (product: ProductCreate) => void;
   deleteProducts: (selectedIds: number[]) => void;
   editProduct: (product: Product) => void;
 }
@@ -26,7 +27,7 @@ function ProductProvider({ children }: Props) {
   };
   const [products, setProducts] = useLocalStorage<Product[]>("products", LoadProducts);
 
-  const createProduct = (product: Product) => {
+  const createProduct = (product: ProductCreate) => {
     const productsCopy = [...products, { ...product, id: 14 }];
 
     setProducts(productsCopy);
