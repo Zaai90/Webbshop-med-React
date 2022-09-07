@@ -1,6 +1,6 @@
 import { Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel } from "@mui/material";
 import { visuallyHidden } from "@mui/utils";
-import { Product } from "../ProductData";
+import { Product } from "../../ProductData";
 import { Order } from "./AdminTable";
 
 interface HeadCell {
