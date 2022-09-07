@@ -6,14 +6,14 @@ import { Container } from "@mui/system";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useCart } from "../contexts/CartContext";
-import { Currency, useCurrency } from "../contexts/CurrencyContext";
-import { useFavorites } from "../contexts/FavoriteContext";
-import { useProducts } from "../contexts/ProductContext";
-import theme from "../utils/Theme";
+import { useCart } from "../../contexts/CartContext";
+import { Currency, useCurrency } from "../../contexts/CurrencyContext";
+import { useFavorites } from "../../contexts/FavoriteContext";
+import { useProducts } from "../../contexts/ProductContext";
+import theme from "../../utils/Theme";
 import AppBarDrawer from "./AppBarDrawer";
-import CartDrawerContent from "./CartDrawerContent";
-import LinksDrawerContent from "./LinksDrawerContent";
+import CartDrawerContent from "../Drawers/CartDrawerContent";
+import LinksDrawerContent from "../LinksDrawerContent";
 
 const CartWrapper = styled.div`
   display: flex;
