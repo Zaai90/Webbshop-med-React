@@ -1,10 +1,11 @@
 import * as Icon from "@mui/icons-material/";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Typography } from "@mui/material";
+import { Fade, Tooltip, Typography } from "@mui/material";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import { Stack } from "@mui/system";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useCart } from "../contexts/CartContext";
@@ -52,11 +53,6 @@ const CardInfo = styled.div`
   }
 `;
 
-const FavoritesFooter = styled.div`
-  display: flex;
-  justify-content: right;
-`;
-
 const FavoritesContainer = styled.div`
   margin: auto;
   max-width: 600px;
@@ -98,7 +94,9 @@ const Favorites = () => {
           <FavoriteCard>
             {favorites.map((favorite: Product) => (
               <CardInfoWrapper key={favorite.id}>
-                <Image src={favorite.img[0]} alt="" />
+                <NavLink style={{ display: "flex" }} to={`../product/${favorite.id}`}>
+                  <Image src={favorite.img[0]} alt="" />
+                </NavLink>
                 <CardInfo>
                   <h5>{favorite.title}</h5>
                   <p>{favorite.designer}</p>
@@ -108,7 +106,9 @@ const Favorites = () => {
                 <ButtonContainer>
                   <Stack direction="row" spacing={3}>
                     <IconButton onClick={() => removeFromFavorites(favorite)} aria-label="delete">
-                      <FavoriteIcon sx={{ fontSize: "2rem", color: "#9c27b0" }} />
+                      <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"Remove from wishlist"} placement="right" arrow>
+                        <FavoriteIcon sx={{ fontSize: "2rem", color: "#9c27b0" }} />
+                      </Tooltip>
                     </IconButton>
                     <IconButton
                       onClick={() => {
@@ -116,7 +116,9 @@ const Favorites = () => {
                         removeFromFavorites(favorite);
                       }}
                     >
-                      <Icon.LocalMallOutlined sx={{ fontSize: "2rem" }} />
+                      <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"add to cart"} placement="right" arrow>
+                        <Icon.LocalMallOutlined sx={{ fontSize: "2rem" }} />
+                      </Tooltip>
                     </IconButton>
                   </Stack>
                 </ButtonContainer>
