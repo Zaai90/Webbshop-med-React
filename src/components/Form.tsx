@@ -1,7 +1,9 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/material/";
 import TextField from "@mui/material/TextField";
+import { useFormik } from "formik";
 import { FormEvent, useState } from "react";
+import * as yup from "yup";
 import { Product } from "../ProductData";
 
 interface Props {
@@ -10,10 +12,30 @@ interface Props {
   isNewProduct?: boolean;
 }
 
+const validationSchema = yup.object({
+  title: yup.string().min(1, "Product must have a title with atleast 1 character").required("title is required"),
+  designer: yup.string().min(2, "Product must have a designer with atleast 2 characters").required("designer name is required"),
+  description: yup.string().min(2, "Product must have a description with atleast 2 characters").required("description is required"),
+  price: yup.string().min(2, "Product must have a price with atleast 2 digits").required("price is required"),
+  category: yup.string().min(1, "Product must have a category with atleast 2 characters").required("category is required"),
+  size: yup.string().min(1, "Product must have a size with atleast 1 character ").required("size is required"),
+  color: yup.string().min(2, "Product must have a color with atleast 2 characters").required("color is required"),
+  img: yup.string().min(5, "Product must have a valid url").required("img url is required"),
+});
+
 export default function Form({ product, onSubmit, isNewProduct }: Props) {
   const [updatedProduct, setUpdatedProduct] = useState(
     product || { id: 0, designer: "", title: "", description: "", price: 0, category: "", img: [""], size: "", color: "" }
   );
+
+  const formik = useFormik({
+    initialValues: { title: "", description: "", price: 0, designer: "", category: "", color: "", size: "", img: ["", "", ""] },
+    validationSchema: validationSchema,
+    onSubmit: (values, e) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   const [newProduct, setNewProduct] = useState<Product>({
     id: 0,
     designer: "",
