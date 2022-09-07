@@ -1,5 +1,5 @@
 import PaymentIcon from "@mui/icons-material/Payment";
-import { Box, Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@mui/material";
+import { Box, Button, Container, FormControl, FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import SwishSVG from "../Logos/SwishSVG";
@@ -12,53 +12,70 @@ interface Props {
   handleSubmit: () => void;
 }
 
-const PaymentOption = styled.div`
-  display: flex;
+const PaymentOptionWrapper = styled.div`
+  border: 1px solid rgba(0,0,0,0.25);
+  border-radius: .3rem;
+  padding: 2rem;
+  width: 100%;
+  cursor: pointer;
 `;
 
 const PaymentComponent = styled.div``;
 
+const PaymentOption = styled.div`
+display: flex;
+align-items: center;
+`;
+
 const PaymentOptions = ({ handleSubmit }: Props) => {
   const [value, setValue] = useState("");
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue((event.target as HTMLInputElement).value);
-  };
+  const handleClick = (name: string) => {
+    setValue(name);
+  }
 
   return (
-    <div>
-      <FormControl>
-        <FormLabel id="demo-controlled-radio-buttons-group">Payment Options</FormLabel>
-        <RadioGroup aria-labelledby="demo-controlled-radio-buttons-group" name="controlled-radio-buttons-group" value={value} onChange={handleChange}>
+    <Container>
+      <FormControl sx={{width: '100%'}}>
+        <Typography sx={{marginBottom: '2rem'}}>Payment Options</Typography>
+        <RadioGroup sx={{margin: '0 auto', gap: '1rem', width: '100%'}} value={value}>
+          <PaymentOptionWrapper onClick={() => handleClick('swish')}>
           <PaymentOption>
-            <FormControlLabel name="swish" value="swish" control={<Radio />} label="Swish" />
-            <Box sx={{ width: "200px" }}>
+            <FormControlLabel name="swish" value="swish" control={<Radio />} label="Swish" sx={{marginRight: 'auto'}} />
+            <Box sx={{ width: "100px" }}>
               <SwishSVG />
             </Box>
-          </PaymentOption>
+            </PaymentOption>
           <PaymentComponent>{value === "swish" && <Swish />}</PaymentComponent>
+            </PaymentOptionWrapper>
 
+            <PaymentOptionWrapper onClick={() => handleClick('credit-card')}>
           <PaymentOption>
-            <FormControlLabel value="credit-card" control={<Radio />} label="Credit Card" />
+            <FormControlLabel value="credit-card" control={<Radio />} label="Credit Card" sx={{marginRight: 'auto'}} />
             <Box>
               <PaymentIcon />
             </Box>
           </PaymentOption>
           <PaymentComponent>{value === "credit-card" && <CreditCard />}</PaymentComponent>
+          </PaymentOptionWrapper>
 
+          <PaymentOptionWrapper onClick={() => handleClick('bank')}>
           <PaymentOption>
-            <FormControlLabel value="bank" control={<Radio />} label="Directly from your bank" />
-            <Box sx={{ width: "200px" }}>
+            <FormControlLabel value="bank" control={<Radio />} label="Directly from your bank" sx={{marginRight: 'auto'}} />
+            <Box sx={{ width: "75px" }}>
               <TrustlySVG />
             </Box>
-          </PaymentOption>
+            </PaymentOption>
           <PaymentComponent>{value === "bank" && <Bank />}</PaymentComponent>
+            </PaymentOptionWrapper>
+
         </RadioGroup>
+
       </FormControl>
-      <Button color="primary" variant="contained" fullWidth type="submit" onClick={handleSubmit}>
+      <Button color="primary" variant="contained" fullWidth type="submit" onClick={handleSubmit} sx={{marginTop: '3rem'}}>
         Next step
       </Button>
-    </div>
+    </Container>
   );
 };
 
