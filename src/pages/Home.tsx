@@ -24,6 +24,7 @@ const images: string[] = [
 const TopContent = styled.div`
   padding: 60px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 5rem;
@@ -144,8 +145,12 @@ const ItemContentBottom = styled.div`
 
 const TopSwiper = styled.div`
   margin-top: 4rem;
-  height: 70vh;
+  height: 90vw;
   position: relative;
+
+  @media (min-width: 768px) {
+    height: 50vw;
+  }
 
   .topSwiper {
     height: 100%;
@@ -155,45 +160,30 @@ const TopSwiper = styled.div`
   }
 `;
 
-const SliderImg = styled.img`
-  width: 100%;
-  object-fit: contain;
-`;
-
-const SliderInformation = styled.div`
-  position: absolute;
-  width: 600px;
-  height: 500px;
-  top: 10rem;
-  left: 35rem;
-  z-index: 20;
-  background-color: #fcfcfc7f;
-  color: white;
-  font-size: 50px;
-`;
-
-const SliderInformation2 = styled.div`
-  position: absolute;
-  width: 600px;
-  height: 500px;
-  top: 10rem;
-  left: 80rem;
-  z-index: 20;
-  background-color: #fcfcfc7f;
-  color: white;
-  font-size: 50px;
+const StyledSwiperSlide = styled(SwiperSlide)<{ test: string }>`
+  position: relative;
+  background-image: url(${(props) => props.test});
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 `;
 
 const SliderText = styled.div`
   font-size: calc(40px + (180 - 40) * ((100vw - 360px) / (2600 - 300)));
   position: absolute;
-  top: 30vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   text-align: center;
+  user-select: none;
   color: white;
   text-shadow: 1px 3px 1px black;
   z-index: 20;
+  margin: 0 0.5rem;
 `;
 
 const BtnContainer = styled.div`
@@ -237,10 +227,10 @@ const Home = () => {
           loop={true}
           spaceBetween={0}
           centeredSlides={true}
-          // autoplay={{
-          //   delay: 3000,
-          //   disableOnInteraction: false,
-          // }}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
           pagination={{
             clickable: true,
           }}
@@ -248,23 +238,26 @@ const Home = () => {
           className="topSwiper"
         >
           {images.map((img) => (
-            <SwiperSlide>
-              <SliderImg src={img} />
+            <SwiperSlide
+              style={{
+                position: "relative",
+                backgroundImage: `url(${img})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
+              <SliderText>TEXTILE FASHION CENTER</SliderText>
             </SwiperSlide>
           ))}
-          {/* <SwiperSlide>Test</SwiperSlide>
-          <SwiperSlide>Slide 1</SwiperSlide>
-          <SwiperSlide>Slide 1</SwiperSlide> */}
         </Swiper>
       </TopSwiper>
-      {/* <SliderInformation>INFORMATION!!!</SliderInformation>
-      <SliderInformation2>INFORMATION!!! 2!!</SliderInformation2> */}
       <BtnContainer>
         <NavLink to={"store"} style={{ textDecoration: "none" }}>
           <EnterBtn>SHOP NOW</EnterBtn>
         </NavLink>
       </BtnContainer>
-      <SliderText>TEXTILE FASHION CENTER</SliderText>
+
       <MainContent>
         <Container>
           <TopContent>
