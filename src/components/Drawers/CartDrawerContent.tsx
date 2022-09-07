@@ -1,8 +1,8 @@
 import * as Icon from "@mui/icons-material/";
-import { Button, Container, IconButton } from "@mui/material";
+import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useCart } from "../contexts/CartContext";
+import { useCart } from "../../contexts/CartContext";
 import CartDrawerItem from "./CartDrawerItem";
 
 const Wrapper = styled.div`
@@ -31,7 +31,6 @@ const CartBottom = styled.div`
   width: 100%;
   right: 0;
   padding: 1rem;
-  background: white;
 `;
 
 interface Props {
@@ -58,7 +57,12 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
             ))}
           </Wrapper>
           <CartBottom>
-            <Button variant="outlined" color="warning" style={{ maxWidth: "max-content", gap: ".5rem", margin: ".5rem 0" }} onClick={handleClearCart}>
+            <Button
+              variant="contained"
+              color="warning"
+              style={{ maxWidth: "max-content", gap: ".5rem", margin: ".5rem 0" }}
+              onClick={handleClearCart}
+            >
               Empty cart <Icon.Delete />
             </Button>
             <Total>
@@ -66,7 +70,7 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
               <span>{totalAmount} SEK</span>
             </Total>
             <NavLink onClick={toggleDrawer} to="checkout">
-              <Button variant="contained" color="success" fullWidth>
+              <Button variant="contained" color="primary" fullWidth>
                 CHECKOUT
               </Button>
             </NavLink>

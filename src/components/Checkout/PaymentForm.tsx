@@ -4,11 +4,11 @@ import styled from "styled-components";
 import * as yup from "yup";
 
 const Form = styled.form`
-display: flex;
-flex-direction: column;
-gap: .5rem;
-padding-top: 2rem;
-width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 2rem;
+  width: 90%;
 `;
 
 const Input = styled(TextField)`

@@ -1,42 +1,46 @@
 import { Button } from "@mui/material";
 import { Box } from "@mui/material/";
 import TextField from "@mui/material/TextField";
-import { FormEvent, useState } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useProducts } from "../contexts/ProductContext";
 import { Product } from "../ProductData";
 
 interface Props {
   product?: Product;
-  onSubmit: (product: Product, event: FormEvent<HTMLFormElement>) => void;
-  isNewProduct?: boolean;
+  isNewProduct: boolean;
 }
 
-export default function Form({ product, onSubmit, isNewProduct }: Props) {
-  const [updatedProduct, setUpdatedProduct] = useState(
-    product || { id: 0, designer: "", title: "", description: "", price: 0, category: "", img: [""], size: "", color: "" }
-  );
-  const [newProduct, setNewProduct] = useState<Product>({
-    id: 0,
-    designer: "",
-    title: "",
-    description: "asd",
-    price: 0,
-    category: "",
-    img: [""],
-    size: "",
-    color: "",
-  });
+export type ProductCreate = Omit<Product, "id">;
 
-  const handleOnChange = (e: any) => {
-    if (isNewProduct) {
-      console.log("inne i handleChange");
-      const productToAdd = { ...newProduct, [e.target.name]: e.target.value };
-      console.log(productToAdd);
-      setNewProduct(productToAdd);
-    } else if (product) {
-      const prodToUpdate = { ...updatedProduct, [e.target.name]: e.target.value };
-      setUpdatedProduct(prodToUpdate);
-    }
-  };
+type YupObject = Record<keyof ProductCreate, yup.AnySchema>;
+
+const validationSchema = yup.object<YupObject>({
+  title: yup.string().min(1, "Product must have a title with atleast 1 character").required("title is required"),
+  designer: yup.string().min(2, "Product must have a designer with atleast 2 characters").required("designer name is required"),
+  description: yup.string().min(2, "Product must have a description with atleast 2 characters").required("description is required"),
+  price: yup.number().min(2, "Product must have a price with atleast 2 digits").required("price is required"),
+  category: yup.string().min(1, "Product must have a category with atleast 2 characters").required("category is required"),
+  size: yup.string().min(1, "Product must have a size with atleast 1 character ").notRequired(),
+  color: yup.string().min(2, "Product must have a color with atleast 2 characters").required("color is required"),
+  img: yup.array().min(1, "Product must have a valid url").required("img url is required"),
+});
+
+export default function Form({ product }: Props) {
+  const { createProduct, editProduct } = useProducts();
+
+  const formik = useFormik<ProductCreate>({
+    initialValues: product || { title: "", description: "", price: 0, designer: "", category: "", color: "", size: "", img: [] },
+    validationSchema: validationSchema,
+    enableReinitialize: true,
+    onSubmit: (values, e) => {
+      if (product) {
+        editProduct({ ...values, id: product.id });
+      } else {
+        createProduct(values);
+      }
+    },
+  });
 
   return (
     <Box
@@ -44,121 +48,118 @@ export default function Form({ product, onSubmit, isNewProduct }: Props) {
       sx={{
         "& .MuiTextField-root": { m: 0.3, width: "15rem" },
       }}
-      noValidate
       autoComplete="off"
-      onSubmit={(event) => {
-        if (isNewProduct) {
-          onSubmit(newProduct, event);
-        } else onSubmit(updatedProduct, event);
-      }}
+      onSubmit={formik.handleSubmit}
     >
       <div>
         <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.title}
-          variant="standard"
-          InputLabelProps={{
-            shrink: true,
-          }}
+          id="title"
           name="title"
-          onChange={handleOnChange}
-          placeholder="title"
-        />
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.description}
+          label="Title"
+          value={formik.values.title}
           variant="standard"
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={handleOnChange}
-          name="description"
-          placeholder="description"
+          onChange={formik.handleChange}
+          error={formik.touched.title && Boolean(formik.errors.title)}
+          helperText={formik.touched.title && formik.errors.title}
         />
         <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.price}
-          variant="standard"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleOnChange}
-          name="price"
-          placeholder="price"
-        />
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.designer}
-          variant="standard"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          onChange={handleOnChange}
+          id="designer"
+          label="Designer"
           name="designer"
-          placeholder="designer"
-        />
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.category}
+          value={formik.values.designer}
           variant="standard"
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={handleOnChange}
+          onChange={formik.handleChange}
+          error={formik.touched.designer && Boolean(formik.errors.designer)}
+          helperText={formik.touched.designer && formik.errors.designer}
+        />
+        <TextField
+          id="description"
+          name="description"
+          label="Description"
+          value={formik.values.description}
+          variant="standard"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={formik.handleChange}
+          error={formik.touched.description && Boolean(formik.errors.description)}
+          helperText={formik.touched.description && formik.errors.description}
+        />
+        <TextField
+          id="price"
+          name="price"
+          label="Price"
+          value={formik.values.price}
+          variant="standard"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={formik.handleChange}
+          error={formik.touched.price && Boolean(formik.errors.price)}
+          helperText={formik.touched.price && formik.errors.price}
+        />
+        <TextField
+          id="category"
           name="category"
-          placeholder="category"
-        />
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.color}
+          label="Category"
           variant="standard"
+          value={formik.values.category}
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={handleOnChange}
+          onChange={formik.handleChange}
+          error={formik.touched.category && Boolean(formik.errors.category)}
+          helperText={formik.touched.category && formik.errors.category}
+        />
+        <TextField
+          id="color"
+          label="Color"
           name="color"
-          placeholder="color"
-        />
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.size}
           variant="standard"
+          value={formik.values.color}
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={handleOnChange}
+          onChange={formik.handleChange}
+          error={formik.touched.color && Boolean(formik.errors.color)}
+          helperText={formik.touched.color && formik.errors.color}
+        />
+        <TextField
+          id="size"
+          label="Size"
           name="size"
-          placeholder="size"
-        />
-        <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue={product?.img[0]}
           variant="standard"
+          value={formik.values.size}
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={handleOnChange}
-          name={`{[...img,}`}
-          placeholder="image URL"
+          onChange={formik.handleChange}
+          error={formik.touched.size && Boolean(formik.errors.size)}
+          helperText={formik.touched.size && formik.errors.size}
+        />
+        <TextField
+          id="img"
+          label="Img url"
+          name="img"
+          variant="standard"
+          value={formik.values.img}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          onChange={(e) => formik.setFieldValue("img", [e.target.value])}
+          error={formik.touched.img && Boolean(formik.errors.img)}
+          helperText={formik.touched.img && formik.errors.img}
         />
       </div>
-      <Button type="submit">{isNewProduct ? "ADD" : "UPDATE"}</Button>
+      <Button color="primary" variant="contained" type="submit">
+        {!product ? "ADD" : "UPDATE"}
+      </Button>
     </Box>
   );
 }

@@ -1,10 +1,9 @@
 import * as Icon from "@mui/icons-material/";
 import { IconButton } from "@mui/material";
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useCart } from "../contexts/CartContext";
-import { CartItem } from "../models/CartItem";
+import { useCart } from "../../contexts/CartContext";
+import { CartItem } from "../../models/CartItem";
 
 const Wrapper = styled.div`
   width: 100%;

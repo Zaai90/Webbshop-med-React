@@ -1,18 +1,26 @@
 import * as Icon from "@mui/icons-material";
 import Fab from "@mui/material/Fab";
 import { useState } from "react";
-import AddProduct from "../components/AdminAddProduct";
-// import AdminProductCard from "../components/AdminProductCard";
-import AdminTable from "../components/AdminTable";
+import AddProduct from "../components/Admin/AdminAddProduct";
+import AdminTable from "../components/Admin/AdminTable";
+import Form from "../components/Form";
 import MainContent from "../components/MainContent";
-import { useProducts } from "../contexts/ProductContext";
 import { Product } from "../ProductData";
 
 const Admin = () => {
-  const [productsState, setProductsState] = useState<Product[]>();
+  // const [productsState, setProductsState] = useState<Product[]>();
   const [formIsOpen, setFormIsOpen] = useState<boolean>(false);
-  const { products } = useProducts();
-  console.log("admin rendered");
+  // const [editFormIsOpen, setEditFormIsOpen] = useState<boolean>(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
+
+  const handleEdit = (product: Product) => {
+    if (selectedProduct === product) {
+      setSelectedProduct(undefined);
+    } else {
+      setSelectedProduct(product);
+    }
+    console.log(selectedProduct);
+  };
 
   return (
     <MainContent>
@@ -21,7 +29,8 @@ const Admin = () => {
         <Icon.Add />
       </Fab>
       <AddProduct isOpen={formIsOpen} />
-      <AdminTable />
+      {selectedProduct && <Form isNewProduct={false} product={selectedProduct} />}
+      <AdminTable handleEditClicked={handleEdit} />
     </MainContent>
   );
 };

@@ -1,3 +1,5 @@
+import EditIcon from "@mui/icons-material/Edit";
+import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -11,8 +13,8 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import * as React from "react";
 import { useState } from "react";
-import { useProducts } from "../contexts/ProductContext";
-import { Product } from "../ProductData";
+import { useProducts } from "../../contexts/ProductContext";
+import { Product } from "../../ProductData";
 import { AdminTableHead } from "./AdminTableHead";
 import { AdminTableToolbar } from "./AdminTableToolbar";
 
@@ -33,7 +35,11 @@ function getComparator<Key extends keyof Record<string, any>>(order: Order, orde
   return order === "desc" ? (a, b) => descendingComparator(a, b, orderBy) : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-export default function AdminTable() {
+interface Props {
+  handleEditClicked: (product: Product) => void;
+}
+
+export default function AdminTable({ handleEditClicked }: Props) {
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Product>("id");
   const [selected, setSelected] = useState<number[]>([]);
@@ -145,6 +151,15 @@ export default function AdminTable() {
                       <TableCell align="left">{product.color}</TableCell>
                       <TableCell align="left">{product.size}</TableCell>
                       <TableCell align="left">{product.img}</TableCell>
+                      <TableCell align="left">
+                        <IconButton
+                          onClick={() => {
+                            handleEditClicked(product);
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                      </TableCell>
                     </TableRow>
                   );
                 })}

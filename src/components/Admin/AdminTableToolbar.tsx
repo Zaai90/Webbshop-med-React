@@ -1,7 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { alpha, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
-import { Product } from "../ProductData";
+import { Product } from "../../ProductData";
 
 interface Props {
   numSelected: number;

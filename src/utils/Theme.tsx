@@ -1,6 +1,7 @@
 // Link to default MUI theme  https://mui.com/material-ui/customization/default-theme
 
 import { createTheme } from "@mui/material/styles";
+import { dark } from "@mui/material/styles/createPalette";
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -9,6 +10,30 @@ declare module "@mui/material/styles" {
 }
 
 const theme = createTheme({
+  components: {
+    MuiAppBar: {
+      styleOverrides: {
+        colorPrimary: {
+          backgroundColor: "#383838",
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        regular: {
+          height: 64,
+          minHeight: 64,
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#E2DDD8",
+        },
+      },
+    },
+  },
   breakpoints: {
     keys: ["xs", "sm", "tablet", "md", "lg", "xl"],
     values: {
@@ -21,7 +46,16 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "'Poppins','Roboto', 'Helvetica', sans-serif",
+    fontFamily: "'Urbanist','Roboto', 'Helvetica', sans-serif",
+  },
+  palette: {
+    mode: "light",
+    primary: {
+      main: "#e0c298",
+    },
+    warning: {
+      main: "#de988a",
+    },
   },
 });
 

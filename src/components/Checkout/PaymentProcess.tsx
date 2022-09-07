@@ -39,9 +39,7 @@ const PaymentProcess = () => {
       {activeStep === steps.length ? (
         <React.Fragment>
           <Typography sx={{ mt: 2, mb: 1 }}>Thank you for your purchase!</Typography>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            {/* TODO: Add Complete component */}
-          </Box>
+          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>{/* TODO: Add Complete component */}</Box>
         </React.Fragment>
       ) : (
         <React.Fragment>
