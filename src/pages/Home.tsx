@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Navigation, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -242,7 +242,7 @@ const Home = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Pagination]}
+          modules={[Autoplay, Pagination]}
           className="topSwiper"
         >
           {images.map((img) => (
@@ -256,7 +256,7 @@ const Home = () => {
               }}
             >
               <SliderText>
-                <div>TEXTILE FASHION CENTER</div>
+                <Typography sx={{ fontSize: "inherit" }}>TEXTILE FASHION CENTER</Typography>
                 <BtnContainer>
                   <NavLink to={"store"} style={{ textDecoration: "none" }}>
                     <EnterBtn>SHOP NOW</EnterBtn>
