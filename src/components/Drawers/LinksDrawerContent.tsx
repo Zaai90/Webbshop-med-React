@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import CurrencyChanger from "../CurrencyChanger";
 
 const NavLinksStyled = styled.div`
   display: flex;
@@ -58,6 +59,7 @@ const LinksDrawerContent = ({ toggleDrawer }: Props) => {
         <NavLink onClick={toggleDrawer} to="admin">
           Admin
         </NavLink>
+        <CurrencyChanger />
       </NavLinksStyled>
     </>
   );
