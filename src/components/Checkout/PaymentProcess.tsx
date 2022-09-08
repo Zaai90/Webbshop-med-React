@@ -5,7 +5,6 @@ import StepLabel from "@mui/material/StepLabel";
 import Stepper from "@mui/material/Stepper";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { CreditCardModel } from "../../models/CreditCardModel";
 import Confirmation from "./Confirmation";
 import CurrentOrder from "./CurrentOrder";
 import PaymentForm from "./PaymentForm";
@@ -13,11 +12,7 @@ import PaymentOptions from "./PaymentOptions";
 
 const steps = ["Personal information", "Payment selection", "Confirm"];
 
-interface Props {
-  handleFormValues: (values: CreditCardModel) => void;
-}
-
-const PaymentProcess = ({handleFormValues}: Props) => {
+const PaymentProcess = () => {
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -27,7 +22,6 @@ const PaymentProcess = ({handleFormValues}: Props) => {
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
 
   return (
     <Box sx={{ width: "100%", marginTop: "10rem" }}>
