@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
+import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
 
@@ -143,6 +144,8 @@ const GridItem = ({ product }: Props) => {
   const [size, setSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
 
+  const { convertToCurrencyValue } = useCurrency();
+
   const handleChange = (event: SelectChangeEvent) => {
     setSize(event.target.value as string);
   };
@@ -178,7 +181,7 @@ const GridItem = ({ product }: Props) => {
           <img draggable="false" width={100} src={product.img[0]} />
           <div>
             <h4>{product.title}</h4>
-            <h3>{product.price}</h3>
+            <h3>{convertToCurrencyValue(product.price)}</h3>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", margin: "1rem 0", width: "100%" }}>
@@ -220,7 +223,7 @@ const GridItem = ({ product }: Props) => {
           <div>
             <h5>{product.title}</h5>
             <p>{product.designer}</p>
-            <p>{product.price}:-</p>
+            <p>{convertToCurrencyValue(product.price)}</p>
           </div>
 
           <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
@@ -237,7 +240,7 @@ const GridItem = ({ product }: Props) => {
             <p style={{ color: "rgb(159, 159, 159)" }}>{product.designer}</p>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
               <h3>{product.title}</h3>
-              <h2>{product.price}</h2>
+              <h2>{convertToCurrencyValue(product.price)}</h2>
             </div>
             <FormControl fullWidth>
               <InputLabel>Size</InputLabel>

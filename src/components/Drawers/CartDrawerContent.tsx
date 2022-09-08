@@ -3,6 +3,7 @@ import { Button } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
+import { useCurrency } from "../../contexts/CurrencyContext";
 import CartDrawerItem from "./CartDrawerItem";
 
 const Wrapper = styled.div`
@@ -39,6 +40,7 @@ interface Props {
 
 const CartDrawerContent = ({ toggleDrawer }: Props) => {
   const { cart, totalAmount, clearCart } = useCart();
+  const { convertToCurrencyValue } = useCurrency();
 
   function handleClearCart() {
     clearCart();
@@ -67,7 +69,7 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
             </Button>
             <Total>
               <span style={{ fontWeight: 500 }}>Total: </span>
-              <span>{totalAmount} SEK</span>
+              <span>{convertToCurrencyValue(totalAmount)} </span>
             </Total>
             <NavLink onClick={toggleDrawer} to="checkout">
               <Button variant="contained" color="primary" fullWidth>

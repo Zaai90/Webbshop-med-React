@@ -14,6 +14,7 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 const images: string[] = [
   "https://images.pexels.com/photos/6347538/pexels-photo-6347538.jpeg?cs=srgb&dl=pexels-liza-summer-6347538.jpg&fm=jpg",
@@ -220,6 +221,7 @@ const EnterBtn = styled(Button)`
 const Home = () => {
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
+  const { convertToCurrencyValue } = useCurrency();
 
   function handleQuickViewClick() {
     console.log("I'm here!");
@@ -273,23 +275,26 @@ const Home = () => {
           <TopContent>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>News</div>
+
+              <Typography>News</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Shirts</div>
+              <Typography>Shirts</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Dresses</div>
+              <Typography>Dresses</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Textiles</div>
+              <Typography>Textiles</Typography>
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
-            <h1 style={{ padding: "2rem" }}>Newly added</h1>
+            <Typography variant="h5" sx={{ padding: "2rem" }}>
+              Newly Added
+            </Typography>
             <Swiper
               loop={true}
               spaceBetween={15}
@@ -326,16 +331,21 @@ const Home = () => {
                       handleQuickViewClick();
                     }}
                   >
-                    Quick View
+                    <Typography>Quick View</Typography>
                   </QuickView>
                   <ItemContentBottom>
                     <div style={{ display: "flex", background: "white" }}>
-                      <div style={{ marginRight: "auto" }}>{product.title}</div>
+                      <div style={{ marginRight: "auto" }}>
+                        <Typography variant="h6">{product.title}</Typography>
+                      </div>
                       <FavContainer>
                         <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
                       </FavContainer>
                     </div>
-                    <div style={{ textAlign: "left" }}>{product.price}</div>
+                    <div style={{ textAlign: "left" }}>
+                      <Typography variant="h6">{convertToCurrencyValue(product.price)}</Typography>
+                    </div>
+
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}
