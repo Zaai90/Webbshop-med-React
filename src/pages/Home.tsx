@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
@@ -279,7 +279,9 @@ const Home = () => {
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
-            <h1 style={{ padding: "2rem" }}>Newly added</h1>
+            <Typography variant="h5" sx={{ padding: "2rem" }}>
+              Newly Added
+            </Typography>
             <Swiper
               loop={true}
               spaceBetween={15}
@@ -316,16 +318,20 @@ const Home = () => {
                       handleQuickViewClick();
                     }}
                   >
-                    Quick View
+                    <Typography sx={{ fontSize: "14px" }}>Quick View</Typography>
                   </QuickView>
                   <ItemContentBottom>
                     <div style={{ display: "flex", background: "white" }}>
-                      <div style={{ marginRight: "auto" }}>{product.title}</div>
+                      <div style={{ marginRight: "auto" }}>
+                        <Typography variant="h6">{product.title}</Typography>
+                      </div>
                       <FavContainer>
                         <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
                       </FavContainer>
                     </div>
-                    <div style={{ textAlign: "left" }}>{product.price}</div>
+                    <div style={{ textAlign: "left" }}>
+                      <Typography variant="h6">{product.price}</Typography>
+                    </div>
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}
