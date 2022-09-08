@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
@@ -10,7 +10,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Navigation, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -172,8 +172,10 @@ const SliderText = styled.div`
   font-size: calc(40px + (180 - 40) * ((100vw - 360px) / (2600 - 300)));
   position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   top: 0;
   left: 0;
   right: 0;
@@ -183,29 +185,35 @@ const SliderText = styled.div`
   color: white;
   text-shadow: 1px 3px 1px black;
   z-index: 20;
-  margin: 0 0.5rem;
+  margin: 0 1rem;
 `;
 
 const BtnContainer = styled.div`
-  position: absolute;
   display: flex;
   justify-content: center;
-  right: 0;
-  left: 0;
-  top: 55vh;
+  align-items: center;
 `;
 
 const EnterBtn = styled(Button)`
+  position: absolute;
   background-color: rgba(164, 122, 122, 0) !important;
   color: white !important;
   border: 2px solid white !important;
-  font-size: 50px !important;
+  font-size: 20px !important;
   z-index: 20 !important;
   margin: 0 auto !important;
+
   text-shadow: 1px 1px 1px black;
 
   &:hover {
     box-shadow: 1px -1px 1px 0px rgba(0, 0, 0, 0.75) inset, -1px 1px 1px 0px rgba(0, 0, 0, 0.75) inset;
+  }
+
+  @media (min-width: 769px) {
+    font-size: 40px !important;
+  }
+  @media (min-width: 900px) {
+    font-size: 50px !important;
   }
 `;
 
@@ -234,7 +242,7 @@ const Home = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Pagination]}
+          modules={[Autoplay, Pagination]}
           className="topSwiper"
         >
           {images.map((img) => (
@@ -247,16 +255,18 @@ const Home = () => {
                 backgroundRepeat: "no-repeat",
               }}
             >
-              <SliderText>TEXTILE FASHION CENTER</SliderText>
+              <SliderText>
+                <Typography sx={{ fontSize: "inherit" }}>TEXTILE FASHION CENTER</Typography>
+                <BtnContainer>
+                  <NavLink to={"store"} style={{ textDecoration: "none" }}>
+                    <EnterBtn>SHOP NOW</EnterBtn>
+                  </NavLink>
+                </BtnContainer>
+              </SliderText>
             </SwiperSlide>
           ))}
         </Swiper>
       </TopSwiper>
-      <BtnContainer>
-        <NavLink to={"store"} style={{ textDecoration: "none" }}>
-          <EnterBtn>SHOP NOW</EnterBtn>
-        </NavLink>
-      </BtnContainer>
 
       <MainContent>
         <Container>
