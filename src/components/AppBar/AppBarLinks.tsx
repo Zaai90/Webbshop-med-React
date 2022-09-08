@@ -30,7 +30,7 @@ const AppBarLinks = ({ pages }: Props) => {
   return (
     <HeaderLinks>
       {pages.map((page) => (
-        <NavLink to={page}>
+        <NavLink key={page} to={page}>
           <Button size="large">
             <Typography variant="h6" color={(theme) => theme.palette.common.white} textTransform="uppercase">
               {page}

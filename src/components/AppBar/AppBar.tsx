@@ -16,7 +16,9 @@ import LinksDrawerContent from "../Drawers/LinksDrawerContent";
 import LogoSvg from "../LogoSvg";
 import AppBarDrawer from "./AppBarDrawer";
 import AppBarLinks from "./AppBarLinks";
+import MiniAppBar from "./MiniAppBar";
 import Searchbar from "./Searchbar";
+import ShowOnScroll from "./ShowOnScroll";
 
 const CartWrapper = styled.div`
   display: flex;
@@ -106,6 +108,11 @@ const AppBar = () => {
         </Container>
       </MUIAppBar>
       {searchIsActive && <Searchbar />}
+      <ShowOnScroll>
+        <Box width="100%" position="fixed" top={0} zIndex={1201} sx={{ backgroundColor: "#383838" }}>
+          <MiniAppBar setIsCartDrawerOpen={setIsCartDrawerOpen} setIsLinkDrawerOpen={setIsLinkDrawerOpen} isLinkDrawerOpen={isLinkDrawerOpen} />
+        </Box>
+      </ShowOnScroll>
       {/* DRAWERS */}
       <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
         <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
