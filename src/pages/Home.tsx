@@ -273,19 +273,20 @@ const Home = () => {
           <TopContent>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>News</div>
+
+              <Typography>News</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Shirts</div>
+              <Typography>Shirts</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Dresses</div>
+              <Typography>Dresses</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Textiles</div>
+              <Typography>Textiles</Typography>
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
@@ -328,7 +329,7 @@ const Home = () => {
                       handleQuickViewClick();
                     }}
                   >
-                    <Typography sx={{ fontSize: "14px" }}>Quick View</Typography>
+                    <Typography>Quick View</Typography>
                   </QuickView>
                   <ItemContentBottom>
                     <div style={{ display: "flex", background: "white" }}>
