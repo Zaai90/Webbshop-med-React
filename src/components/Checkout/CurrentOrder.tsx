@@ -3,6 +3,7 @@ import { Fade, IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
+import { useCurrency } from "../../contexts/CurrencyContext";
 import { CartItem } from "../../models/CartItem";
 
 const CartItemCard = styled.div`
@@ -35,6 +36,7 @@ const CurrentOrder = () => {
   const [isPayed, setIsPayed] = useState(false);
   const handleSubmit = () => {};
   const { addToCart, removeFromCart, getItemQty, removeItemFromCart, cart, totalAmount } = useCart();
+  const { convertToCurrencyValue } = useCurrency();
 
   // TODO: use update cart functions
   function handleSubstract(cartItem: CartItem) {
@@ -62,7 +64,7 @@ const CurrentOrder = () => {
               <div style={{ flex: 1 }}>
                 <div>{cartItem.product.title}</div>
                 <div>{cartItem.product.designer}</div>
-                <div>{cartItem.product.price}</div>
+                <div>{convertToCurrencyValue(cartItem.product.price)}</div>
               </div>
 
               <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
@@ -85,14 +87,16 @@ const CurrentOrder = () => {
               </div>
             </div>
             <div style={{ display: "flex", justifyContent: "end" }}>
-              <div style={{ justifySelf: "end", display: "flex", alignItems: "end" }}>{cartItem.product.price * cartItem.quantity}</div>
+              <div style={{ justifySelf: "end", display: "flex", alignItems: "end" }}>
+                {convertToCurrencyValue(cartItem.product.price * cartItem.quantity)}
+              </div>
             </div>
           </div>
         </CartItemCard>
       ))}
       <div style={{ display: "flex", justifyContent: "end", gap: "1rem", padding: "1rem" }}>
         <div>Total price: </div>
-        <div>{totalAmount}</div>
+        <div>{convertToCurrencyValue(totalAmount)}</div>
       </div>
     </div>
   );

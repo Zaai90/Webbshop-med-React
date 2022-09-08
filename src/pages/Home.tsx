@@ -14,6 +14,7 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 const images: string[] = [
   "https://images.pexels.com/photos/6347538/pexels-photo-6347538.jpeg?cs=srgb&dl=pexels-liza-summer-6347538.jpg&fm=jpg",
@@ -220,6 +221,7 @@ const EnterBtn = styled(Button)`
 const Home = () => {
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
+  const { convertToCurrencyValue } = useCurrency();
 
   function handleQuickViewClick() {
     console.log("I'm here!");
@@ -341,8 +343,9 @@ const Home = () => {
                       </FavContainer>
                     </div>
                     <div style={{ textAlign: "left" }}>
-                      <Typography variant="h6">{product.price}</Typography>
+                      <Typography variant="h6">{convertToCurrencyValue(product.price)}</Typography>
                     </div>
+
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}

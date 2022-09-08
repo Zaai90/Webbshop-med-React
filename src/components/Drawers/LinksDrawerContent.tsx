@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import CurrencyChanger from "../CurrencyChanger";
 import LogoSvg from "../LogoSvg";
 
 const NavLinksStyled = styled.div`
@@ -48,6 +49,7 @@ const LinksDrawerContent = ({ toggleDrawer }: Props) => {
         <NavLink onClick={toggleDrawer} to="admin">
           Admin
         </NavLink>
+        <CurrencyChanger />
       </NavLinksStyled>
     </>
   );
