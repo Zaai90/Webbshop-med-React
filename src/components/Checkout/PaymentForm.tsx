@@ -21,18 +21,16 @@ const validationSchema = yup.object({
   firstName: yup.string().min(2, "First name should be of minimum 2 characters length").required("First name is required"),
   lastName: yup.string().min(2, "Last name should be of minimum 2 characters length").required("Last name is required"),
   address: yup.string().min(2, "Address should be of minimum 2 characters length").required("Address is required"),
-  streetNo: yup.string().min(1, "Password should be of minimum 1 characters length").required("Street No is required"),
   zipCode: yup.string().min(5, "Password should be of minimum 5 characters length").required("Zip Code is required"),
   country: yup.string().min(2, "Password should be of minimum 2 characters length").required("Country is required"),
   phoneNumber: yup.string().min(5, "Password should be of minimum 5 characters length").required("Phone number is required"),
 });
 
-interface Values {
+export interface Values {
   email: string;
   firstName: string;
   lastName: string;
   address: string;
-  streetNo: string;
   zipCode: string;
   country: string;
   phoneNumber: string;
@@ -40,15 +38,17 @@ interface Values {
 
 interface Props {
   handleSubmit: () => void;
+  setFormValues: (values: Values) => void;
 }
 
-const PaymentForm = ({ handleSubmit }: Props) => {
+const PaymentForm = ({ handleSubmit, setFormValues }: Props) => {
   const formik = useFormik({
-    initialValues: { email: "", firstName: "", lastName: "", address: "", streetNo: "", zipCode: "", country: "", phoneNumber: "" },
+    initialValues: { email: "", firstName: "", lastName: "", address: "", zipCode: "", country: "", phoneNumber: "" },
 
     validationSchema: validationSchema,
     onSubmit: (values: Values, e) => {
       handleSubmit();
+      setFormValues(values);
       // alert(JSON.stringify(values, null, 2));
     },
   });
