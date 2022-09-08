@@ -101,17 +101,6 @@ const PaymentForm = ({ handleSubmit }: Props) => {
         />
         <TextField
           fullWidth
-          id="streetNo"
-          name="streetNo"
-          label="streetNo"
-          type="text"
-          value={formik.values.streetNo}
-          onChange={formik.handleChange}
-          error={formik.touched.streetNo && Boolean(formik.errors.streetNo)}
-          helperText={formik.touched.streetNo && formik.errors.streetNo}
-        />
-        <TextField
-          fullWidth
           id="zipCode"
           name="zipCode"
           label="Zip code"
