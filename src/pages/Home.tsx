@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Button, Container } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
@@ -10,10 +10,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Navigation, Pagination } from "swiper";
+import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 const images: string[] = [
   "https://images.pexels.com/photos/6347538/pexels-photo-6347538.jpeg?cs=srgb&dl=pexels-liza-summer-6347538.jpg&fm=jpg",
@@ -172,8 +173,10 @@ const SliderText = styled.div`
   font-size: calc(40px + (180 - 40) * ((100vw - 360px) / (2600 - 300)));
   position: absolute;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1rem;
   top: 0;
   left: 0;
   right: 0;
@@ -183,35 +186,42 @@ const SliderText = styled.div`
   color: white;
   text-shadow: 1px 3px 1px black;
   z-index: 20;
-  margin: 0 0.5rem;
+  margin: 0 1rem;
 `;
 
 const BtnContainer = styled.div`
-  position: absolute;
   display: flex;
   justify-content: center;
-  right: 0;
-  left: 0;
-  top: 55vh;
+  align-items: center;
 `;
 
 const EnterBtn = styled(Button)`
+  position: absolute;
   background-color: rgba(164, 122, 122, 0) !important;
   color: white !important;
   border: 2px solid white !important;
-  font-size: 50px !important;
+  font-size: 20px !important;
   z-index: 20 !important;
   margin: 0 auto !important;
+
   text-shadow: 1px 1px 1px black;
 
   &:hover {
     box-shadow: 1px -1px 1px 0px rgba(0, 0, 0, 0.75) inset, -1px 1px 1px 0px rgba(0, 0, 0, 0.75) inset;
+  }
+
+  @media (min-width: 769px) {
+    font-size: 40px !important;
+  }
+  @media (min-width: 900px) {
+    font-size: 50px !important;
   }
 `;
 
 const Home = () => {
   const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
+  const { convertToCurrencyValue } = useCurrency();
 
   function handleQuickViewClick() {
     console.log("I'm here!");
@@ -234,7 +244,7 @@ const Home = () => {
           pagination={{
             clickable: true,
           }}
-          modules={[Pagination]}
+          modules={[Autoplay, Pagination]}
           className="topSwiper"
         >
           {images.map((img) => (
@@ -247,39 +257,44 @@ const Home = () => {
                 backgroundRepeat: "no-repeat",
               }}
             >
-              <SliderText>TEXTILE FASHION CENTER</SliderText>
+              <SliderText>
+                <Typography sx={{ fontSize: "inherit" }}>TEXTILE FASHION CENTER</Typography>
+                <BtnContainer>
+                  <NavLink to={"store"} style={{ textDecoration: "none" }}>
+                    <EnterBtn>SHOP NOW</EnterBtn>
+                  </NavLink>
+                </BtnContainer>
+              </SliderText>
             </SwiperSlide>
           ))}
         </Swiper>
       </TopSwiper>
-      <BtnContainer>
-        <NavLink to={"store"} style={{ textDecoration: "none" }}>
-          <EnterBtn>SHOP NOW</EnterBtn>
-        </NavLink>
-      </BtnContainer>
 
       <MainContent>
         <Container>
           <TopContent>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>News</div>
+
+              <Typography>News</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Shirts</div>
+              <Typography>Shirts</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Dresses</div>
+              <Typography>Dresses</Typography>
             </CategoryBubbleContainer>
             <CategoryBubbleContainer>
               <CategoryBubble></CategoryBubble>
-              <div>Textiles</div>
+              <Typography>Textiles</Typography>
             </CategoryBubbleContainer>
           </TopContent>
           <SwiperContent>
-            <h1 style={{ padding: "2rem" }}>Newly added</h1>
+            <Typography variant="h5" sx={{ padding: "2rem" }}>
+              Newly Added
+            </Typography>
             <Swiper
               loop={true}
               spaceBetween={15}
@@ -316,16 +331,21 @@ const Home = () => {
                       handleQuickViewClick();
                     }}
                   >
-                    Quick View
+                    <Typography>Quick View</Typography>
                   </QuickView>
                   <ItemContentBottom>
                     <div style={{ display: "flex", background: "white" }}>
-                      <div style={{ marginRight: "auto" }}>{product.title}</div>
+                      <div style={{ marginRight: "auto" }}>
+                        <Typography variant="h6">{product.title}</Typography>
+                      </div>
                       <FavContainer>
                         <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
                       </FavContainer>
                     </div>
-                    <div style={{ textAlign: "left" }}>{product.price}</div>
+                    <div style={{ textAlign: "left" }}>
+                      <Typography variant="h6">{convertToCurrencyValue(product.price)}</Typography>
+                    </div>
+
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}

@@ -1,4 +1,5 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
+import { useLocalStorage } from "../hooks/localStorage";
 import { currencyConverter } from "../utils/CurrencyConverter";
 
 interface CurrencyContext {
@@ -8,10 +9,10 @@ interface CurrencyContext {
 }
 
 export enum Currency {
-  USD = "USD",
-  EUR = "EUR",
-  GBP = "GBP",
   SEK = "SEK",
+  EUR = "EUR",
+  USD = "USD",
+  GBP = "GBP",
 }
 
 const CurrencyContext = createContext<CurrencyContext>({
@@ -25,7 +26,7 @@ interface CurrencyProviderProps {
 }
 
 const CurrencyContextProvider = ({ children }: CurrencyProviderProps) => {
-  const [currency, setCurrency] = useState<Currency>(Currency.SEK);
+  const [currency, setCurrency] = useLocalStorage<Currency>("currency", Currency.SEK);
 
   const changeCurrency = (newCurrency: Currency) => {
     setCurrency(newCurrency);
