@@ -57,7 +57,7 @@ const AppBar = () => {
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
   const desktopScreen = useMediaQuery(theme.breakpoints.up("md"));
 
-  const { changeCurrency } = useCurrency();
+  const { changeCurrency, convertToCurrencyValue } = useCurrency();
 
   //TODO add a currencySelector
   useEffect(() => {
@@ -147,7 +147,7 @@ const AppBar = () => {
                     <Badge badgeContent={cartQty} showZero color="primary">
                       <Icon.LocalMallOutlined sx={{ marginRight: "0 !important", fontSize: "2rem" }} />
                     </Badge>
-                    {!tabletScreen && <Price>{totalAmount} SEK</Price>}
+                    {!tabletScreen && <Price>{convertToCurrencyValue(totalAmount)}</Price>}
                   </CartWrapper>
                 )}
               </IconButton>
