@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
-import { Currency, useCurrency } from "../../contexts/CurrencyContext";
+import { useCurrency } from "../../contexts/CurrencyContext";
 import { useFavorites } from "../../contexts/FavoriteContext";
 import { useProducts } from "../../contexts/ProductContext";
 import theme from "../../utils/Theme";
@@ -57,15 +57,14 @@ const AppBar = () => {
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
   const desktopScreen = useMediaQuery(theme.breakpoints.up("md"));
 
-  const { changeCurrency, convertToCurrencyValue } = useCurrency();
+  const { changeCurrency, convertToCurrencyValue, currency } = useCurrency();
 
   //TODO add a currencySelector
   useEffect(() => {
-    changeCurrency(Currency.SEK);
+    changeCurrency(currency);
   }, []);
 
   const { products } = useProducts();
-
   const { cart, cartQty, totalAmount } = useCart();
   const { favorites } = useFavorites();
 
@@ -108,7 +107,6 @@ const AppBar = () => {
                     </Typography>
                   </Button>
                 </NavLink>
-
                 <NavLink to="checkout">
                   <Button size="large">
                     <Typography variant="h6" color={(theme) => theme.palette.common.white}>
@@ -116,7 +114,6 @@ const AppBar = () => {
                     </Typography>
                   </Button>
                 </NavLink>
-
                 <NavLink to="admin">
                   <Button size="large">
                     <Typography variant="h6" color={(theme) => theme.palette.common.white}>
