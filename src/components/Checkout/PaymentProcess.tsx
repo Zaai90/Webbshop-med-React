@@ -51,7 +51,7 @@ const PaymentProcess = ({handleFormValues}: Props) => {
         <React.Fragment>
           <Box sx={{ marginTop: "5rem", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {activeStep === 0 && <PaymentForm handleSubmit={handleNext} />}
-            {activeStep === 1 && <PaymentOptions handleFormValues={handleFormValues} handleSubmit={handleNext} />}
+            {activeStep === 1 && <PaymentOptions handleSubmit={handleNext} />}
             {activeStep === 2 && <Confirmation handleSubmit={handleNext} />}
             <CurrentOrder />
           </Box>

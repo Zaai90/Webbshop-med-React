@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { CreditCardModel } from "../../../models/CreditCardModel";
 
 interface Props {
+  handleSubmit: () => void;
   handleFormValues: (values: CreditCardModel) => void;
 }
 
@@ -33,7 +34,7 @@ const Input = styled(TextField)`
   margin-top: 2rem;
 `;
 
-const CreditCard = ({ handleFormValues }: Props) => {
+const CreditCard = ({ handleFormValues, handleSubmit }: Props) => {
   const formik = useFormik({
     initialValues: { cardNumber: 123456789, expirationDate: today, cardholderName: "", cvcCode: 123 },
 
@@ -41,10 +42,11 @@ const CreditCard = ({ handleFormValues }: Props) => {
     onSubmit: (values: CreditCardModel, e) => {
       handleFormValues(values);
       alert(JSON.stringify(values, null, 2));
+      handleSubmit();
     },
   });
   return (
-    <Form id="my-form" onSubmit={formik.handleSubmit}>
+    <Form id="credit-card-form" onSubmit={formik.handleSubmit}>
       <Input
         fullWidth
         id="cardNumber"

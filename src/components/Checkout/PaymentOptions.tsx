@@ -11,7 +11,7 @@ import Swish from "./PaymentOptions/Swish";
 
 interface Props {
   handleSubmit: () => void;
-  handleFormValues: (values: CreditCardModel) => void;
+  // handleFormValues: (values: CreditCardModel) => void;
 }
 
 const PaymentOptionWrapper = styled.div`
@@ -30,11 +30,11 @@ align-items: center;
 `;
 
 
-const PaymentOptions = ({ handleSubmit, handleFormValues }: Props) => {
+const PaymentOptions = ({ handleSubmit }: Props) => {
   const [value, setValue] = useState("");
-  // function handleFormValues(values: CreditCardModel) {
-  //   console.log(values);
-  // }
+  function handleFormValues(values: CreditCardModel) {
+    console.log(values);
+  }
 
   const handleClick = (name: string) => {
     setValue(name);
@@ -63,7 +63,7 @@ const PaymentOptions = ({ handleSubmit, handleFormValues }: Props) => {
                 <PaymentIcon />
               </Box>
             </PaymentOption>
-            <PaymentComponent>{value === "credit-card" && <CreditCard handleFormValues={handleFormValues} />}</PaymentComponent>
+            <PaymentComponent>{value === "credit-card" && <CreditCard handleSubmit={handleSubmit} handleFormValues={handleFormValues} />}</PaymentComponent>
           </PaymentOptionWrapper>
 
           <PaymentOptionWrapper onClick={() => handleClick("bank")}>
@@ -77,7 +77,7 @@ const PaymentOptions = ({ handleSubmit, handleFormValues }: Props) => {
           </PaymentOptionWrapper>
         </RadioGroup>
       </FormControl>
-      <Button color="primary" variant="contained" fullWidth type="submit" form='my-form' sx={{ marginTop: "3rem" }}>
+      <Button color="primary" variant="contained" fullWidth type="submit" form='credit-card-form' sx={{ marginTop: "3rem" }}>
         Next step
       </Button>
     </Container>
