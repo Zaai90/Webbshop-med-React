@@ -3,6 +3,7 @@ import { IconButton } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
+import { useCurrency } from "../../contexts/CurrencyContext";
 import { CartItem } from "../../models/CartItem";
 
 const Wrapper = styled.div`
@@ -60,6 +61,7 @@ interface Props {
 
 const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
   const { addToCart, removeFromCart, getItemQty, removeItemFromCart } = useCart();
+  const { convertToCurrencyValue } = useCurrency();
 
   // TODO: use update cart functions
   function handleSubstract() {
@@ -89,7 +91,7 @@ const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
           ( {cartItem.product.color && cartItem.product.color}
           {cartItem.product.size && " " + cartItem.product.size} )
         </span>
-        <span>{cartItem.product.price * cartItem.quantity} kr</span>
+        <span>{convertToCurrencyValue(cartItem.product.price * cartItem.quantity)}</span>
       </InfoContainer>
       <QuantityContainer>
         <IconButton sx={{ alignSelf: "end" }} onClick={handleRemove}>
