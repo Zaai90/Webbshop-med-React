@@ -1,4 +1,3 @@
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button, Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
@@ -8,13 +7,12 @@ import { useProducts } from "../contexts/ProductContext";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
-import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Autoplay, Navigation, Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useCurrency } from "../contexts/CurrencyContext";
+import NewlyAddedSwiper from "../components/Swipers/NewlyAddedSwiper";
 
 const images: string[] = [
   "https://images.pexels.com/photos/6347538/pexels-photo-6347538.jpeg?cs=srgb&dl=pexels-liza-summer-6347538.jpg&fm=jpg",
@@ -64,8 +62,8 @@ const CategoryBubbleContainer = styled.div`
   }
 `;
 
-// TODO: Move quickView to it's own component?
-const QuickView = styled.span`
+// TODO: Move quickView to it's own component?!
+export const QuickView = styled.span`
   position: absolute;
   bottom: 0px;
   left: 0;
@@ -115,35 +113,6 @@ const SwiperContent = styled.div`
   }
 `;
 
-const SliderImage = styled.img`
-  object-fit: cover;
-  height: 100%;
-  width: 100%;
-  transition: 0.5s ease all;
-
-  &:hover {
-    scale: 1.05;
-  }
-`;
-
-const FavContainer = styled.div`
-  .hearted {
-    color: #ff5cbb;
-    transition: 1s ease all;
-  }
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const ItemContentBottom = styled.div`
-  position: relative;
-  z-index: 999;
-  padding: 20px 5px;
-  background: white;
-  margin-top: -10px;
-`;
-
 const TopSwiper = styled.div`
   margin-top: 4rem;
   height: 90vw;
@@ -159,14 +128,6 @@ const TopSwiper = styled.div`
   .swiper-slide {
     background: orange;
   }
-`;
-
-const StyledSwiperSlide = styled(SwiperSlide)<{ test: string }>`
-  position: relative;
-  background-image: url(${(props) => props.test});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 `;
 
 const SliderText = styled.div`
@@ -219,17 +180,8 @@ const EnterBtn = styled(Button)`
 `;
 
 const Home = () => {
-  const [isHearted, setHearted] = useState(false);
   const { products } = useProducts();
-  const { convertToCurrencyValue } = useCurrency();
 
-  function handleQuickViewClick() {
-    console.log("I'm here!");
-  }
-
-  const toggleHearted = () => {
-    setHearted(!isHearted);
-  };
   return (
     <>
       <TopSwiper>
@@ -292,56 +244,7 @@ const Home = () => {
           </TopContent>
           <SwiperContent>
             <h1 style={{ padding: "2rem" }}>Newly added</h1>
-            <Swiper
-              loop={true}
-              spaceBetween={15}
-              centeredSlides={true}
-              slidesPerGroup={1}
-              loopFillGroupWithBlank={false}
-              grabCursor={true}
-              slidesPerView={1}
-              navigation={true}
-              modules={[Navigation]}
-              breakpoints={{
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 10,
-                },
-                768: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 10,
-                },
-              }}
-            >
-              {products.map((product) => (
-                <SwiperSlide>
-                  <a href={"product/" + product.id}>
-                    <SliderImage src={product.img[0]} />
-                  </a>
-                  {/* TODO: Clean up */}
-                  <QuickView
-                    onClick={() => {
-                      handleQuickViewClick();
-                    }}
-                  >
-                    Quick View
-                  </QuickView>
-                  <ItemContentBottom>
-                    <div style={{ display: "flex", background: "white" }}>
-                      <div style={{ marginRight: "auto" }}>{product.title}</div>
-                      <FavContainer>
-                        <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
-                      </FavContainer>
-                    </div>
-                    <div style={{ textAlign: "left" }}>{convertToCurrencyValue(product.price)}</div>
-                  </ItemContentBottom>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <NewlyAddedSwiper items={products} />
           </SwiperContent>
         </Container>
       </MainContent>
