@@ -1,7 +1,6 @@
 // Link to default MUI theme  https://mui.com/material-ui/customization/default-theme
 
 import { createTheme } from "@mui/material/styles";
-import { dark } from "@mui/material/styles/createPalette";
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {

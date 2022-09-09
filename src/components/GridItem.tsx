@@ -1,15 +1,18 @@
 import * as Icon from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Card, Fade, IconButton, Modal, SelectChangeEvent, Tooltip } from "@mui/material";
+import { Card, Drawer, Fade, IconButton, Modal, SelectChangeEvent, Tooltip, Typography, useMediaQuery } from "@mui/material";
+import { Box, Container } from "@mui/system";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
+import theme from "../utils/Theme";
 import AddProductSnackbar from "./Modals/AddProductSnackbar";
 import QuickViewModal from "./Modals/QuickViewModal";
 
@@ -91,6 +94,36 @@ const FavoriteButtonStyled = styled.div`
     transition: 2s ease all;
   }
 `;
+
+const QuickViewButtonStyled = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 200;
+  padding: 0.75rem;
+  cursor: pointer;
+  svg {
+    transition: 2s ease all;
+  }
+`;
+
+const SimpleImageSliderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  height: 150px !important;
+  width: 150px !important;
+  position: relative !important;
+  .rsis-container div {
+    background-position: center center !important;
+    background-size: contain !important;
+  }
+  & button {
+    filter: invert(100%);
+    box-shadow: none !important;
+  }
+`;
+
 interface Props {
   product: Product;
 }
@@ -103,6 +136,9 @@ const GridItem = ({ product }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
   const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
+  const [isQuickViewDrawerOpen, setIsQuickViewDrawerOpen] = useState(false);
+
+  const touchScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const { convertToCurrencyValue } = useCurrency();
 
@@ -147,16 +183,23 @@ const GridItem = ({ product }: Props) => {
             {isFavorite ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
           </Tooltip>
         </FavoriteButtonStyled>
+        {touchScreen && (
+          <QuickViewButtonStyled onClick={() => setIsQuickViewDrawerOpen(true)}>
+            <Icon.VisibilityOutlined color={"disabled"} />
+          </QuickViewButtonStyled>
+        )}
         <NavLink to={`../product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
         </NavLink>
-        <QuickView
-          onClick={() => {
-            handleQuickViewClick();
-          }}
-        >
-          Quick View
-        </QuickView>
+        {!touchScreen && (
+          <QuickView
+            onClick={() => {
+              handleQuickViewClick();
+            }}
+          >
+            Quick View
+          </QuickView>
+        )}
         <CardBottomStyled>
           <div>
             <h5>{product.title}</h5>
@@ -172,6 +215,23 @@ const GridItem = ({ product }: Props) => {
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <QuickViewModal product={product} size={size} handleChange={handleChange} toggleModal={setIsModalOpen} />
       </Modal>
+      <Drawer anchor="bottom" open={isQuickViewDrawerOpen} onClose={() => setIsQuickViewDrawerOpen(false)}>
+        <Container maxWidth="lg" fixed sx={{ display: "flex" }}>
+          <SimpleImageSliderContainer>
+            <SimpleImageSlider width={"80%"} height={"80%"} navSize={30} images={product.img} showBullets={true} showNavs={true} navMargin={-10} />
+          </SimpleImageSliderContainer>
+          <Box sx={{ display: "flex", flexDirection: "column", padding: ".5rem", flexGrow: "1" }}>
+            <Typography color={"rgb(159, 159, 159)"}>{product.designer}</Typography>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
+              <Typography fontSize={".8rem"}>{product.title}</Typography>
+              <Typography fontSize={".8rem"} fontWeight="700">
+                {convertToCurrencyValue(product.price)}
+              </Typography>
+            </div>
+            <Typography>{product.title}</Typography>
+          </Box>
+        </Container>
+      </Drawer>
     </>
   );
 };
