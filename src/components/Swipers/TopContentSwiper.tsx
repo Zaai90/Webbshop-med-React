@@ -102,6 +102,7 @@ const TopContentSwiper = () => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
+            key={img}
           >
             <SliderText>
               <Typography sx={{ fontSize: "inherit" }}>TEXTILE FASHION CENTER</Typography>
