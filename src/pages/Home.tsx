@@ -256,6 +256,7 @@ const Home = () => {
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
               }}
+              key={img}
             >
               <SliderText>
                 <Typography sx={{ fontSize: "inherit" }}>TEXTILE FASHION CENTER</Typography>
@@ -321,7 +322,7 @@ const Home = () => {
               }}
             >
               {products.map((product) => (
-                <SwiperSlide>
+                <SwiperSlide key={product.id}>
                   <a href={"product/" + product.id}>
                     <SliderImage src={product.img[0]} />
                   </a>
@@ -345,7 +346,6 @@ const Home = () => {
                     <div style={{ textAlign: "left" }}>
                       <Typography variant="h6">{convertToCurrencyValue(product.price)}</Typography>
                     </div>
-
                   </ItemContentBottom>
                 </SwiperSlide>
               ))}
