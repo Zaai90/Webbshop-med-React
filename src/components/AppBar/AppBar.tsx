@@ -16,6 +16,9 @@ import LinksDrawerContent from "../Drawers/LinksDrawerContent";
 import LogoSvg from "../LogoSvg";
 import AppBarDrawer from "./AppBarDrawer";
 import AppBarLinks from "./AppBarLinks";
+import MiniAppBar from "./MiniAppBar";
+import Searchbar from "./Searchbar";
+import ShowOnScroll from "./ShowOnScroll";
 
 const CartWrapper = styled.div`
   display: flex;
@@ -30,6 +33,7 @@ const Price = styled.div`
 const AppBar = () => {
   const [isLinkDrawerOpen, setIsLinkDrawerOpen] = useState(false);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
+  const [searchIsActive, setSearchIsActive] = useState(false);
 
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -58,7 +62,7 @@ const AppBar = () => {
 
   return (
     <>
-      <MUIAppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <MUIAppBar position="relative" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
         <Container maxWidth="lg" fixed>
           <Toolbar sx={{ color: "white", minHeight: smScreen ? "80" : "64" }} disableGutters>
             {/* Left side AppBar */}
@@ -76,8 +80,11 @@ const AppBar = () => {
             {/* Right side AppBar */}
 
             <Box>
+              <IconButton sx={{ color: "white" }} onClick={() => setSearchIsActive((prev) => !prev)}>
+                <Icon.Search sx={{ fontSize: "2rem" }} />
+              </IconButton>
               <NavLink to={"favorites"}>
-                <IconButton sx={{ color: "white", marginRight: ".5rem" }}>
+                <IconButton sx={{ color: "white" }}>
                   <Badge badgeContent={favorites.length} color="secondary">
                     <FavoriteBorderIcon sx={{ fontSize: "2rem" }} />
                   </Badge>
@@ -99,9 +106,13 @@ const AppBar = () => {
           </Toolbar>
         </Container>
       </MUIAppBar>
-
+      {searchIsActive && <Searchbar />}
+      <ShowOnScroll>
+        <Box width="100%" position="fixed" top={0} zIndex={1201} sx={{ backgroundColor: "#383838" }}>
+          <MiniAppBar setIsCartDrawerOpen={setIsCartDrawerOpen} setIsLinkDrawerOpen={setIsLinkDrawerOpen} isLinkDrawerOpen={isLinkDrawerOpen} />
+        </Box>
+      </ShowOnScroll>
       {/* DRAWERS */}
-
       <AppBarDrawer anchor="left" isOpen={isLinkDrawerOpen} toggleDrawer={toggleLinkDrawer}>
         <LinksDrawerContent toggleDrawer={toggleLinkDrawer} />
       </AppBarDrawer>
