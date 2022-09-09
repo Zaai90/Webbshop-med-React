@@ -32,8 +32,15 @@ const CategoryList = styled(List)`
   }
 
   span {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 700;
+  }
+
+  .Mui-selected {
+    text-decoration: underline;
+    background-color: transparent !important;
+    color: rgba(0, 0, 0, 0.35) !important;
+    transition: 1s ease all;
   }
 `;
 
@@ -62,7 +69,7 @@ const Store = () => {
             <CategoryList sx={{ width: "100%", bgcolor: "background.paper" }}>
               <Container onClick={() => handleClick("All")}>
                 <ListItem disablePadding>
-                  <ListItemButton>
+                  <ListItemButton selected={value === "All" ? true : false}>
                     <ListItemText primary={"All".toUpperCase()} />
                   </ListItemButton>
                 </ListItem>
@@ -70,7 +77,7 @@ const Store = () => {
               {categories.map((product) => (
                 <Container onClick={() => handleClick(product.category)}>
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton selected={value === product.category ? true : false}>
                       <ListItemText primary={product.category.toUpperCase()} />
                     </ListItemButton>
                   </ListItem>
