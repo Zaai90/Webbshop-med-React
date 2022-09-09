@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
