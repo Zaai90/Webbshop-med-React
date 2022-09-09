@@ -107,7 +107,6 @@ const SwiperContent = styled.div`
 
 const Home = () => {
   const { products } = useProducts();
-  const { convertToCurrencyValue } = useCurrency();
 
   return (
     <>
