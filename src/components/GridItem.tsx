@@ -1,17 +1,17 @@
 import * as Icon from "@mui/icons-material";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Button, Card, Divider, Fade, FormControl, IconButton, InputLabel, MenuItem, Modal, Select, SelectChangeEvent, Tooltip } from "@mui/material";
+import { Card, Fade, IconButton, Modal, SelectChangeEvent, Tooltip } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
+import AddProductSnackbar from "./Modals/AddProductSnackbar";
+import QuickViewModal from "./Modals/QuickViewModal";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
   background: url(${(props) => props.imgUrl});
@@ -80,46 +80,6 @@ const CardStyled = styled(Card)`
   }
 `;
 
-const ModalContent = styled.div`
-  position: absolute;
-  width: 920px;
-  background-color: #fff;
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
-  padding: 16px;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  left: 50%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  :focus-visible {
-    outline: none;
-  }
-
-  @media (max-width: 992px) {
-    display: none;
-  }
-`;
-
-const SimpleImageSliderContainer = styled.div`
-  height: 500px !important;
-  width: 400px !important;
-  position: relative !important;
-  .rsis-container div {
-    background-position: center center !important;
-  }
-  button {
-    filter: invert(100%);
-    box-shadow: none !important;
-  }
-`;
-
-const ButtonStyled = styled(Button)`
-  margin-top: 20px !important;
-  padding: 15px !important;
-  width: 50%;
-`;
-
 const FavoriteButtonStyled = styled.div`
   position: absolute;
   left: 0%;
@@ -170,29 +130,7 @@ const GridItem = ({ product }: Props) => {
     addToCart(product, 1);
 
     // Styled toast
-    enqueueSnackbar(
-      <div style={{ display: "flex", flexDirection: "column", width: "300px" }}>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <Icon.AddShoppingCart />
-          <div>Added to cart!</div>
-        </div>
-        <Divider sx={{ bgcolor: "primary.dark", margin: "1rem 0" }} />
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <img draggable="false" width={100} src={product.img[0]} />
-          <div>
-            <h4>{product.title}</h4>
-            <h3>{convertToCurrencyValue(product.price)}</h3>
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", margin: "1rem 0", width: "100%" }}>
-          <NavLink style={{ width: "100%" }} to="/checkout">
-            <Button variant="contained" color="success" fullWidth>
-              CHECKOUT
-            </Button>
-          </NavLink>
-        </div>
-      </div>
-    );
+    enqueueSnackbar(<AddProductSnackbar product={product} />);
   }
 
   return (
@@ -232,38 +170,7 @@ const GridItem = ({ product }: Props) => {
         </CardBottomStyled>
       </CardStyled>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ModalContent>
-          <SimpleImageSliderContainer>
-            <SimpleImageSlider width={"100%"} height={"100%"} images={product.img} showBullets={true} showNavs={true} navMargin={-10} />
-          </SimpleImageSliderContainer>
-          <div>
-            <p style={{ color: "rgb(159, 159, 159)" }}>{product.designer}</p>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "3rem" }}>
-              <h3>{product.title}</h3>
-              <h2>{convertToCurrencyValue(product.price)}</h2>
-            </div>
-            <FormControl fullWidth>
-              <InputLabel>Size</InputLabel>
-              <Select id="demo-simple-select" value={size} label="Size" onChange={handleChange}>
-                <MenuItem value={1}>XS</MenuItem>
-                <MenuItem value={2}>S</MenuItem>
-                <MenuItem value={3}>M</MenuItem>
-                <MenuItem value={4}>L</MenuItem>
-                <MenuItem value={5}>XL</MenuItem>
-              </Select>
-            </FormControl>
-            <ButtonStyled
-              variant="contained"
-              endIcon={<AddShoppingCartIcon />}
-              onClick={() => {
-                addToCart(product, 1);
-                setIsModalOpen(false);
-              }}
-            >
-              Add to Cart
-            </ButtonStyled>
-          </div>
-        </ModalContent>
+        <QuickViewModal product={product} size={size} handleChange={handleChange} toggleModal={setIsModalOpen} />
       </Modal>
     </>
   );
