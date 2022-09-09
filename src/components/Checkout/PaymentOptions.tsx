@@ -7,7 +7,7 @@ import SwishSVG from "../Logos/SwishSVG";
 import TrustlySVG from "../Logos/TrustlySVG";
 import Bank from "./PaymentOptions/Bank";
 import CreditCard from "./PaymentOptions/CreditCard";
-import Swish from "./PaymentOptions/Swish";
+import Swish, { SwishModel } from "./PaymentOptions/Swish";
 
 interface Props {
   handleSubmit: () => void;
@@ -15,8 +15,8 @@ interface Props {
 }
 
 const PaymentOptionWrapper = styled.div`
-  border: 1px solid rgba(0,0,0,0.25);
-  border-radius: .3rem;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0.3rem;
   padding: 2rem;
   width: 100%;
   cursor: pointer;
@@ -25,21 +25,24 @@ const PaymentOptionWrapper = styled.div`
 const PaymentComponent = styled.div``;
 
 const PaymentOption = styled.div`
-display: flex;
-align-items: center;
+  display: flex;
+  align-items: center;
 `;
-
 
 const PaymentOptions = ({ handleSubmit }: Props) => {
   const [value, setValue] = useState("");
+
   function handleFormValues(values: CreditCardModel) {
     console.log(values);
+  }
+
+  function handleSwishFormValue(value: SwishModel) {
+    console.log(value);
   }
 
   const handleClick = (name: string) => {
     setValue(name);
   };
-
 
   return (
     <Container>
@@ -53,7 +56,7 @@ const PaymentOptions = ({ handleSubmit }: Props) => {
                 <SwishSVG />
               </Box>
             </PaymentOption>
-            <PaymentComponent>{value === "swish" && <Swish />}</PaymentComponent>
+            <PaymentComponent>{value === "swish" && <Swish handleSubmit={handleSubmit} handleFormValue={handleSwishFormValue} />}</PaymentComponent>
           </PaymentOptionWrapper>
 
           <PaymentOptionWrapper onClick={() => handleClick("credit-card")}>
@@ -63,7 +66,9 @@ const PaymentOptions = ({ handleSubmit }: Props) => {
                 <PaymentIcon />
               </Box>
             </PaymentOption>
-            <PaymentComponent>{value === "credit-card" && <CreditCard handleSubmit={handleSubmit} handleFormValues={handleFormValues} />}</PaymentComponent>
+            <PaymentComponent>
+              {value === "credit-card" && <CreditCard handleSubmit={handleSubmit} handleFormValues={handleFormValues} />}
+            </PaymentComponent>
           </PaymentOptionWrapper>
 
           <PaymentOptionWrapper onClick={() => handleClick("bank")}>
@@ -77,7 +82,7 @@ const PaymentOptions = ({ handleSubmit }: Props) => {
           </PaymentOptionWrapper>
         </RadioGroup>
       </FormControl>
-      <Button color="primary" variant="contained" fullWidth type="submit" form='credit-card-form' sx={{ marginTop: "3rem" }}>
+      <Button color="primary" variant="contained" fullWidth type="submit" form="payment-form" sx={{ marginTop: "3rem" }}>
         Next step
       </Button>
     </Container>
