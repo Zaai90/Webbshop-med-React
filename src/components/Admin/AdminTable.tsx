@@ -13,10 +13,18 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import * as React from "react";
 import { useState } from "react";
+import styled from "styled-components";
 import { useProducts } from "../../contexts/ProductContext";
 import { Product } from "../../ProductData";
 import { AdminTableHead } from "./AdminTableHead";
 import { AdminTableToolbar } from "./AdminTableToolbar";
+
+const TableCellEllipse = styled(TableCell)`
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
 
 export type Order = "asc" | "desc";
 
@@ -102,8 +110,8 @@ export default function AdminTable({ handleEditClicked }: Props) {
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
         <AdminTableToolbar products={products} deleteProducts={deleteProducts} selectedIds={selected} numSelected={selected.length} />
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size={dense ? "small" : "medium"}>
+        <TableContainer sx={{ padding: "0.5rem" }}>
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="small">
             <AdminTableHead
               numSelected={selected.length}
               order={order}
@@ -140,18 +148,30 @@ export default function AdminTable({ handleEditClicked }: Props) {
                           }}
                         />
                       </TableCell>
-                      <TableCell component="th" id={labelId} scope="row" padding="none">
+                      <TableCell style={{ maxWidth: "60px" }} component="th" id={labelId} scope="row" padding="none">
                         {product.id}
                       </TableCell>
-                      <TableCell align="left">{product.title}</TableCell>
-                      <TableCell align="left">{product.designer}</TableCell>
-                      <TableCell align="left">{product.description}</TableCell>
-                      <TableCell align="left">{product.price}</TableCell>
-                      <TableCell align="left">{product.category}</TableCell>
-                      <TableCell align="left">{product.color}</TableCell>
-                      <TableCell align="left">{product.size}</TableCell>
-                      <TableCell align="left">{product.img}</TableCell>
-                      <TableCell align="left">
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
+                        {product.title}
+                      </TableCell>
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
+                        {product.designer}
+                      </TableCell>
+                      <TableCellEllipse align="left">{product.description}</TableCellEllipse>
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
+                        {product.price}
+                      </TableCell>
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
+                        {product.category}
+                      </TableCell>
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
+                        {product.color}
+                      </TableCell>
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
+                        {product.size}
+                      </TableCell>
+                      <TableCellEllipse align="left">{product.img}</TableCellEllipse>
+                      <TableCell style={{ maxWidth: "69px" }} align="left">
                         <IconButton
                           onClick={() => {
                             handleEditClicked(product);
