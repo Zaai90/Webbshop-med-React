@@ -1,7 +1,7 @@
 import * as Icon from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Button, Card, Divider, Fade, IconButton, Modal, SelectChangeEvent, Tooltip } from "@mui/material";
+import { Card, Fade, IconButton, Modal, SelectChangeEvent, Tooltip } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,7 @@ import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
+import AddProductSnackbar from "./Modals/AddProductSnackbar";
 import QuickViewModal from "./Modals/QuickViewModal";
 
 const CardImageStyled = styled.div<{ imgUrl: string }>`
@@ -129,29 +130,7 @@ const GridItem = ({ product }: Props) => {
     addToCart(product, 1);
 
     // Styled toast
-    enqueueSnackbar(
-      <div style={{ display: "flex", flexDirection: "column", width: "300px" }}>
-        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-          <Icon.AddShoppingCart />
-          <div>Added to cart!</div>
-        </div>
-        <Divider sx={{ bgcolor: "primary.dark", margin: "1rem 0" }} />
-        <div style={{ display: "flex", gap: "1rem" }}>
-          <img draggable="false" width={100} src={product.img[0]} />
-          <div>
-            <h4>{product.title}</h4>
-            <h3>{convertToCurrencyValue(product.price)}</h3>
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", margin: "1rem 0", width: "100%" }}>
-          <NavLink style={{ width: "100%" }} to="/checkout">
-            <Button variant="contained" color="success" fullWidth>
-              CHECKOUT
-            </Button>
-          </NavLink>
-        </div>
-      </div>
-    );
+    enqueueSnackbar(<AddProductSnackbar product={product} />);
   }
 
   return (
