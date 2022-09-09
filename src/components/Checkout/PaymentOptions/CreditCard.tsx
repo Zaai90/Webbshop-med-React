@@ -46,7 +46,7 @@ const CreditCard = ({ handleFormValues, handleSubmit }: Props) => {
     },
   });
   return (
-    <Form id="credit-card-form" onSubmit={formik.handleSubmit}>
+    <Form id="payment-form" onSubmit={formik.handleSubmit}>
       <Input
         fullWidth
         id="cardNumber"

@@ -3,8 +3,9 @@ import { ReactNode } from "react";
 import styled from "styled-components";
 
 const MainStyled = styled.main`
-  margin-top: 1rem;
-  min-height: calc(100vh - 5rem);
+  margin-top: 6rem;
+  min-height: calc(100vh - 6rem);
+  margin-bottom: 6rem;
 `;
 
 interface Props {
