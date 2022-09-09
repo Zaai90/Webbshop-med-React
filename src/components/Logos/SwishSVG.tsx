@@ -13,8 +13,8 @@ const SwishSVG = () => {
           x1="112.948"
           id="a"
         >
-          <stop stop-color="#ef2131" offset="0" />
-          <stop stop-color="#fecf2c" offset="1" />
+          <stop stopColor="#ef2131" offset="0" />
+          <stop stopColor="#fecf2c" offset="1" />
         </linearGradient>
         <linearGradient
           gradientUnits="userSpaceOnUse"
@@ -25,10 +25,10 @@ const SwishSVG = () => {
           x1="70.663"
           id="b"
         >
-          <stop stop-color="#fbc52c" offset="0" />
-          <stop stop-color="#f87130" offset=".264" />
-          <stop stop-color="#ef52e2" offset=".561" />
-          <stop stop-color="#661eec" offset="1" />
+          <stop stopColor="#fbc52c" offset="0" />
+          <stop stopColor="#f87130" offset=".264" />
+          <stop stopColor="#ef52e2" offset=".561" />
+          <stop stopColor="#661eec" offset="1" />
         </linearGradient>
         <linearGradient
           gradientUnits="userSpaceOnUse"
@@ -39,10 +39,10 @@ const SwishSVG = () => {
           x1="28.748"
           id="c"
         >
-          <stop stop-color="#78f6d8" offset="0" />
-          <stop stop-color="#77d1f6" offset=".266" />
-          <stop stop-color="#70a4f3" offset=".554" />
-          <stop stop-color="#661eec" offset="1" />
+          <stop stopColor="#78f6d8" offset="0" />
+          <stop stopColor="#77d1f6" offset=".266" />
+          <stop stopColor="#70a4f3" offset=".554" />
+          <stop stopColor="#661eec" offset="1" />
         </linearGradient>
         <linearGradient
           gradientUnits="userSpaceOnUse"
@@ -53,10 +53,10 @@ const SwishSVG = () => {
           x1="62.58"
           id="d"
         >
-          <stop stop-color="#536eed" offset="0" />
-          <stop stop-color="#54c3ec" offset=".247" />
-          <stop stop-color="#64d769" offset=".564" />
-          <stop stop-color="#fecf2c" offset="1" />
+          <stop stopColor="#536eed" offset="0" />
+          <stop stopColor="#54c3ec" offset=".247" />
+          <stop stopColor="#64d769" offset=".564" />
+          <stop stopColor="#fecf2c" offset="1" />
         </linearGradient>
         <g fill-rule="evenodd" fill="none">
           <path

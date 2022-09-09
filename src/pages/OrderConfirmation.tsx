@@ -64,7 +64,7 @@ const OrderConfirmation = ({ email, name }: Props) => {
       </OrderSummaryHeader>
       <OrderSummary>
         {cart.map((cartItem) => (
-          <OrderSummaryItem>
+          <OrderSummaryItem key={cartItem.product.id}>
             <Typography variant="h6">
               {getItemQty(cartItem.product.id)} x {cartItem.product.title}
             </Typography>
