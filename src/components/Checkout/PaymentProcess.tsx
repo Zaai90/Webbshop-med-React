@@ -35,7 +35,7 @@ const PaymentProcess = () => {
   }
 
   return (
-    <Box sx={{ width: "100%", marginTop: "10rem" }}>
+    <Box>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
@@ -52,7 +52,7 @@ const PaymentProcess = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Box sx={{ marginTop: "5rem", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <Box sx={{ marginTop: "3rem", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             {activeStep === 0 && <PaymentForm handleSubmit={handleNext} setFormValues={handleFormValues} />}
             {activeStep === 1 && <PaymentOptions handleSubmit={handleNext} />}
             {activeStep === 2 && <Confirmation handleSubmit={handleNext} />}
