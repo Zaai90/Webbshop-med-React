@@ -1,3 +1,4 @@
+import { Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { Product } from "../ProductData";
@@ -23,13 +24,10 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const TitleStyled = styled.h1`
-  font-size: 1rem;
-  font-weight: 500;
+const TitleStyled = styled.p`
   color: grey;
 
   @media (min-width: 768px) {
-    font-size: 1.5rem;
     color: black;
   }
 `;
@@ -46,12 +44,10 @@ const DesignerStyled = styled.h2`
 
 const PriceStyled = styled.p`
   font-size: 1.1rem;
-  font-weight: 500;
 
   @media (min-width: 768px) {
-    font-size: 1.5rem;
-    margin-top: -1.05rem;
-    font-weight: 500;
+    font-size: 1rem;
+    margin-top: -0.5rem;
   }
 `;
 
@@ -69,16 +65,21 @@ interface Props {
 const ProductInfo = ({ product }: Props) => {
   const { convertToCurrencyValue } = useCurrency();
   return (
-    <InfoContainer>
+    <Container maxWidth="lg" fixed>
       <HeaderContainer>
         <DesignerStyled>{product.designer}</DesignerStyled>
-        <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
+
+        <PriceStyled>
+          <Typography variant="subtitle1">{convertToCurrencyValue(product.price)}</Typography>
+        </PriceStyled>
       </HeaderContainer>
-      <TitleStyled>{product.title}</TitleStyled>
+      <Typography variant="h5">
+        <TitleStyled>{product.title}</TitleStyled>
+      </Typography>
       <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
       <h4>Description:</h4>
       <DescriptionStyled>{product.description}</DescriptionStyled>
-    </InfoContainer>
+    </Container>
   );
 };
 
