@@ -1,4 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Typography } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { Navigation } from "swiper";
@@ -88,7 +89,7 @@ function NewlyAddedSwiper({ items }: Props) {
         }}
       >
         {items.map((product) => (
-          <SwiperSlide>
+          <SwiperSlide key={product.id}>
             <a href={"product/" + product.id}>
               <SliderImage src={product.img[0]} />
             </a>
@@ -98,16 +99,20 @@ function NewlyAddedSwiper({ items }: Props) {
                 handleQuickViewClick();
               }}
             >
-              Quick View
+              <Typography>Quick View</Typography>
             </QuickView>
             <ItemContentBottom>
               <div style={{ display: "flex", background: "white" }}>
-                <div style={{ marginRight: "auto" }}>{product.title}</div>
+                <div style={{ marginRight: "auto" }}>
+                  <Typography variant="h6">{product.title}</Typography>
+                </div>{" "}
                 <FavContainer>
                   <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
                 </FavContainer>
               </div>
-              <div style={{ textAlign: "left" }}>{convertToCurrencyValue(product.price)}</div>
+              <div style={{ textAlign: "left" }}>
+                <Typography variant="h6">{convertToCurrencyValue(product.price)}</Typography>
+              </div>{" "}
             </ItemContentBottom>
           </SwiperSlide>
         ))}
