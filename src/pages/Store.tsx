@@ -91,7 +91,7 @@ const Store = () => {
               <StoreGridStyled>
                 {value === "All" && products.map((product) => <GridItem key={product.id} product={product} />)}
                 {products
-                  .filter((x) => x.category === value)
+                  .filter((product) => product.category === value)
                   .map((product) => (
                     <GridItem key={product.id} product={product} />
                   ))}
