@@ -1,8 +1,9 @@
 import { Box, Button, Container, ImageList, ImageListItem, ImageListItemBar, TextField, Typography } from "@mui/material";
-import { FormikValues, useFormik } from "formik";
+import { useFormik } from "formik";
 import { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
+import { ReviewModel } from "../../models/ReviewModel";
 import imgData from "./imgData";
 
 const ImageContainer = styled(Container)`
@@ -62,12 +63,6 @@ const validationSchema = yup.object({
   review: yup.string().min(10, "Enter at least 10 characters").required("Review is required"),
 });
 
-export interface Values {
-  name: string;
-  review: string;
-  rating: number;
-}
-
 const Rating = () => {
   const [isActive, setActive] = useState(5);
   function toggleClass(index: any) {
@@ -78,7 +73,7 @@ const Rating = () => {
     initialValues: { name: "", review: "", rating: 2 },
 
     validationSchema: validationSchema,
-    onSubmit: (values: FormikValues) => {
+    onSubmit: (values: ReviewModel) => {
       alert(JSON.stringify(values, null, 2));
     },
   });
@@ -120,10 +115,10 @@ const Rating = () => {
                 key={item.img}
                 id="rating"
                 value={formik.values.rating}
-                    onClick={() => {
-                        toggleClass(index)
-                        formik.values.rating = index}
-                    } 
+                onClick={() => {
+                  toggleClass(index);
+                  formik.values.rating = index;
+                }}
                 onChange={formik.handleChange}
                 className={isActive === index ? "isActive" : undefined}
               >
