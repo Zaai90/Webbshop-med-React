@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import { ReviewModel } from "../../models/ReviewModel";
-import imgData from "./imgData";
+import ratingData from "./ratingData";
 
 const ImageContainer = styled(Container)`
   max-width: 500px !important;
@@ -63,7 +63,7 @@ const validationSchema = yup.object({
   review: yup.string().min(10, "Enter at least 10 characters").required("Review is required"),
 });
 
-const Rating = () => {
+const Review = () => {
   const [isActive, setActive] = useState(5);
   function toggleClass(index: any) {
     setActive(index);
@@ -110,7 +110,7 @@ const Rating = () => {
         <Typography variant={"h5"}>How would you rate this product?</Typography>
         <ImageContainer>
           <ImageList cols={5}>
-            {imgData.map((item, index) => (
+            {ratingData.map((item, index) => (
               <ImageListItem
                 key={item.img}
                 id="rating"
@@ -138,4 +138,4 @@ const Rating = () => {
   );
 };
 
-export default Rating;
+export default Review;

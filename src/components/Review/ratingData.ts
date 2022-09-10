@@ -4,7 +4,7 @@ import disappointed from "./img/disappointed.webp";
 import fair from "./img/fair.webp";
 import good from "./img/good.webp";
 
-const imgData = [
+const ratingData = [
   {
     img: angry,
     title: "Angry",
@@ -27,4 +27,4 @@ const imgData = [
     },
 ];
 
-export default imgData;
+export default ratingData;
