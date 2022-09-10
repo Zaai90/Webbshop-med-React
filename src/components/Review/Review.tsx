@@ -4,6 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import { ReviewModel } from "../../models/ReviewModel";
+import { Product } from "../../ProductData";
 import ratingData from "./ratingData";
 
 const ImageContainer = styled(Container)`
@@ -63,14 +64,20 @@ const validationSchema = yup.object({
   review: yup.string().min(10, "Enter at least 10 characters").required("Review is required"),
 });
 
-const Review = () => {
+interface Props {
+  product: Product;
+}
+
+const Review = ({ product }: Props) => {
   const [isActive, setActive] = useState(5);
+  const today = new Date().toLocaleDateString();
   function toggleClass(index: any) {
     setActive(index);
+    console.log(product);
   }
 
   const formik = useFormik({
-    initialValues: { name: "", review: "", rating: 2 },
+    initialValues: { name: "", review: "", rating: 1, productId: 1, createdAt: today, accepted: false },
 
     validationSchema: validationSchema,
     onSubmit: (values: ReviewModel) => {
@@ -129,7 +136,14 @@ const Review = () => {
           </ImageList>
         </ImageContainer>
         <Box>
-          <Button variant="contained" type="submit">
+          <Button
+            variant="contained"
+            type="submit"
+            onClick={() => {
+              formik.values.productId = product.id;
+              formik.values.accepted = false;
+            }}
+          >
             Submit review
           </Button>
         </Box>
