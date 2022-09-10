@@ -1,4 +1,5 @@
 import { Box, Button, Container, ImageList, ImageListItem, ImageListItemBar, TextField, Typography } from "@mui/material";
+import { useState } from "react";
 import styled from "styled-components";
 import imgData from "./imgData";
 
@@ -38,7 +39,7 @@ const ImageContainer = styled(Container)`
   ul:hover > *:hover {
     opacity: 1;
   }
-  
+
   .MuiImageListItemBar-title {
     font-size: 14px;
     user-select: none;
@@ -55,25 +56,23 @@ const ImageContainer = styled(Container)`
 `;
 
 const Rating = () => {
-  const toggleClass = (e: any) => {
-    e.currentTarget.classList.toggle("isActive");
-  };
+  const [isActive, setActive] = useState(5);
+  function toggleClass(index: any) {
+    setActive(index);
+  }
+
+  function handleSubmit() {
+    console.log(imgData[isActive]);
+  }
   return (
-    <Container sx={{ marginTop: "5rem", display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
+    <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
       <Typography variant={"h5"}>We're excited to hear your opinion!</Typography>
-      <TextField
-        id="outlined-textarea"
-        label="Write a review!"
-        placeholder="Veri nice producc, i liek"
-        multiline
-        rows={4}
-        sx={{ width: "50%", margin: "2rem auto" }}
-      />
+      <TextField label="Write a review!" placeholder="Veri nice producc, i liek" multiline rows={4} sx={{ width: "50%", margin: "1rem auto" }} />
       <Typography variant={"h5"}>How would you rate this product?</Typography>
       <ImageContainer>
         <ImageList cols={5}>
-          {imgData.map((item) => (
-            <ImageListItem key={item.img} onClick={toggleClass}>
+          {imgData.map((item, index) => (
+            <ImageListItem key={item.img} onClick={() => toggleClass(index)} className={isActive === index ? "isActive" : undefined}>
               <img src={`${item.img}`} alt={item.title} loading="lazy" />
               <ImageListItemBar title={item.title} position="below" sx={{ textAlign: "center", opacity: 0 }} />
             </ImageListItem>
@@ -81,7 +80,9 @@ const Rating = () => {
         </ImageList>
       </ImageContainer>
       <Box>
-        <Button variant="contained">Submit review</Button>
+        <Button variant="contained" onClick={handleSubmit}>
+          Submit review
+        </Button>
       </Box>
     </Container>
   );
