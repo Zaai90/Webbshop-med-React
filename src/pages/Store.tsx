@@ -56,7 +56,6 @@ const Store = () => {
 
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const desktopScreen = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleClickCategory = (name: string) => {
     setValue(name);
