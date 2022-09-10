@@ -52,21 +52,12 @@ const CategoryList = styled(List)`
 const Store = () => {
   const { products } = useProducts();
   const [value, setValue] = useState("All");
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleClickCategory = (name: string) => {
     setValue(name);
-  };
-
-  const open = Boolean(anchorEl);
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const categories = products.filter((x, i) => products.findIndex((y) => x.category === y.category) === i);
