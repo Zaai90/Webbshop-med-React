@@ -1,9 +1,9 @@
-import React from 'react'
-
-const ReadMore = () => {
-  return (
-    <div>ReadMore</div>
-  )
+interface Props {
+  children: string;
 }
 
-export default ReadMore
+const ReadMore = ({ children }: Props) => {
+  return <div>ReadMore</div>;
+};
+
+export default ReadMore;
