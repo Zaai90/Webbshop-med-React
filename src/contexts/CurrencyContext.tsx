@@ -32,9 +32,20 @@ const CurrencyContextProvider = ({ children }: CurrencyProviderProps) => {
     setCurrency(newCurrency);
   };
 
+  const language =
+    currency === Currency.SEK
+      ? "sv-SE"
+      : currency === Currency.EUR
+      ? "de-DE"
+      : currency === Currency.GBP
+      ? "en-GB"
+      : currency === Currency.USD
+      ? "en-US"
+      : undefined;
+
   const formatCurrency = (value: number) => {
     const amountOfDigits = currency === Currency.SEK ? 0 : 2;
-    return new Intl.NumberFormat(undefined, {
+    return new Intl.NumberFormat(language, {
       style: "currency",
       maximumFractionDigits: amountOfDigits,
       currency: currency,
