@@ -1,5 +1,6 @@
 import { Box, Container, Typography } from "@mui/material";
 import { Product } from "../../ProductData";
+import ReadMore from "../ReadMore";
 import ratingData from "./ratingData";
 import { ReviewData } from "./reviewData";
 
@@ -21,7 +22,7 @@ const Reviews = ({ product }: Props) => {
                 <Typography variant="h6">{review.name}</Typography>
                 <Typography variant="body2">{review.createdAt}</Typography>
               </Box>
-              <Typography variant="body1">{review.review}</Typography>
+              <ReadMore limit={50}>{review.review}</ReadMore>
             </Box>
           </Box>
         </Box>
