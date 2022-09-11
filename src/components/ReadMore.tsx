@@ -3,10 +3,11 @@ import { useState } from "react";
 
 interface Props {
   children: string;
+  limit?: number;
 }
 
-const ReadMore = ({ children }: Props) => {
-  const [isReadMore, setIsReadMore] = useState(children.length > 100);
+const ReadMore = ({ children, limit = 100 }: Props) => {
+  const [isReadMore, setIsReadMore] = useState(children.length > limit);
 
   const toggleReadMore = () => {
     setIsReadMore(!isReadMore);
@@ -14,7 +15,7 @@ const ReadMore = ({ children }: Props) => {
 
   return (
     <Typography>
-      {isReadMore ? children.slice(0, 100) : children}
+      {isReadMore ? children.slice(0, limit) : children}
       <Box component="span" onClick={toggleReadMore}>
         {isReadMore ? "...läs mer" : " visa mindre"}
       </Box>
