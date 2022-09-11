@@ -22,7 +22,9 @@ const Reviews = ({ product }: Props) => {
                 <Typography variant="h6">{review.name}</Typography>
                 <Typography variant="body2">{review.createdAt}</Typography>
               </Box>
-              <ReadMore limit={50}>{review.review}</ReadMore>
+              <ReadMore limit={50} variant="body2">
+                {review.review}
+              </ReadMore>
             </Box>
           </Box>
         </Box>
