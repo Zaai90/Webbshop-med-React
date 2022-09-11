@@ -68,7 +68,7 @@ interface Props {
   product: Product;
 }
 
-const Review = ({ product }: Props) => {
+const ReviewForm = ({ product }: Props) => {
   const [isActive, setActive] = useState(5);
   const today = new Date().toLocaleDateString();
   function toggleClass(index: any) {
@@ -152,4 +152,4 @@ const Review = ({ product }: Props) => {
   );
 };
 
-export default Review;
+export default ReviewForm;
