@@ -8,7 +8,6 @@ const Form = styled.form`
   flex-direction: column;
   gap: 0.5rem;
   padding-top: 2rem;
-  width: 90%;
 `;
 
 const Input = styled(TextField)`

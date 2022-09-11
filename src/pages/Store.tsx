@@ -1,10 +1,11 @@
-import { Container, FormControl, List, ListItem, ListItemButton, ListItemText, Typography } from "@mui/material";
+import { Container, FormControl, List, ListItem, ListItemButton, ListItemText, Typography, useMediaQuery } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 import { useState } from "react";
 import styled from "styled-components";
 import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
 import { useProducts } from "../contexts/ProductContext";
+import theme from "../utils/Theme";
 
 const StoreGridStyled = styled.div`
   display: grid;
@@ -42,13 +43,20 @@ const CategoryList = styled(List)`
     color: rgba(0, 0, 0, 0.35) !important;
     transition: 1s ease all;
   }
+
+  .categoryParent {
+    padding: 0 !important;
+  }
 `;
 
 const Store = () => {
   const { products } = useProducts();
   const [value, setValue] = useState("All");
 
-  const handleClick = (name: string) => {
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+  const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
+
+  const handleClickCategory = (name: string) => {
     setValue(name);
   };
 
@@ -57,27 +65,43 @@ const Store = () => {
   return (
     <>
       <SnackbarProvider
-        autoHideDuration={3000}
-        maxSnack={3}
+        autoHideDuration={2000}
+        maxSnack={2}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
         }}
       >
         <MainContent>
-          <FormControl sx={{ width: "100%", display: "grid", gridTemplateColumns: "1fr 5fr" }}>
-            <CategoryList sx={{ width: "100%", bgcolor: "background.paper" }}>
-              <Container onClick={() => handleClick("All")}>
-                <ListItem disablePadding>
+          <FormControl
+            sx={{ width: "100%", display: smScreen ? "flex" : "grid", gap: smScreen ? "1rem" : undefined, gridTemplateColumns: "1fr 5fr" }}
+          >
+            <CategoryList
+              sx={{
+                width: "100%",
+                bgcolor: "background.paper",
+                overflowX: smScreen ? "scroll" : undefined,
+                display: smScreen ? "flex" : undefined,
+                gap: smScreen ? "1rem" : undefined,
+                padding: smScreen ? "16px" : undefined,
+              }}
+            >
+              <Container className={"categoryParent"} onClick={() => handleClickCategory("All")} sx={{ padding: tabletScreen ? "0" : undefined }}>
+                <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
                   <ListItemButton selected={value === "All" ? true : false}>
                     <ListItemText primary={"All".toUpperCase()} />
                   </ListItemButton>
                 </ListItem>
               </Container>
               {categories.map((product) => (
-                <Container onClick={() => handleClick(product.category)}>
-                  <ListItem disablePadding>
-                    <ListItemButton selected={value === product.category ? true : false}>
+                <Container
+                  key={product.id}
+                  className={"categoryParent"}
+                  onClick={() => handleClickCategory(product.category)}
+                  sx={{ padding: tabletScreen ? "0" : undefined }}
+                >
+                  <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
+                    <ListItemButton selected={value === product.category ? true : false} sx={{ minWidth: "max-content !important" }}>
                       <ListItemText primary={product.category.toUpperCase()} />
                     </ListItemButton>
                   </ListItem>
