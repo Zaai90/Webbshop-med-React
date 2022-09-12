@@ -48,7 +48,11 @@ const Admin = () => {
           <Icon.Add />
         </Fab>
       </Box>
-      {(selectedProduct || formIsOpen) && <Form product={selectedProduct} />}
+      {(selectedProduct || formIsOpen) && (
+        <Box sx={{ maxWidth: "360px" }}>
+          <Form product={selectedProduct} />
+        </Box>
+      )}
 
       {mdScreen ? <AdminTableMobile handleDelete={handleDelete} handleEdit={handleEdit} /> : <AdminTable handleEditClicked={handleEdit} />}
     </div>
