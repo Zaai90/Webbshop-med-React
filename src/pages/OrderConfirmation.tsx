@@ -30,8 +30,6 @@ const OrderSummaryHeader = styled(Box)`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: 5rem 0;
-  margin-top: 15rem;
 `;
 
 const ButtonBox = styled(Box)`

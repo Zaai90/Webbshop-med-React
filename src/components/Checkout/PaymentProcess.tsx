@@ -1,10 +1,9 @@
+import { Step, StepLabel, Stepper, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Stepper from "@mui/material/Stepper";
 import React, { useState } from "react";
 import OrderConfirmation from "../../pages/OrderConfirmation";
+import theme from "../../utils/Theme";
 import Confirmation from "./Confirmation";
 import CurrentOrder from "./CurrentOrder";
 import PaymentForm, { Values } from "./PaymentForm";
@@ -36,8 +35,11 @@ const PaymentProcess = () => {
     console.log(values);
   }
 
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+  const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
-    <Box sx={{ width: "100%", marginTop: "10rem" }}>
+    <Box>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
@@ -54,7 +56,15 @@ const PaymentProcess = () => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Box sx={{ marginTop: "5rem", display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+          <Box
+            sx={{
+              marginTop: "3rem",
+              display: smScreen ? "flex" : "grid",
+              gridTemplateColumns: smScreen ? undefined : "2fr 3fr",
+              flexDirection: smScreen ? "column-reverse" : undefined,
+              gap: "1rem",
+            }}
+          >
             {activeStep === 0 && <PaymentForm handleSubmit={handleNext} setFormValues={handleFormValues} />}
             {activeStep === 1 && <PaymentOptions handleSubmit={handleNext} />}
             {activeStep === 2 && <Confirmation handleSubmit={handleNext} />}

@@ -1,10 +1,11 @@
 import * as Icon from "@mui/icons-material";
-import { Fade, IconButton, Tooltip } from "@mui/material";
+import { Fade, IconButton, Tooltip, useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
 import { useCurrency } from "../../contexts/CurrencyContext";
 import { CartItem } from "../../models/CartItem";
+import theme from "../../utils/Theme";
 
 const CartItemCard = styled.div`
   display: flex;
@@ -37,6 +38,8 @@ const CurrentOrder = () => {
   const handleSubmit = () => {};
   const { addToCart, removeFromCart, getItemQty, removeItemFromCart, cart, totalAmount } = useCart();
   const { convertToCurrencyValue } = useCurrency();
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+  const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   // TODO: use update cart functions
   function handleSubstract(cartItem: CartItem) {
@@ -60,15 +63,15 @@ const CurrentOrder = () => {
           </a>
 
           <div style={{ width: "100%", padding: "1rem" }}>
-            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", flexDirection: smScreen ? "column" : undefined }}>
               <div style={{ flex: 1 }}>
                 <div>{cartItem.product.title}</div>
                 <div>{cartItem.product.designer}</div>
                 <div>{convertToCurrencyValue(cartItem.product.price)}</div>
               </div>
 
-              <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
-                <ButtonWrapper>
+              <div style={{ display: "flex", flex: smScreen ? undefined : 1, justifyContent: smScreen ? "end" : undefined, alignItems: "center" }}>
+                <ButtonWrapper style={{ flexGrow: smScreen ? 0 : 1 }}>
                   <IconButton onClick={() => handleSubstract(cartItem)}>
                     <Icon.Remove />
                   </IconButton>
@@ -77,7 +80,7 @@ const CurrentOrder = () => {
                     <Icon.Add />
                   </IconButton>
                 </ButtonWrapper>
-                <div style={{ flex: 1, display: "flex", justifyContent: "end" }}>
+                <div style={{ flex: smScreen ? undefined : 1, display: "flex", justifyContent: "end" }}>
                   <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"Remove from cart"} placement="right" arrow>
                     <IconButton onClick={() => handleRemove(cartItem)}>
                       <Icon.DeleteOutline sx={{ fontSize: "2rem" }} />
