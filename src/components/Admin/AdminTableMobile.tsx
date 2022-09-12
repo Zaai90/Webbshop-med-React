@@ -1,3 +1,5 @@
+import { Edit } from "@mui/icons-material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Box from "@mui/material/Box";
@@ -15,64 +17,70 @@ import * as React from "react";
 import { useProducts } from "../../contexts/ProductContext";
 import { Product } from "../../ProductData";
 
-function Row(props: { product: Product }) {
-  const { product } = props;
+interface Props {
+  handleEdit: (product: Product) => void;
+  handleDelete: (id: number) => void;
+}
+
+interface RowProps {
+  product: Product;
+  handleEdit: (product: Product) => void;
+  handleDelete: (id: number) => void;
+}
+
+function Row({ product, handleEdit, handleDelete }: RowProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell sx={{ padding: "1px" }}>
+        <TableCell width="20px" align="left" sx={{ padding: "2px" }}>
           <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row">
-          {product.id}
-        </TableCell>
-        <TableCell sx={{ padding: "1px" }} align="left">
+        <TableCell padding="none">{product.id}</TableCell>
+        <TableCell padding="none" align="left">
           {product.title}
         </TableCell>
-        <TableCell sx={{ padding: "1px" }} align="left">
+        <TableCell padding="none" align="left">
           {product.designer}
-        </TableCell>
-        <TableCell sx={{ padding: "1px" }} align="left">
-          {product.price}
         </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 0.5 }}>
-              <Table size="small" aria-label="products">
-                <TableHead>
-                  <Typography variant="h6" gutterBottom component="div">
-                    Details
+            <Box sx={{ padding: 0 }}>
+              <Typography fontWeight={900} variant="body1" component="div">
+                Description
+                <Typography variant="subtitle2">{product.description}</Typography>
+              </Typography>
+              <Typography fontWeight={900} variant="body1" component="div">
+                Img urls
+                {product.img.map((img, index) => (
+                  <Typography sx={{ wordBreak: "break-all" }} variant="subtitle2" key={index}>
+                    {img}
                   </Typography>
-                </TableHead>
-                <TableBody sx={{ display: "flex", flexDirection: "column" }}>
-                  <TableRow component="th">
-                    <TableRow>Description</TableRow>
-                    <TableCell>{product.description}</TableCell>
-                  </TableRow>
-                  <TableRow component="th">
-                    <TableRow>Img urls</TableRow>
-                    <TableCell sx={{ display: "flex", flexDirection: "column" }}>
-                      {product.img.map((img) => (
-                        <>{img}</>
-                      ))}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow component="th">
-                    <TableRow>Color</TableRow>
-                    <TableCell>{product.color}</TableCell>
-                  </TableRow>
-                  <TableRow component="th">
-                    <TableRow>Size</TableRow>
-                    <TableCell>{product.size}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+                ))}
+              </Typography>
+              <Typography fontWeight={900} component="div">
+                Price
+                <Typography variant="subtitle2">{product.price}</Typography>
+              </Typography>
+              <Typography fontWeight={900} component="div">
+                Size
+                <Typography variant="subtitle2">{product.size}</Typography>
+              </Typography>
+              <Typography fontWeight={900} component="div">
+                Color
+                <Typography variant="subtitle2">{product.color}</Typography>
+              </Typography>
+              <IconButton onClick={() => handleEdit(product)}>
+                <Edit />
+              </IconButton>
+              <IconButton onClick={() => handleDelete(product.id)}>
+                <DeleteIcon />
+              </IconButton>
             </Box>
           </Collapse>
         </TableCell>
@@ -81,7 +89,7 @@ function Row(props: { product: Product }) {
   );
 }
 
-export default function AdminTableMobile() {
+export default function AdminTableMobile({ handleEdit, handleDelete }: Props) {
   const { products, editProduct, deleteProducts } = useProducts();
 
   return (
@@ -96,17 +104,23 @@ export default function AdminTableMobile() {
             <TableCell sx={{ padding: "2px" }} align="left">
               Title
             </TableCell>
-            <TableCell sx={{ padding: "1px" }} align="left">
+            <TableCell sx={{ padding: "2px" }} align="left">
               Designer
-            </TableCell>
-            <TableCell sx={{ padding: "1px" }} align="left">
-              Price
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {products.map((row) => (
-            <Row key={row.id} product={row} />
+          {products.map((product) => (
+            <Row
+              key={product.id}
+              product={product}
+              handleEdit={() => {
+                handleEdit(product);
+              }}
+              handleDelete={() => {
+                handleDelete(product.id);
+              }}
+            />
           ))}
         </TableBody>
       </Table>

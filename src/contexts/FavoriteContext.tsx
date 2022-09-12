@@ -7,6 +7,8 @@ interface FavoriteContext {
   addToFavorites: (product: Product) => void;
   removeFromFavorites: (product: Product) => void;
   removeAllFavorites: () => void;
+  isFavorite: (product: Product) => boolean;
+  toggleFavorite: (product: Product) => void;
 }
 
 const FavoriteContext = createContext<FavoriteContext>({
@@ -14,6 +16,8 @@ const FavoriteContext = createContext<FavoriteContext>({
   addToFavorites: () => {},
   removeAllFavorites: () => {},
   removeFromFavorites: () => {},
+  isFavorite: () => false,
+  toggleFavorite: () => {},
 });
 
 interface Props {
@@ -39,10 +43,23 @@ const FavoritesProvider = ({ children }: Props) => {
     }
   };
 
+  const isFavorite = (product: Product) => {
+    if (favorites.length === 0) {
+      return false;
+    }
+    return favorites.find((favorite) => favorite.id === product.id) ? true : false;
+  };
+
+  const toggleFavorite = (product: Product) => {
+    !isFavorite(product) ? addToFavorites(product) : removeFromFavorites(product);
+  };
+
   const removeAllFavorites = () => setFavorites([]);
 
   return (
-    <FavoriteContext.Provider value={{ removeFromFavorites, favorites, addToFavorites, removeAllFavorites }}>{children}</FavoriteContext.Provider>
+    <FavoriteContext.Provider value={{ removeFromFavorites, favorites, addToFavorites, removeAllFavorites, isFavorite, toggleFavorite }}>
+      {children}
+    </FavoriteContext.Provider>
   );
 };
 

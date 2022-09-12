@@ -1,7 +1,7 @@
 import * as Icon from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Card, Fade, IconButton, Modal, SelectChangeEvent, Tooltip } from "@mui/material";
+import { Card, Drawer, Fade, IconButton, Modal, SelectChangeEvent, Tooltip, useMediaQuery } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -10,6 +10,8 @@ import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
+import theme from "../utils/Theme";
+import QuickViewDrawer from "./Drawers/QuickViewDrawer";
 import AddProductSnackbar from "./Modals/AddProductSnackbar";
 import QuickViewModal from "./Modals/QuickViewModal";
 
@@ -91,18 +93,33 @@ const FavoriteButtonStyled = styled.div`
     transition: 2s ease all;
   }
 `;
+
+const QuickViewButtonStyled = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 200;
+  padding: 0.75rem;
+  cursor: pointer;
+  svg {
+    transition: 2s ease all;
+  }
+`;
+
 interface Props {
   product: Product;
 }
 
 const GridItem = ({ product }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const { addToCart } = useCart();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
-  const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
+  const [isQuickViewDrawerOpen, setIsQuickViewDrawerOpen] = useState(false);
+
+  const touchScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const { convertToCurrencyValue } = useCurrency();
 
@@ -112,18 +129,6 @@ const GridItem = ({ product }: Props) => {
 
   function handleQuickViewClick() {
     setIsModalOpen(true);
-  }
-
-  function checkIfIsFavorite(): boolean {
-    if (favorites.length === 0) {
-      return false;
-    }
-    return favorites.find((favorite) => favorite.id === product.id) ? true : false;
-  }
-
-  function toggleFavorite() {
-    !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
-    setIsFavorite(!isFavorite);
   }
 
   function handleAdd() {
@@ -136,27 +141,34 @@ const GridItem = ({ product }: Props) => {
   return (
     <>
       <CardStyled>
-        <FavoriteButtonStyled onClick={toggleFavorite}>
+        <FavoriteButtonStyled onClick={() => toggleFavorite(product)}>
           <Tooltip
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 500 }}
-            title={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+            title={isFavorite(product) ? "Remove from wishlist" : "Add to wishlist"}
             placement="right"
             arrow
           >
-            {isFavorite ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
+            {isFavorite(product) ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
           </Tooltip>
         </FavoriteButtonStyled>
+        {touchScreen && (
+          <QuickViewButtonStyled onClick={() => setIsQuickViewDrawerOpen(true)}>
+            <Icon.VisibilityOutlined color={"disabled"} />
+          </QuickViewButtonStyled>
+        )}
         <NavLink to={`../product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
         </NavLink>
-        <QuickView
-          onClick={() => {
-            handleQuickViewClick();
-          }}
-        >
-          Quick View
-        </QuickView>
+        {!touchScreen && (
+          <QuickView
+            onClick={() => {
+              handleQuickViewClick();
+            }}
+          >
+            Quick View
+          </QuickView>
+        )}
         <CardBottomStyled>
           <div>
             <h5>{product.title}</h5>
@@ -172,6 +184,9 @@ const GridItem = ({ product }: Props) => {
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <QuickViewModal product={product} size={size} handleChange={handleChange} toggleModal={setIsModalOpen} />
       </Modal>
+      <Drawer anchor="bottom" open={isQuickViewDrawerOpen} onClose={() => setIsQuickViewDrawerOpen(false)}>
+        <QuickViewDrawer product={product} toggleDrawer={setIsQuickViewDrawerOpen} handleAdd={handleAdd} />
+      </Drawer>
     </>
   );
 };
