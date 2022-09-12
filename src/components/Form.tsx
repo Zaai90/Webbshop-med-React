@@ -8,7 +8,6 @@ import { Product } from "../ProductData";
 
 interface Props {
   product?: Product;
-  isNewProduct: boolean;
 }
 
 export type ProductCreate = Omit<Product, "id">;
