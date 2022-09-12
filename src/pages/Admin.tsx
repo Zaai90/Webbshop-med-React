@@ -1,12 +1,14 @@
 import * as Icon from "@mui/icons-material";
-import { Typography } from "@mui/material";
+import { Typography, useMediaQuery } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import { useState } from "react";
 import AddProduct from "../components/Admin/AdminAddProduct";
 import AdminTable from "../components/Admin/AdminTable";
 import AdminTableMobile from "../components/Admin/AdminTableMobile";
 import Form from "../components/Form";
+import { useProducts } from "../contexts/ProductContext";
 import { Product } from "../ProductData";
+import theme from "../utils/Theme";
 
 const Admin = () => {
   // const [productsState, setProductsState] = useState<Product[]>();
@@ -14,13 +16,24 @@ const Admin = () => {
   // const [editFormIsOpen, setEditFormIsOpen] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
 
+  const { deleteProductById } = useProducts();
+
+  const mdScreen = useMediaQuery(theme.breakpoints.down("md"));
+
   const handleEdit = (product: Product) => {
     if (selectedProduct === product) {
       setSelectedProduct(undefined);
+      console.log(product);
     } else {
       setSelectedProduct(product);
     }
-    console.log(selectedProduct);
+  };
+
+  const handleDelete = (id: number) => {
+    if (id) {
+      console.log(id);
+      deleteProductById(id);
+    }
   };
 
   return (
@@ -31,8 +44,8 @@ const Admin = () => {
       </Fab>
       <AddProduct isOpen={formIsOpen} />
       {selectedProduct && <Form isNewProduct={false} product={selectedProduct} />}
-      <AdminTable handleEditClicked={handleEdit} />
-      <AdminTableMobile />
+
+      {mdScreen ? <AdminTableMobile handleDelete={handleDelete} handleEdit={handleEdit} /> : <AdminTable handleEditClicked={handleEdit} />}
     </div>
   );
 };
