@@ -19,8 +19,8 @@ const Reviews = ({ product }: Props) => {
             </Box>
             <Box>
               <Box sx={{ display: "flex", gap: "1rem", alignItems: "center" }}>
-                <Typography variant="h6">{review.name}</Typography>
-                <Typography variant="body2">{review.createdAt}</Typography>
+                <Typography variant="h6" sx={{lineHeight: undefined}}>{review.name}</Typography>
+                <Typography variant="subtitle2" sx={{lineHeight: undefined}}>{review.createdAt}</Typography>
               </Box>
               <ReadMore limit={50} variant="body2">
                 {review.review}
