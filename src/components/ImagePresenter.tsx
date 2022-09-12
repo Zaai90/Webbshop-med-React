@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { Box } from "@mui/material";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Product } from "../ProductData";
 
@@ -9,10 +10,9 @@ const ImagePresenterStyled = styled.div`
   justify-content: center;
   gap: 1rem;
   padding: 1rem;
-  width: 100%;
-  height: 100%;
 
   @media (min-width: 768px) {
+    width: 50%;
     flex-direction: row;
   }
 `;
@@ -24,43 +24,45 @@ const ImageContainer = styled.div`
   align-items: center;
   gap: 1rem;
   height: 100%;
-  padding: 0 2rem;
+  width: 100%;
 
   @media (min-width: 768px) {
+    width: 30%;
     flex-direction: column;
   }
 `;
 
 const SelectedImageContainer = styled.div`
   display: flex;
+  width: 70%;
+  height: 100%;
 `;
 
-const SelectImageShow = styled.img`
-  max-width: 400px;
-  max-height: 400px;
-  object-fit: contain;
-  padding: 1rem;
-  /* 
-  @media (min-width: 600px) {
-    max-width: 500px;
-    max-height: 500px;
-  } */
+
+const ThumbNailImg = styled(Box)<{ src: string }>`
+  background: url(${(props) => props.src});
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  cursor: pointer;
+  min-height: 100px;
 
   @media (min-width: 768px) {
-    max-width: 600px;
-    max-height: 600px;
+    min-height: 50%;
   }
 `;
 
-const ImageStyled = styled.img`
-  max-width: 180px;
-  max-height: 180px;
-  object-fit: contain;
-  cursor: pointer;
+const ImagePreview = styled(Box)<{ src: string }>`
+  background: url(${(props) => props.src});
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 300px;
 
   @media (min-width: 768px) {
-    max-width: 200px;
-    max-height: 200px;
+    min-height: 100%;
   }
 `;
 
@@ -72,19 +74,15 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
   const [hover, setHover] = useState(false);
 
-  let images: JSX.Element[] = [];
-  images = product.img.map((img: string, index: number) => {
+  const images = product.img.map((img: string, index: number) => {
     return img !== selectedImg ? (
-      <ImageStyled
-        draggable="false"
-        key={index}
+      <ThumbNailImg
         src={img}
-        alt={product.title}
+        key={index}
         onMouseEnter={() => {
           if (!hover) {
             setHover(true);
             setSelectedImg(img);
-            console.log("spam");
           }
         }}
         onMouseLeave={() => {
@@ -92,7 +90,7 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
         }}
       />
     ) : (
-      <></>
+      <React.Fragment key={index}></React.Fragment>
     );
   });
 
@@ -100,7 +98,7 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
     <ImagePresenterStyled>
       <ImageContainer>{images}</ImageContainer>
       <SelectedImageContainer>
-        <SelectImageShow draggable="false" src={selectedImg} />
+        <ImagePreview src={selectedImg} />
       </SelectedImageContainer>
     </ImagePresenterStyled>
   );
