@@ -93,7 +93,7 @@ export default function AdminTableMobile({ handleEdit, handleDelete }: Props) {
   const { products, editProduct, deleteProducts } = useProducts();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer sx={{ marginBottom: "1rem" }} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>
