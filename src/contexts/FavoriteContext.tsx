@@ -4,8 +4,8 @@ import { Product } from "../ProductData";
 
 interface FavoriteContext {
   favorites: Product[];
-  addToFavorites: (product: Product) => void;
-  removeFromFavorites: (product: Product) => void;
+  // addToFavorites: (product: Product) => void;
+  // removeFromFavorites: (product: Product) => void;
   removeAllFavorites: () => void;
   isFavorite: (product: Product) => boolean;
   toggleFavorite: (product: Product) => void;
@@ -13,9 +13,9 @@ interface FavoriteContext {
 
 const FavoriteContext = createContext<FavoriteContext>({
   favorites: [],
-  addToFavorites: () => {},
+  // addToFavorites: () => {},
+  // removeFromFavorites: () => {},
   removeAllFavorites: () => {},
-  removeFromFavorites: () => {},
   isFavorite: () => false,
   toggleFavorite: () => {},
 });
@@ -56,11 +56,7 @@ const FavoritesProvider = ({ children }: Props) => {
 
   const removeAllFavorites = () => setFavorites([]);
 
-  return (
-    <FavoriteContext.Provider value={{ removeFromFavorites, favorites, addToFavorites, removeAllFavorites, isFavorite, toggleFavorite }}>
-      {children}
-    </FavoriteContext.Provider>
-  );
+  return <FavoriteContext.Provider value={{ favorites, removeAllFavorites, isFavorite, toggleFavorite }}>{children}</FavoriteContext.Provider>;
 };
 
 export const useFavorites = () => {
