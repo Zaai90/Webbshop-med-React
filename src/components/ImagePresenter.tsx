@@ -12,7 +12,7 @@ const ImagePresenterStyled = styled.div`
   width: 100%;
   height: 100%;
 
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     flex-direction: row;
   }
 `;
@@ -26,7 +26,7 @@ const ImageContainer = styled.div`
   height: 100%;
   padding: 0 2rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     flex-direction: column;
   }
 `;
@@ -46,19 +46,19 @@ const SelectImageShow = styled.img`
     max-height: 500px;
   } */
 
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     max-width: 600px;
     max-height: 600px;
   }
 `;
 
 const ImageStyled = styled.img`
-  max-width: 180px;
-  max-height: 180px;
+  max-width: 50%;
+  max-height: 50%;
   object-fit: contain;
   cursor: pointer;
 
-  @media (min-width: 768px) {
+  @media (min-width: 980px) {
     max-width: 200px;
     max-height: 200px;
   }
@@ -84,7 +84,6 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
           if (!hover) {
             setHover(true);
             setSelectedImg(img);
-            console.log("spam");
           }
         }}
         onMouseLeave={() => {

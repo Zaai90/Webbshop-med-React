@@ -6,6 +6,7 @@ import { Product, Products } from "../ProductData";
 interface ProductContextValue {
   products: Product[];
   createProduct: (product: ProductCreate) => void;
+  deleteProductById: (id: number) => void;
   deleteProducts: (selectedIds: number[]) => void;
   editProduct: (product: Product) => void;
 }
@@ -13,6 +14,7 @@ interface ProductContextValue {
 const ProductContext = createContext<ProductContextValue>({
   products: [],
   createProduct: () => {},
+  deleteProductById: () => {},
   deleteProducts: () => {},
   editProduct: () => {},
 });
@@ -33,6 +35,15 @@ function ProductProvider({ children }: Props) {
     setProducts(productsCopy);
   };
 
+  const deleteProductById = (id: number) => {
+    const index = products.findIndex((p) => p.id === id);
+
+    const productsCopy = [...products];
+
+    productsCopy.splice(index, 1);
+    setProducts(productsCopy);
+  };
+
   const deleteProducts = (selectedIds: number[]) => {
     const newProducts = products.filter((product) => !selectedIds.includes(product.id));
 
@@ -49,7 +60,9 @@ function ProductProvider({ children }: Props) {
     setProducts(productsCopy);
   };
 
-  return <ProductContext.Provider value={{ products, createProduct, deleteProducts, editProduct }}>{children}</ProductContext.Provider>;
+  return (
+    <ProductContext.Provider value={{ products, createProduct, deleteProductById, deleteProducts, editProduct }}>{children}</ProductContext.Provider>
+  );
 }
 
 export const useProducts = () => useContext(ProductContext);
