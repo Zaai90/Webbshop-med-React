@@ -156,7 +156,7 @@ export default function Form({ product }: Props) {
           helperText={formik.touched.img && formik.errors.img}
         />
       </div>
-      <Button color="primary" variant="contained" type="submit">
+      <Button sx={{ margin: "1rem" }} color="primary" variant="contained" type="submit">
         {!product ? "ADD" : "UPDATE"}
       </Button>
     </Box>
