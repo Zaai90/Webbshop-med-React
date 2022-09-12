@@ -112,12 +112,11 @@ interface Props {
 
 const GridItem = ({ product }: Props) => {
   const { enqueueSnackbar } = useSnackbar();
-  const { favorites, removeFromFavorites, addToFavorites } = useFavorites();
+  const { isFavorite, toggleFavorite } = useFavorites();
   const { addToCart } = useCart();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [size, setSize] = useState("");
-  const [isFavorite, setIsFavorite] = useState(checkIfIsFavorite());
   const [isQuickViewDrawerOpen, setIsQuickViewDrawerOpen] = useState(false);
 
   const touchScreen = useMediaQuery(theme.breakpoints.down("md"));
@@ -132,18 +131,6 @@ const GridItem = ({ product }: Props) => {
     setIsModalOpen(true);
   }
 
-  function checkIfIsFavorite(): boolean {
-    if (favorites.length === 0) {
-      return false;
-    }
-    return favorites.find((favorite) => favorite.id === product.id) ? true : false;
-  }
-
-  function toggleFavorite() {
-    !isFavorite ? addToFavorites(product) : removeFromFavorites(product);
-    setIsFavorite(!isFavorite);
-  }
-
   function handleAdd() {
     addToCart(product, 1);
 
@@ -154,15 +141,15 @@ const GridItem = ({ product }: Props) => {
   return (
     <>
       <CardStyled>
-        <FavoriteButtonStyled onClick={toggleFavorite}>
+        <FavoriteButtonStyled onClick={() => toggleFavorite(product)}>
           <Tooltip
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 500 }}
-            title={isFavorite ? "Remove from wishlist" : "Add to wishlist"}
+            title={isFavorite(product) ? "Remove from wishlist" : "Add to wishlist"}
             placement="right"
             arrow
           >
-            {isFavorite ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
+            {isFavorite(product) ? <FavoriteIcon color={"secondary"} /> : <FavoriteBorderIcon color={"disabled"} />}
           </Tooltip>
         </FavoriteButtonStyled>
         {touchScreen && (
