@@ -4,8 +4,6 @@ import { Product } from "../ProductData";
 
 interface FavoriteContext {
   favorites: Product[];
-  // addToFavorites: (product: Product) => void;
-  // removeFromFavorites: (product: Product) => void;
   removeAllFavorites: () => void;
   isFavorite: (product: Product) => boolean;
   toggleFavorite: (product: Product) => void;
@@ -13,8 +11,6 @@ interface FavoriteContext {
 
 const FavoriteContext = createContext<FavoriteContext>({
   favorites: [],
-  // addToFavorites: () => {},
-  // removeFromFavorites: () => {},
   removeAllFavorites: () => {},
   isFavorite: () => false,
   toggleFavorite: () => {},
