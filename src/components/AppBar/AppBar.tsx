@@ -83,7 +83,7 @@ const AppBar = () => {
               <IconButton sx={{ color: "white" }} onClick={() => setSearchIsActive((prev) => !prev)}>
                 <Icon.Search sx={{ fontSize: "2rem" }} />
               </IconButton>
-              <NavLink to={"favorites"}>
+              <NavLink to={"wishlist"}>
                 <IconButton sx={{ color: "white" }}>
                   <Badge badgeContent={favorites.length} color="secondary">
                     <FavoriteBorderIcon sx={{ fontSize: "2rem" }} />

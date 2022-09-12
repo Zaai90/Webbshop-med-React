@@ -19,7 +19,7 @@ function App() {
           <Route path="product/:id" element={<ProductPage />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="admin" element={<Admin />} />
-          <Route path="favorites" element={<Favorites />} />
+          <Route path="wishlist" element={<Favorites />} />
         </Route>
       </Routes>
     </>
