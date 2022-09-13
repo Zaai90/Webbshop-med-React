@@ -74,7 +74,6 @@ const ReviewForm = React.forwardRef(({ product, handleSubmit, toggleModal }: Pro
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   function toggleClass(index: any) {
     setActive(index);
-    console.log(product);
   }
 
   const formik = useFormik({
@@ -88,87 +87,95 @@ const ReviewForm = React.forwardRef(({ product, handleSubmit, toggleModal }: Pro
   });
 
   return (
-    <Box ref={ref} tabIndex={-1} sx={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      textAlign: "center",
-      backgroundColor: "white",
-      width: "fit-content",
-      padding: smScreen ? "20px" : "40px 0",
-      borderRadius: ".3rem",
-      }}>
-    <Container>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Typography variant={smScreen ? "h6" : "h5"} sx={{ marginRight: "auto" }}>
-          We're excited to hear your opinion!
-        </Typography>
-        <Button sx={{ width: "fit-content" }} onClick={() => toggleModal(false)}>
-          X
-        </Button>
+    <Box
+      ref={ref}
+      tabIndex={-1}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        textAlign: "center",
+        backgroundColor: "white",
+        width: "fit-content",
+        padding: smScreen ? "20px" : "40px 0",
+        borderRadius: ".3rem",
+        position: "relative",
+      }}
+    >
+      <Box
+        sx={{ width: "fit-content", position: "absolute", top: 0, right: 0, cursor: "pointer", padding: "14px", lineHeight: 1 }}
+        onClick={() => toggleModal(false)}
+      >
+        X
       </Box>
-      <form onSubmit={formik.handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
-        <TextField
-          id="name"
-          name="name"
-          type="text"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={formik.touched.name && formik.errors.name}
-          label="Your name"
-          sx={{ width: smScreen ? "100%" : "75%", margin: "1rem auto" }}
-        />
-        <TextField
-          label="Write a review!"
-          placeholder="Veri nice producc, i liek"
-          multiline
-          rows={4}
-          id="review"
-          name="review"
-          type="text"
-          value={formik.values.review}
-          onChange={formik.handleChange}
-          error={formik.touched.review && Boolean(formik.errors.review)}
-          helperText={formik.touched.review && formik.errors.review}
-          sx={{ width: smScreen ? "100%" : "75%", margin: "1rem auto" }}
-        />
-        <Typography variant={smScreen ? "h6" : "h5"}>How would you rate this product?</Typography>
-        <ImageContainer>
-          <ImageList cols={5} sx={{ gap: "8px", padding: smScreen ? "30px 10px" : "20px" }}>
-            {ratingData.map((item, index) => (
-              <ImageListItem
-                key={item.img}
-                id="rating"
-                value={formik.values.rating}
-                onClick={() => {
-                  toggleClass(index);
-                  formik.values.rating = index;
-                }}
-                onChange={formik.handleChange}
-                className={isActive === index ? "isActive" : undefined}
-              >
-                <img src={`${item.img}`} alt={item.title} loading="lazy" />
-                {!smScreen && <ImageListItemBar title={item.title} position="below" sx={{ textAlign: "center", opacity: 0 }} />}
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </ImageContainer>
+      <Container>
         <Box>
-          <Button
-            variant="contained"
-            type="submit"
-            onClick={() => {
-              formik.values.productId = product.id;
-              formik.values.accepted = false;
-            }}
-          >
-            Submit review
-          </Button>
+          <Typography variant={smScreen ? "h6" : "h5"}>
+            We're excited to hear your opinion!
+          </Typography>
         </Box>
-      </form>
+        <form onSubmit={formik.handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
+          <TextField
+            id="name"
+            name="name"
+            type="text"
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+            label="Your name"
+            sx={{ width: smScreen ? "100%" : "75%", margin: "1rem auto" }}
+          />
+          <TextField
+            label="Write a review!"
+            placeholder="Veri nice producc, i liek"
+            multiline
+            rows={4}
+            id="review"
+            name="review"
+            type="text"
+            value={formik.values.review}
+            onChange={formik.handleChange}
+            error={formik.touched.review && Boolean(formik.errors.review)}
+            helperText={formik.touched.review && formik.errors.review}
+            sx={{ width: smScreen ? "100%" : "75%", margin: "1rem auto" }}
+          />
+          <Typography variant={smScreen ? "h6" : "h5"}>How would you rate this product?</Typography>
+          <ImageContainer>
+            <ImageList cols={5} sx={{ gap: "8px", padding: smScreen ? "30px 10px" : "20px" }}>
+              {ratingData.map((item, index) => (
+                <ImageListItem
+                  key={item.img}
+                  id="rating"
+                  value={formik.values.rating}
+                  onClick={() => {
+                    toggleClass(index);
+                    formik.values.rating = index;
+                  }}
+                  onChange={formik.handleChange}
+                  className={isActive === index ? "isActive" : undefined}
+                >
+                  <img src={`${item.img}`} alt={item.title} loading="lazy" />
+                  {!smScreen && <ImageListItemBar title={item.title} position="below" sx={{ textAlign: "center", opacity: 0 }} />}
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </ImageContainer>
+          <Box>
+            <Button
+              variant="contained"
+              type="submit"
+              onClick={() => {
+                formik.values.productId = product.id;
+                formik.values.accepted = false;
+              }}
+            >
+              Submit review
+            </Button>
+          </Box>
+        </form>
       </Container>
-      </Box>
+    </Box>
   );
 });
 

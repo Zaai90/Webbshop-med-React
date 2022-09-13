@@ -1,3 +1,4 @@
+import { Container } from "@mui/system";
 import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -44,14 +45,17 @@ const ProductPage = () => {
     <MainContent>
       <ContainerStyled>
         <ImagePresenter product={product} />
-        <ProductInfo product={product} />
-      </ContainerStyled>
+        <Container>
+
       <div onClick={handleClick} style={{ cursor: "pointer" }}>
-        <ReviewRatingAvg product={product} avgRating={avgRating} />
+        <ReviewRatingAvg avgRating={avgRating} />
       </div>
+        <ProductInfo product={product} />
+      <DeliveryAndReturns />
+        </Container>
+      </ContainerStyled>
       <div ref={ref} style={{ height: "70px" }}></div>
       <Reviews product={product} calcAvgRating={calcAvgRating} />
-      <DeliveryAndReturns />
     </MainContent>
   );
 };
