@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 
 const InfoContainer = styled.div`
   display: flex;

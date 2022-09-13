@@ -9,7 +9,7 @@ import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 import theme from "../utils/Theme";
 import QuickViewDrawer from "./Drawers/QuickViewDrawer";
 import AddProductSnackbar from "./Modals/AddProductSnackbar";

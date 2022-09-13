@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 
 const ImagePresenterStyled = styled.div`
   display: flex;
