@@ -1,6 +1,6 @@
 ﻿# INLÄMNING Web shop
 
-https://suvnet21shop.netlify.app`
+https://textilefc.netlify.app
 
 # About the project
 
@@ -11,7 +11,7 @@ A webshop created with react, vite och typescript also using MUI component libra
 ```
 npm install
 npm run build
-npm run start
+npm run preview
 ```
 
 # Krav godkänt:
