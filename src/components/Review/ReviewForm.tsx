@@ -1,17 +1,15 @@
-import { Box, Button, Container, ImageList, ImageListItem, ImageListItemBar, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, ImageList, ImageListItem, ImageListItemBar, TextField, Typography, useMediaQuery } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
 import { ReviewModel } from "../../models/ReviewModel";
 import { Product } from "../../ProductData";
+import theme from "../../utils/Theme";
 import ratingData from "./ratingData";
 
 const ImageContainer = styled(Container)`
   max-width: 500px !important;
-  ul {
-    padding: 20px !important;
-  }
 
   ul > * {
     img {
@@ -66,11 +64,13 @@ const validationSchema = yup.object({
 
 interface Props {
   product: Product;
+  toggleModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ReviewForm = ({ product }: Props) => {
   const [isActive, setActive] = useState(5);
   const today = new Date().toLocaleDateString();
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   function toggleClass(index: any) {
     setActive(index);
     console.log(product);
@@ -86,8 +86,19 @@ const ReviewForm = ({ product }: Props) => {
   });
 
   return (
-    <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", textAlign: "center" }}>
-      <Typography variant={"h5"}>We're excited to hear your opinion!</Typography>
+    <Container
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        textAlign: "center",
+        backgroundColor: "white",
+        width: "fit-content",
+        padding: smScreen ? "20px" : "40px 0",
+        borderRadius: ".3rem",
+      }}
+    >
+      <Typography variant={smScreen ? "h6" : "h5"}>We're excited to hear your opinion!</Typography>
       <form onSubmit={formik.handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
         <TextField
           id="name"
@@ -98,7 +109,7 @@ const ReviewForm = ({ product }: Props) => {
           error={formik.touched.name && Boolean(formik.errors.name)}
           helperText={formik.touched.name && formik.errors.name}
           label="Your name"
-          sx={{ width: "50%", margin: "1rem auto" }}
+          sx={{ width: smScreen ? "100%" : "75%", margin: "1rem auto" }}
         />
         <TextField
           label="Write a review!"
@@ -112,11 +123,11 @@ const ReviewForm = ({ product }: Props) => {
           onChange={formik.handleChange}
           error={formik.touched.review && Boolean(formik.errors.review)}
           helperText={formik.touched.review && formik.errors.review}
-          sx={{ width: "50%", margin: "1rem auto" }}
+          sx={{ width: smScreen ? "100%" : "75%", margin: "1rem auto" }}
         />
-        <Typography variant={"h5"}>How would you rate this product?</Typography>
+        <Typography variant={smScreen ? "h6" : "h5"}>How would you rate this product?</Typography>
         <ImageContainer>
-          <ImageList cols={5}>
+          <ImageList cols={5} sx={{gap: '8px', padding: smScreen ? '30px 10px' : '20px'}}>
             {ratingData.map((item, index) => (
               <ImageListItem
                 key={item.img}
@@ -130,7 +141,7 @@ const ReviewForm = ({ product }: Props) => {
                 className={isActive === index ? "isActive" : undefined}
               >
                 <img src={`${item.img}`} alt={item.title} loading="lazy" />
-                <ImageListItemBar title={item.title} position="below" sx={{ textAlign: "center", opacity: 0 }} />
+                {!smScreen && <ImageListItemBar title={item.title} position="below" sx={{ textAlign: "center", opacity: 0 }} />}
               </ImageListItem>
             ))}
           </ImageList>
