@@ -5,8 +5,6 @@ interface Props {
 }
 
 const Confirmation = ({ handleSubmit }: Props) => {
-  // const { clearCart } = useCart();
-
   return (
     <div>
       <div>Confirmation</div>

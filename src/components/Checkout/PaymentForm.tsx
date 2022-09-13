@@ -25,7 +25,7 @@ const validationSchema = yup.object({
   phoneNumber: yup.string().matches(/^\d+$/).min(9, "Phone number must be 10 figures").max(10, "Phone number must be 10 figures").required(),
 });
 
-export interface Values {
+export interface PaymentFormValues {
   email: string;
   firstName: string;
   lastName: string;
@@ -37,7 +37,7 @@ export interface Values {
 
 interface Props {
   handleSubmit: () => void;
-  setFormValues: (values: Values) => void;
+  setFormValues: (values: PaymentFormValues) => void;
 }
 
 const PaymentForm = ({ handleSubmit, setFormValues }: Props) => {
@@ -45,7 +45,7 @@ const PaymentForm = ({ handleSubmit, setFormValues }: Props) => {
     initialValues: { email: "", firstName: "", lastName: "", address: "", zipCode: "", country: "", phoneNumber: "" },
 
     validationSchema: validationSchema,
-    onSubmit: (values: Values, e) => {
+    onSubmit: (values: PaymentFormValues, e) => {
       handleSubmit();
       setFormValues(values);
       // alert(JSON.stringify(values, null, 2));
