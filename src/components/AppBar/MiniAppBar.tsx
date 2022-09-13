@@ -36,7 +36,7 @@ const MiniAppBar = ({ isLinkDrawerOpen, setIsLinkDrawerOpen, setIsCartDrawerOpen
           </IconButton>
         </NavLink>
         <IconButton size="small" sx={{ color: "white" }} onClick={() => setIsCartDrawerOpen((prev) => !prev)}>
-          <Badge color="primary" variant={cart.length !== 0 ? "dot" : undefined}>
+          <Badge color="success" variant={cart.length !== 0 ? "dot" : undefined}>
             <Icon.LocalMallOutlined />
           </Badge>
         </IconButton>
