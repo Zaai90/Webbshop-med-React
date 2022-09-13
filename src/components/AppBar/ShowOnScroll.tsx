@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface Props {
   children: React.ReactElement;
-  searchBar?: boolean;
+  // searchBar?: boolean;
 }
 
 const SlideStyled = styled(Slide)`
@@ -12,20 +12,14 @@ const SlideStyled = styled(Slide)`
   }
 `;
 
-const ShowOnScroll = ({ children, searchBar }: Props) => {
-  let trigger;
-
-  if (searchBar) {
-    trigger = !useScrollTrigger();
-  } else {
-    trigger = useScrollTrigger({
-      threshold: 64,
-      disableHysteresis: true,
-    });
-  }
+const ShowOnScroll = ({ children }: Props) => {
+  const trigger = useScrollTrigger({
+    threshold: 64,
+    disableHysteresis: true,
+  });
 
   return (
-    <SlideStyled appear={searchBar ? true : false} direction="down" in={trigger}>
+    <SlideStyled appear={false} direction="down" in={trigger}>
       {children}
     </SlideStyled>
   );
