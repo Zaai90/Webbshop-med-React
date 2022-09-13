@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/localStorage";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 
 interface FavoriteContext {
   favorites: Product[];

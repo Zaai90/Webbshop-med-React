@@ -2,7 +2,7 @@ import * as Icon from "@mui/icons-material";
 import { Button, Divider } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useCurrency } from "../../contexts/CurrencyContext";
-import { Product } from "../../ProductData";
+import Product from "../../models/Product";
 
 interface Props {
   product: Product;

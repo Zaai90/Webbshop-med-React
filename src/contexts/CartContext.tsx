@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/localStorage";
 import { CartItem } from "../models/CartItem";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 import { useFavorites } from "./FavoriteContext";
 
 interface CartContext {

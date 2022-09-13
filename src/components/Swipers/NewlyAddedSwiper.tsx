@@ -5,8 +5,8 @@ import styled from "styled-components";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useCurrency } from "../../contexts/CurrencyContext";
+import Product from "../../models/Product";
 import { QuickView } from "../../pages/Home";
-import { Product } from "../../ProductData";
 
 const FavContainer = styled.div`
   .hearted {
