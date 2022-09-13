@@ -95,7 +95,7 @@ const AppBar = () => {
                   <Icon.Close sx={{ fontSize: "2rem" }} />
                 ) : (
                   <CartWrapper>
-                    <Badge badgeContent={cartQty} showZero color="primary">
+                    <Badge badgeContent={cartQty} showZero color="success">
                       <Icon.LocalMallOutlined sx={{ marginRight: "0 !important", fontSize: "2rem" }} />
                     </Badge>
                     {!tabletScreen && <Price>{convertToCurrencyValue(totalAmount)}</Price>}
