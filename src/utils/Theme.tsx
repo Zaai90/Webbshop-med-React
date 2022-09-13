@@ -46,6 +46,9 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "'Urbanist','Roboto', 'Helvetica', sans-serif",
+    caption: {
+      lineHeight: 1,
+    },
   },
   palette: {
     mode: "light",
