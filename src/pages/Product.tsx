@@ -1,5 +1,7 @@
+import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import DeliveryAndReturns from "../components/DeliveryAndReturns";
 import ImagePresenter from "../components/ImagePresenter";
 import MainContent from "../components/MainContent";
 import ProductInfo from "../components/ProductInfo";
@@ -28,6 +30,7 @@ const ProductPage = () => {
         <ImagePresenter product={product} />
         <ProductInfo product={product} />
       </ContainerStyled>
+        <DeliveryAndReturns />
     </MainContent>
   );
 };
