@@ -15,7 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useProducts } from "../../contexts/ProductContext";
-import { Product } from "../../ProductData";
+import Product from "../../models/Product";
 
 interface Props {
   handleEdit: (product: Product) => void;

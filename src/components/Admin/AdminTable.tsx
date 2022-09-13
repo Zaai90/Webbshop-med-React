@@ -15,7 +15,7 @@ import * as React from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { useProducts } from "../../contexts/ProductContext";
-import { Product } from "../../ProductData";
+import Product from "../../models/Product";
 import { AdminTableHead } from "./AdminTableHead";
 import { AdminTableToolbar } from "./AdminTableToolbar";
 

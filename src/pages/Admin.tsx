@@ -6,7 +6,7 @@ import AdminTable from "../components/Admin/AdminTable";
 import AdminTableMobile from "../components/Admin/AdminTableMobile";
 import Form from "../components/Form";
 import { useProducts } from "../contexts/ProductContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 import theme from "../utils/Theme";
 
 const Admin = () => {
