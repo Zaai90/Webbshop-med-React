@@ -71,7 +71,7 @@ const AppBar = () => {
               <LogoSvg backgroundColor="#42454A" forgroundColor="#FFF" small={88} large={120} />
             </NavLink>
             {desktopScreen ? (
-              <AppBarLinks pages={["store", "checkout", "admin"]} />
+              <AppBarLinks pages={["store", "admin"]} />
             ) : (
               <IconButton onClick={toggleLinkDrawer} edge="start" aria-label="menu" sx={{ color: "white", marginRight: "auto", marginLeft: ".2rem" }}>
                 <MenuIcon sx={{ fontSize: "2rem" }} />
@@ -83,7 +83,7 @@ const AppBar = () => {
               <IconButton sx={{ color: "white" }} onClick={() => setSearchIsActive((prev) => !prev)}>
                 <Icon.Search sx={{ fontSize: "2rem" }} />
               </IconButton>
-              <NavLink to={"favorites"}>
+              <NavLink to={"wishlist"}>
                 <IconButton sx={{ color: "white" }}>
                   <Badge badgeContent={favorites.length} color="secondary">
                     <FavoriteBorderIcon sx={{ fontSize: "2rem" }} />
@@ -95,7 +95,7 @@ const AppBar = () => {
                   <Icon.Close sx={{ fontSize: "2rem" }} />
                 ) : (
                   <CartWrapper>
-                    <Badge badgeContent={cartQty} showZero color="primary">
+                    <Badge badgeContent={cartQty} showZero color="success">
                       <Icon.LocalMallOutlined sx={{ marginRight: "0 !important", fontSize: "2rem" }} />
                     </Badge>
                     {!tabletScreen && <Price>{convertToCurrencyValue(totalAmount)}</Price>}
@@ -106,10 +106,15 @@ const AppBar = () => {
           </Toolbar>
         </Container>
       </MUIAppBar>
-      {searchIsActive && <Searchbar />}
+      {searchIsActive && <Searchbar toggleSearch={setSearchIsActive} />}
       <ShowOnScroll>
         <Box width="100%" position="fixed" top={0} zIndex={1201} sx={{ backgroundColor: "#383838" }}>
-          <MiniAppBar setIsCartDrawerOpen={setIsCartDrawerOpen} setIsLinkDrawerOpen={setIsLinkDrawerOpen} isLinkDrawerOpen={isLinkDrawerOpen} />
+          <MiniAppBar
+            searchIsActive={setSearchIsActive}
+            setIsCartDrawerOpen={setIsCartDrawerOpen}
+            setIsLinkDrawerOpen={setIsLinkDrawerOpen}
+            isLinkDrawerOpen={isLinkDrawerOpen}
+          />
         </Box>
       </ShowOnScroll>
       {/* DRAWERS */}

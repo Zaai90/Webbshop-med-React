@@ -3,15 +3,17 @@ import { Box, Button, Container, FormControl, FormControlLabel, Radio, RadioGrou
 import { useState } from "react";
 import styled from "styled-components";
 import { CreditCardModel } from "../../models/CreditCardModel";
+import { SwishModel } from "../../models/SwishModel";
 import SwishSVG from "../Logos/SwishSVG";
 import TrustlySVG from "../Logos/TrustlySVG";
 import Bank from "./PaymentOptions/Bank";
 import CreditCard from "./PaymentOptions/CreditCard";
-import Swish, { SwishModel } from "./PaymentOptions/Swish";
+import Swish from "./PaymentOptions/Swish";
 
 interface Props {
   handleSubmit: () => void;
-  // handleFormValues: (values: CreditCardModel) => void;
+  handleCreditCardFormValues: (values: CreditCardModel) => void;
+  handleSwishFormValues: (values: SwishModel) => void;
 }
 
 const PaymentOptionWrapper = styled.div`
@@ -29,16 +31,8 @@ const PaymentOption = styled.div`
   align-items: center;
 `;
 
-const PaymentOptions = ({ handleSubmit }: Props) => {
+const PaymentOptions = ({ handleSubmit, handleCreditCardFormValues, handleSwishFormValues }: Props) => {
   const [value, setValue] = useState("");
-
-  function handleFormValues(values: CreditCardModel) {
-    console.log(values);
-  }
-
-  function handleSwishFormValue(value: SwishModel) {
-    console.log(value);
-  }
 
   const handleClick = (name: string) => {
     setValue(name);
@@ -56,7 +50,7 @@ const PaymentOptions = ({ handleSubmit }: Props) => {
                 <SwishSVG />
               </Box>
             </PaymentOption>
-            <PaymentComponent>{value === "swish" && <Swish handleSubmit={handleSubmit} handleFormValue={handleSwishFormValue} />}</PaymentComponent>
+            <PaymentComponent>{value === "swish" && <Swish handleSubmit={handleSubmit} handleFormValue={handleSwishFormValues} />}</PaymentComponent>
           </PaymentOptionWrapper>
 
           <PaymentOptionWrapper onClick={() => handleClick("credit-card")}>
@@ -67,7 +61,7 @@ const PaymentOptions = ({ handleSubmit }: Props) => {
               </Box>
             </PaymentOption>
             <PaymentComponent>
-              {value === "credit-card" && <CreditCard handleSubmit={handleSubmit} handleFormValues={handleFormValues} />}
+              {value === "credit-card" && <CreditCard handleSubmit={handleSubmit} handleFormValues={handleCreditCardFormValues} />}
             </PaymentComponent>
           </PaymentOptionWrapper>
 

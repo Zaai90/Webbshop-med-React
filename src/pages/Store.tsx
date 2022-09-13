@@ -102,7 +102,7 @@ const Store = () => {
                 >
                   <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
                     <ListItemButton selected={value === product.category ? true : false} sx={{ minWidth: "max-content !important" }}>
-                      <ListItemText primary={product.category.toUpperCase()} />
+                      <ListItemText sx={{wordBreak: 'keep-all'}} primary={product.category.toUpperCase()} />
                     </ListItemButton>
                   </ListItem>
                 </Container>

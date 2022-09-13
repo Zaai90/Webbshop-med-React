@@ -1,13 +1,12 @@
 import * as Icon from "@mui/icons-material";
-import { Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import Fab from "@mui/material/Fab";
 import { useState } from "react";
-import AddProduct from "../components/Admin/AdminAddProduct";
 import AdminTable from "../components/Admin/AdminTable";
 import AdminTableMobile from "../components/Admin/AdminTableMobile";
 import Form from "../components/Form";
 import { useProducts } from "../contexts/ProductContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 import theme from "../utils/Theme";
 
 const Admin = () => {
@@ -23,7 +22,6 @@ const Admin = () => {
   const handleEdit = (product: Product) => {
     if (selectedProduct === product) {
       setSelectedProduct(undefined);
-      console.log(product);
     } else {
       setSelectedProduct(product);
     }
@@ -31,19 +29,30 @@ const Admin = () => {
 
   const handleDelete = (id: number) => {
     if (id) {
-      console.log(id);
       deleteProductById(id);
     }
   };
 
   return (
     <div style={{ margin: "5rem 1rem 0 1rem" }}>
-      <Typography variant="h5">Admin</Typography>
-      <Fab onClick={() => setFormIsOpen(!formIsOpen)} color="primary" aria-label="add">
-        <Icon.Add />
-      </Fab>
-      <AddProduct isOpen={formIsOpen} />
-      {selectedProduct && <Form isNewProduct={false} product={selectedProduct} />}
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
+        <Typography variant="h5">Admin</Typography>
+        <Fab
+          onClick={() => {
+            setFormIsOpen(!formIsOpen);
+            setSelectedProduct(undefined);
+          }}
+          color="primary"
+          aria-label="add"
+        >
+          <Icon.Add />
+        </Fab>
+      </Box>
+      {(selectedProduct || formIsOpen) && (
+        <Box sx={{ maxWidth: "360px" }}>
+          <Form product={selectedProduct} />
+        </Box>
+      )}
 
       {mdScreen ? <AdminTableMobile handleDelete={handleDelete} handleEdit={handleEdit} /> : <AdminTable handleEditClicked={handleEdit} />}
     </div>

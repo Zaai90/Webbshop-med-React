@@ -1,7 +1,8 @@
 import { createContext, ReactNode, useContext } from "react";
 import { ProductCreate } from "../components/Form";
 import { useLocalStorage } from "../hooks/localStorage";
-import { Product, Products } from "../ProductData";
+import Product from "../models/Product";
+import { Products } from "../ProductData";
 
 interface ProductContextValue {
   products: Product[];

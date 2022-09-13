@@ -59,12 +59,7 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
             ))}
           </Wrapper>
           <CartBottom>
-            <Button
-              variant="contained"
-              color="warning"
-              style={{ maxWidth: "max-content", gap: ".5rem", margin: ".5rem 0" }}
-              onClick={handleClearCart}
-            >
+            <Button variant="outlined" color="warning" style={{ maxWidth: "max-content", gap: ".5rem", margin: ".5rem 0" }} onClick={handleClearCart}>
               Empty cart <Icon.Delete />
             </Button>
             <Total>
@@ -72,7 +67,7 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
               <span>{convertToCurrencyValue(totalAmount)} </span>
             </Total>
             <NavLink onClick={toggleDrawer} to="checkout">
-              <Button variant="contained" color="primary" fullWidth>
+              <Button variant="contained" fullWidth>
                 CHECKOUT
               </Button>
             </NavLink>

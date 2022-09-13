@@ -11,7 +11,7 @@ import MainContent from "../components/MainContent";
 import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
 import { useFavorites } from "../contexts/FavoriteContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 
 const FavoriteCard = styled.div`
   display: flex;
@@ -79,7 +79,7 @@ const Image = styled.img`
 `;
 
 const Favorites = () => {
-  const { removeAllFavorites, removeFromFavorites, favorites } = useFavorites();
+  const { removeAllFavorites, toggleFavorite, favorites } = useFavorites();
   const { addToCart, addAllFavorites } = useCart();
   const { convertToCurrencyValue, changeCurrency } = useCurrency();
 
@@ -105,7 +105,7 @@ const Favorites = () => {
 
                 <ButtonContainer>
                   <Stack direction="row" spacing={3}>
-                    <IconButton onClick={() => removeFromFavorites(favorite)} aria-label="delete">
+                    <IconButton onClick={() => toggleFavorite(favorite)} aria-label="delete">
                       <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"Remove from wishlist"} placement="right" arrow>
                         <FavoriteIcon sx={{ fontSize: "2rem", color: "#9c27b0" }} />
                       </Tooltip>
@@ -113,7 +113,7 @@ const Favorites = () => {
                     <IconButton
                       onClick={() => {
                         addToCart(favorite, 1);
-                        removeFromFavorites(favorite);
+                        toggleFavorite(favorite);
                       }}
                     >
                       <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"add to cart"} placement="right" arrow>

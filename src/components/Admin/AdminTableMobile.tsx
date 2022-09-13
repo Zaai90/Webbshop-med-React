@@ -15,7 +15,7 @@ import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useProducts } from "../../contexts/ProductContext";
-import { Product } from "../../ProductData";
+import Product from "../../models/Product";
 
 interface Props {
   handleEdit: (product: Product) => void;
@@ -93,7 +93,7 @@ export default function AdminTableMobile({ handleEdit, handleDelete }: Props) {
   const { products, editProduct, deleteProducts } = useProducts();
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer sx={{ marginBottom: "1rem" }} component={Paper}>
       <Table aria-label="collapsible table">
         <TableHead>
           <TableRow>

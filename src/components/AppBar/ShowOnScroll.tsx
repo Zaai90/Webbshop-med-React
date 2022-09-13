@@ -1,26 +1,27 @@
 import { Slide, useScrollTrigger } from "@mui/material";
+import styled from "styled-components";
 
 interface Props {
   children: React.ReactElement;
-  searchBar?: boolean;
+  // searchBar?: boolean;
 }
 
-const ShowOnScroll = ({ children, searchBar }: Props) => {
-  let trigger;
-
-  if (searchBar) {
-    trigger = !useScrollTrigger();
-  } else {
-    trigger = useScrollTrigger({
-      threshold: 64,
-      disableHysteresis: true,
-    });
+const SlideStyled = styled(Slide)`
+  & .MuiBox-root {
+    flex: 1;
   }
+`;
+
+const ShowOnScroll = ({ children }: Props) => {
+  const trigger = useScrollTrigger({
+    threshold: 64,
+    disableHysteresis: true,
+  });
 
   return (
-    <Slide appear={searchBar ? true : false} direction="down" in={trigger}>
+    <SlideStyled appear={false} direction="down" in={trigger}>
       {children}
-    </Slide>
+    </SlideStyled>
   );
 };
 

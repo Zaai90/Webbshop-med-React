@@ -28,7 +28,7 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: "#E2DDD8",
+          backgroundColor: "#f7f6f5",
         },
       },
     },
@@ -46,14 +46,23 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "'Urbanist','Roboto', 'Helvetica', sans-serif",
+    caption: {
+      lineHeight: 1,
+    },
   },
   palette: {
     mode: "light",
     primary: {
-      main: "#e0c298",
+      main: "#E2DDD8",
     },
     warning: {
-      main: "#de988a",
+      main: "#571608",
+    },
+    success: {
+      main: "#1d6317",
+    },
+    secondary: {
+      main: "#b655c3",
     },
   },
 });

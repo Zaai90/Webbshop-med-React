@@ -1,11 +1,9 @@
 import { createContext, useContext } from "react";
 import { useLocalStorage } from "../hooks/localStorage";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 
 interface FavoriteContext {
   favorites: Product[];
-  addToFavorites: (product: Product) => void;
-  removeFromFavorites: (product: Product) => void;
   removeAllFavorites: () => void;
   isFavorite: (product: Product) => boolean;
   toggleFavorite: (product: Product) => void;
@@ -13,9 +11,7 @@ interface FavoriteContext {
 
 const FavoriteContext = createContext<FavoriteContext>({
   favorites: [],
-  addToFavorites: () => {},
   removeAllFavorites: () => {},
-  removeFromFavorites: () => {},
   isFavorite: () => false,
   toggleFavorite: () => {},
 });
@@ -56,11 +52,7 @@ const FavoritesProvider = ({ children }: Props) => {
 
   const removeAllFavorites = () => setFavorites([]);
 
-  return (
-    <FavoriteContext.Provider value={{ removeFromFavorites, favorites, addToFavorites, removeAllFavorites, isFavorite, toggleFavorite }}>
-      {children}
-    </FavoriteContext.Provider>
-  );
+  return <FavoriteContext.Provider value={{ favorites, removeAllFavorites, isFavorite, toggleFavorite }}>{children}</FavoriteContext.Provider>;
 };
 
 export const useFavorites = () => {
