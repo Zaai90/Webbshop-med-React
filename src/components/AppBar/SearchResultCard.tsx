@@ -15,10 +15,10 @@ const SearchResultCard = ({ product }: Props) => {
   const { convertToCurrencyValue } = useCurrency();
   return (
     <Box width={"100%"} display={"flex"} gap={".5rem"} margin={".5rem 0"}>
-      <Box display={"flex"}>
+      <Box display={"flex"} flex={"0 !important"}>
         <Thumbnail src={product.img[0]} alt={product.title} />
       </Box>
-      <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"}>
+      <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"} flex={"0 !important"}>
         <Typography variant={"caption"} textTransform={"uppercase"} fontWeight={"700s"}>
           {product.title}
         </Typography>
