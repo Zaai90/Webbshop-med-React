@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DeliveryAndReturns from "../components/DeliveryAndReturns";
@@ -6,6 +5,7 @@ import ImagePresenter from "../components/ImagePresenter";
 import MainContent from "../components/MainContent";
 import ProductInfo from "../components/ProductInfo";
 import { useProducts } from "../contexts/ProductContext";
+import theme from "../utils/Theme";
 
 const ContainerStyled = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ const ContainerStyled = styled.div`
   flex-direction: column;
   min-width: 100%;
 
-  @media (min-width: 768px) {
+  @media (min-width: ${theme.breakpoints.values.lg}px) {
     flex-direction: row;
   }
 `;
@@ -30,7 +30,7 @@ const ProductPage = () => {
         <ImagePresenter product={product} />
         <ProductInfo product={product} />
       </ContainerStyled>
-        <DeliveryAndReturns />
+      <DeliveryAndReturns />
     </MainContent>
   );
 };

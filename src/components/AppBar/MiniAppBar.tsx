@@ -22,7 +22,7 @@ const MiniAppBar = ({ isLinkDrawerOpen, setIsLinkDrawerOpen, setIsCartDrawerOpen
           <Input type="text" placeholder="Search..." sx={{ color: "white" }} />
         </ShowOnScroll>
         <IconButton size="small" sx={{ color: "white" }} onClick={() => setIsCartDrawerOpen((prev) => !prev)}>
-          <Badge color="primary" variant={cart.length !== 0 ? "dot" : undefined}>
+          <Badge color="success" variant={cart.length !== 0 ? "dot" : undefined}>
             <Icon.LocalMallOutlined />
           </Badge>
         </IconButton>
