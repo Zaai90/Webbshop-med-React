@@ -1,14 +1,3 @@
-export interface Product {
-  id: number;
-  designer: string;
-  title: string;
-  description: string;
-  price: number;
-  category: string;
-  img: string[];
-  size?: string;
-  color?: string;
-}
 
 export const Products: Product[] = [
   {
