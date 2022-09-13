@@ -106,7 +106,7 @@ const AppBar = () => {
           </Toolbar>
         </Container>
       </MUIAppBar>
-      {searchIsActive && <Searchbar />}
+      {searchIsActive && <Searchbar toggleSearch={setSearchIsActive} />}
       <ShowOnScroll>
         <Box width="100%" position="fixed" top={0} zIndex={1201} sx={{ backgroundColor: "#383838" }}>
           <MiniAppBar setIsCartDrawerOpen={setIsCartDrawerOpen} setIsLinkDrawerOpen={setIsLinkDrawerOpen} isLinkDrawerOpen={isLinkDrawerOpen} />
