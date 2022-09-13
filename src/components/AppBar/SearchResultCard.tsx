@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import styled from "styled-components";
 import { useCurrency } from "../../contexts/CurrencyContext";
-import { Product } from "../../ProductData";
+import Product from "../../models/Product";
 
 const Thumbnail = styled.img`
   height: 50px;
@@ -18,7 +18,7 @@ const SearchResultCard = ({ product }: Props) => {
       <Box display={"flex"} flex={"0 !important"}>
         <Thumbnail src={product.img[0]} alt={product.title} />
       </Box>
-      <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"} flex={"0 !important"}>
+      <Box display={"flex"} flexDirection={"column"} justifyContent={"space-between"}>
         <Typography variant={"caption"} textTransform={"uppercase"} fontWeight={"700s"}>
           {product.title}
         </Typography>
