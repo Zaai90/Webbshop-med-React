@@ -2,8 +2,8 @@ import { createContext, ReactNode, useContext } from "react";
 import ratingData from "../components/Review/ratingData";
 import { ReviewData } from "../components/Review/reviewData";
 import { useLocalStorage } from "../hooks/localStorage";
+import Product from "../models/Product";
 import { ReviewModel } from "../models/ReviewModel";
-import { Product } from "../ProductData";
 
 interface ReviewContextValue {
   reviews: ReviewModel[];
