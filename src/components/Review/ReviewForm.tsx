@@ -1,10 +1,10 @@
 import { Box, Button, Container, ImageList, ImageListItem, ImageListItemBar, TextField, Typography, useMediaQuery } from "@mui/material";
 import { useFormik } from "formik";
-import { useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import * as yup from "yup";
+import Product from "../../models/Product";
 import { ReviewModel } from "../../models/ReviewModel";
-import { Product } from "../../ProductData";
 import theme from "../../utils/Theme";
 import ratingData from "./ratingData";
 
@@ -68,7 +68,7 @@ interface Props {
   handleSubmit: (review: ReviewModel) => void;
 }
 
-const ReviewForm = ({ product, handleSubmit, toggleModal }: Props) => {
+const ReviewForm = React.forwardRef(({ product, handleSubmit, toggleModal }: Props, ref) => {
   const [isActive, setActive] = useState(5);
   const today = new Date().toLocaleDateString();
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
@@ -88,18 +88,17 @@ const ReviewForm = ({ product, handleSubmit, toggleModal }: Props) => {
   });
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        textAlign: "center",
-        backgroundColor: "white",
-        width: "fit-content",
-        padding: smScreen ? "20px" : "40px 0",
-        borderRadius: ".3rem",
-      }}
-    >
+    <Box ref={ref} tabIndex={-1} sx={{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      textAlign: "center",
+      backgroundColor: "white",
+      width: "fit-content",
+      padding: smScreen ? "20px" : "40px 0",
+      borderRadius: ".3rem",
+      }}>
+    <Container>
       <Box sx={{ display: "flex", justifyContent: "center" }}>
         <Typography variant={smScreen ? "h6" : "h5"} sx={{ marginRight: "auto" }}>
           We're excited to hear your opinion!
@@ -168,8 +167,9 @@ const ReviewForm = ({ product, handleSubmit, toggleModal }: Props) => {
           </Button>
         </Box>
       </form>
-    </Container>
+      </Container>
+      </Box>
   );
-};
+});
 
 export default ReviewForm;

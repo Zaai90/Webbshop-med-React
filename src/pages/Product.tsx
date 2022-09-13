@@ -1,10 +1,14 @@
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import DeliveryAndReturns from "../components/DeliveryAndReturns";
 import ImagePresenter from "../components/ImagePresenter";
 import MainContent from "../components/MainContent";
 import ProductInfo from "../components/ProductInfo";
+import ReviewRatingAvg from "../components/Review/ReviewRatingAvg";
+import Reviews from "../components/Review/Reviews";
 import { useProducts } from "../contexts/ProductContext";
+import { useReviews } from "../contexts/ReviewContext";
 import theme from "../utils/Theme";
 
 const ContainerStyled = styled.div`
@@ -20,9 +24,21 @@ const ContainerStyled = styled.div`
 `;
 
 const ProductPage = () => {
-  const { id } = useParams();
+  const { reviews, calcRating } = useReviews(); 
   const { products } = useProducts();
+  const { id } = useParams();
   const product = products.find((p) => p.id === Number(id)) ?? products[0];
+  const [avgRating, setAvgRating] = useState<number>(calcRating(product));
+  const ref = useRef<null | HTMLDivElement>(null);
+
+  function handleClick() {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function calcAvgRating() {
+    let newRating = calcRating(product);
+    setAvgRating(newRating);
+  }
 
   return (
     <MainContent>
@@ -30,6 +46,11 @@ const ProductPage = () => {
         <ImagePresenter product={product} />
         <ProductInfo product={product} />
       </ContainerStyled>
+      <div onClick={handleClick} style={{ cursor: "pointer" }}>
+        <ReviewRatingAvg product={product} avgRating={avgRating} />
+      </div>
+      <div ref={ref} style={{ height: "70px" }}></div>
+      <Reviews product={product} calcAvgRating={calcAvgRating} />
       <DeliveryAndReturns />
     </MainContent>
   );

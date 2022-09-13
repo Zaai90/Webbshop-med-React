@@ -1,8 +1,8 @@
 import { Box, Button, Container, Modal, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useReviews } from "../../contexts/ReviewContext";
+import Product from "../../models/Product";
 import { ReviewModel } from "../../models/ReviewModel";
-import { Product } from "../../ProductData";
 import ReadMore from "../ReadMore";
 import ratingData from "./ratingData";
 import ReviewForm from "./ReviewForm";
@@ -40,8 +40,8 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
       <Container sx={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
         {reviews
           .filter((review) => review.productId === product.id)
-          .map((review) => (
-            <Box>
+          .map((review, index) => (
+            <Box key={index}>
               <Box sx={{ display: "flex", gap: "1rem" }}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <img src={ratingData[review.rating].img} alt={ratingData[review.rating].title} loading="lazy" width={42} />
@@ -63,7 +63,7 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
             </Box>
           ))}
       </Container>
-      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} sx={{ display: "flex", alignItems: "center" }}>
+      <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)} sx={{ display: "flex", alignItems: "center", justifyContent: 'center' }}>
         <ReviewForm product={product} toggleModal={setIsModalOpen} handleSubmit={handleSubmit} />
       </Modal>
     </>
