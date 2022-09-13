@@ -36,12 +36,11 @@ const Input = styled(TextField)`
 
 const CreditCard = ({ handleFormValues, handleSubmit }: Props) => {
   const formik = useFormik({
-    initialValues: { cardNumber: 123456789, expirationDate: today, cardholderName: "", cvcCode: 123 },
+    initialValues: {} as CreditCardModel,
 
     validationSchema: validationSchema,
     onSubmit: (values: CreditCardModel, e) => {
       handleFormValues(values);
-      alert(JSON.stringify(values, null, 2));
       handleSubmit();
     },
   });
@@ -63,7 +62,7 @@ const CreditCard = ({ handleFormValues, handleSubmit }: Props) => {
         id="expirationDate"
         name="expirationDate"
         label="Expiration Date"
-        type="text"
+        type="date"
         value={formik.values.expirationDate}
         onChange={formik.handleChange}
         error={formik.touched.expirationDate && Boolean(formik.errors.expirationDate)}

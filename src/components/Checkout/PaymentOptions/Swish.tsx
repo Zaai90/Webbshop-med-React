@@ -1,10 +1,8 @@
 import { TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { SwishModel } from "../../../models/SwishModel";
 
-export interface SwishModel {
-  phoneNumber: string;
-}
 interface Props {
   handleSubmit: () => void;
   handleFormValue: (value: SwishModel) => void;

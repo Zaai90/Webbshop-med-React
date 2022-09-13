@@ -1,6 +1,9 @@
-import { Container, Typography } from "@mui/material";
+import * as Icon from "@mui/icons-material/";
+import { Box, Fade, IconButton, Tooltip } from "@mui/material";
 import styled from "styled-components";
+import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
+import { useFavorites } from "../contexts/FavoriteContext";
 import { Product } from "../ProductData";
 
 const InfoContainer = styled.div`
@@ -10,6 +13,11 @@ const InfoContainer = styled.div`
   justify-content: center;
   gap: 0.1rem;
   padding: 1rem;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 const HeaderContainer = styled.div`
@@ -24,10 +32,13 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const TitleStyled = styled.p`
+const TitleStyled = styled.h1`
+  font-size: 1rem;
+  font-weight: 500;
   color: grey;
 
   @media (min-width: 768px) {
+    font-size: 1.5rem;
     color: black;
   }
 `;
@@ -44,10 +55,12 @@ const DesignerStyled = styled.h2`
 
 const PriceStyled = styled.p`
   font-size: 1.1rem;
+  font-weight: 500;
 
   @media (min-width: 768px) {
-    font-size: 1rem;
-    margin-top: -0.5rem;
+    font-size: 1.5rem;
+    margin-top: -1.05rem;
+    font-weight: 500;
   }
 `;
 
@@ -64,22 +77,37 @@ interface Props {
 
 const ProductInfo = ({ product }: Props) => {
   const { convertToCurrencyValue } = useCurrency();
+  const { isFavorite, toggleFavorite } = useFavorites();
+  const { addToCart } = useCart();
+
   return (
-    <Container maxWidth="lg" fixed>
+    <InfoContainer>
       <HeaderContainer>
         <DesignerStyled>{product.designer}</DesignerStyled>
-
-        <PriceStyled>
-          <Typography variant="subtitle1">{convertToCurrencyValue(product.price)}</Typography>
-        </PriceStyled>
+        <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
       </HeaderContainer>
-      <Typography variant="h5">
-        <TitleStyled>{product.title}</TitleStyled>
-      </Typography>
-      <div style={{ width: "auto", height: "150px", backgroundColor: "lightBlue" }}>Placeholder for BuyCard-Component</div>
+      <TitleStyled>{product.title}</TitleStyled>
+      <Box>
+        <IconButton onClick={() => toggleFavorite(product)}>
+          <Tooltip
+            TransitionComponent={Fade}
+            TransitionProps={{ timeout: 500 }}
+            title={isFavorite(product) ? "Remove from wishlist" : "Add to wishlist"}
+            placement="left"
+            arrow
+          >
+            {isFavorite(product) ? <Icon.Favorite color={"secondary"} /> : <Icon.FavoriteBorder color={"disabled"} />}
+          </Tooltip>
+        </IconButton>
+        <IconButton onClick={() => addToCart(product, 1)}>
+          <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"Add to cart"} placement="left" arrow>
+            <Icon.AddShoppingCart />
+          </Tooltip>
+        </IconButton>
+      </Box>
       <h4>Description:</h4>
       <DescriptionStyled>{product.description}</DescriptionStyled>
-    </Container>
+    </InfoContainer>
   );
 };
 

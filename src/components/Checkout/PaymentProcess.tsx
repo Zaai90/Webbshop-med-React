@@ -2,18 +2,28 @@ import { Step, StepLabel, Stepper, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import React, { useState } from "react";
+import { useCart } from "../../contexts/CartContext";
+import { useLocalStorage } from "../../hooks/localStorage";
+import { CreditCardModel } from "../../models/CreditCardModel";
+import { OrderModel } from "../../models/OrderModel";
+import { SwishModel } from "../../models/SwishModel";
 import OrderConfirmation from "../../pages/OrderConfirmation";
 import theme from "../../utils/Theme";
 import Confirmation from "./Confirmation";
 import CurrentOrder from "./CurrentOrder";
-import PaymentForm, { Values } from "./PaymentForm";
+import PaymentForm, { PaymentFormValues } from "./PaymentForm";
 import PaymentOptions from "./PaymentOptions";
 
 const steps = ["Personal information", "Payment selection", "Confirm"];
 
 const PaymentProcess = () => {
+  const { cart, clearCart } = useCart();
+  const [currentOrder, setCurrentOrder] = useState<OrderModel>({} as OrderModel);
   const [activeStep, setActiveStep] = useState(0);
-  const [formValues, setFormValues] = useState<Values>({
+  const [swishValues, setSwishValues] = useState<SwishModel>({} as SwishModel);
+  const [creditValues, setCreditValues] = useState<CreditCardModel>({} as CreditCardModel);
+  const [orders, setOrders] = useLocalStorage<OrderModel[]>("orders", []);
+  const [formValues, setFormValues] = useState<PaymentFormValues>({
     email: "",
     firstName: "",
     lastName: "",
@@ -24,15 +34,43 @@ const PaymentProcess = () => {
   });
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    if (activeStep === 2) {
+      handleOrder();
+      clearCart();
+    }
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  function handleFormValues(values: Values) {
+  function handleFormValues(values: PaymentFormValues) {
     setFormValues(values);
-    console.log(values);
+  }
+
+  function handleCreditCardFormValues(values: CreditCardModel) {
+    setCreditValues(values);
+  }
+
+  function handleSwishFormValues(values: SwishModel) {
+    setSwishValues(values);
+  }
+
+  function handleOrder() {
+    const newOrder: OrderModel = {
+      orderId: orders.length + 1,
+      paymentFormInfo: formValues,
+      cartItems: cart,
+      swishInfo: swishValues,
+      creditInfo: creditValues,
+    };
+
+    setCurrentOrder(newOrder);
+    addOrderToLocalStorage(newOrder);
+  }
+  function addOrderToLocalStorage(order: OrderModel) {
+    console.log(order);
+    setOrders((prevState) => [...prevState, order]);
   }
 
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
@@ -52,7 +90,9 @@ const PaymentProcess = () => {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <OrderConfirmation email={formValues.email} name={formValues.firstName} />
+          <>
+            <OrderConfirmation orders={orders} />
+          </>
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -66,7 +106,13 @@ const PaymentProcess = () => {
             }}
           >
             {activeStep === 0 && <PaymentForm handleSubmit={handleNext} setFormValues={handleFormValues} />}
-            {activeStep === 1 && <PaymentOptions handleSubmit={handleNext} />}
+            {activeStep === 1 && (
+              <PaymentOptions
+                handleSubmit={handleNext}
+                handleSwishFormValues={handleSwishFormValues}
+                handleCreditCardFormValues={handleCreditCardFormValues}
+              />
+            )}
             {activeStep === 2 && <Confirmation handleSubmit={handleNext} />}
             <CurrentOrder />
           </Box>
