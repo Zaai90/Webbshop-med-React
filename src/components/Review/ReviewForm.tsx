@@ -65,9 +65,10 @@ const validationSchema = yup.object({
 interface Props {
   product: Product;
   toggleModal: React.Dispatch<React.SetStateAction<boolean>>;
+  handleSubmit: (review: ReviewModel) => void;
 }
 
-const ReviewForm = ({ product }: Props) => {
+const ReviewForm = ({ product, handleSubmit, toggleModal }: Props) => {
   const [isActive, setActive] = useState(5);
   const today = new Date().toLocaleDateString();
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
@@ -81,7 +82,8 @@ const ReviewForm = ({ product }: Props) => {
 
     validationSchema: validationSchema,
     onSubmit: (values: ReviewModel) => {
-      alert(JSON.stringify(values, null, 2));
+      handleSubmit(values);
+      toggleModal(false);
     },
   });
 
@@ -98,7 +100,14 @@ const ReviewForm = ({ product }: Props) => {
         borderRadius: ".3rem",
       }}
     >
-      <Typography variant={smScreen ? "h6" : "h5"}>We're excited to hear your opinion!</Typography>
+      <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Typography variant={smScreen ? "h6" : "h5"} sx={{ marginRight: "auto" }}>
+          We're excited to hear your opinion!
+        </Typography>
+        <Button sx={{ width: "fit-content" }} onClick={() => toggleModal(false)}>
+          X
+        </Button>
+      </Box>
       <form onSubmit={formik.handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
         <TextField
           id="name"
@@ -127,7 +136,7 @@ const ReviewForm = ({ product }: Props) => {
         />
         <Typography variant={smScreen ? "h6" : "h5"}>How would you rate this product?</Typography>
         <ImageContainer>
-          <ImageList cols={5} sx={{gap: '8px', padding: smScreen ? '30px 10px' : '20px'}}>
+          <ImageList cols={5} sx={{ gap: "8px", padding: smScreen ? "30px 10px" : "20px" }}>
             {ratingData.map((item, index) => (
               <ImageListItem
                 key={item.img}
