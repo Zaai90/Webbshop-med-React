@@ -11,10 +11,11 @@ const ImagePresenterStyled = styled.div`
   gap: 1rem;
   padding: 1rem;
 
-
   @media (min-width: 768px) {
     width: 50%;
-
+    flex-direction: row;
+  }
+`;
 
 const ImageContainer = styled.div`
   display: flex;
@@ -25,17 +26,17 @@ const ImageContainer = styled.div`
   height: 100%;
   width: 100%;
 
-
   @media (min-width: 768px) {
     width: 30%;
-
+    flex-direction: column;
+  }
+`;
 
 const SelectedImageContainer = styled.div`
   display: flex;
   width: 70%;
   height: 100%;
 `;
-
 
 const ThumbNailImg = styled(Box)<{ src: string }>`
   background: url(${(props) => props.src});
@@ -45,7 +46,6 @@ const ThumbNailImg = styled(Box)<{ src: string }>`
   width: 100%;
   cursor: pointer;
   min-height: 100px;
-
 
   @media (min-width: 768px) {
     min-height: 50%;
@@ -62,7 +62,6 @@ const ImagePreview = styled(Box)<{ src: string }>`
 
   @media (min-width: 768px) {
     min-height: 100%;
-
   }
 `;
 
