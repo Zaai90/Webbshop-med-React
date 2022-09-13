@@ -4,7 +4,7 @@ import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCurrency } from "../../contexts/CurrencyContext";
 import { useFavorites } from "../../contexts/FavoriteContext";
-import { Product } from "../../ProductData";
+import Product from "../../models/Product";
 
 const SimpleImageSliderContainer = styled.div`
   display: flex;

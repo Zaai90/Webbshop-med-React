@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useProducts } from "../contexts/ProductContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 
 interface Props {
   product?: Product;

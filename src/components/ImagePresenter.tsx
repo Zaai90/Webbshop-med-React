@@ -3,7 +3,7 @@ import { Box, Fade, IconButton, Tooltip } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { useFavorites } from "../contexts/FavoriteContext";
-import { Product } from "../ProductData";
+import Product from "../models/Product";
 import theme from "../utils/Theme";
 
 const ImagePresenterStyled = styled.div`

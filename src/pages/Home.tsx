@@ -1,6 +1,8 @@
 import { Container, Typography } from "@mui/material";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
+import NewlyAddedSwiper from "../components/Swipers/NewlyAddedSwiper";
+import TopContentSwiper from "../components/Swipers/TopContentSwiper";
 import { useProducts } from "../contexts/ProductContext";
 
 // Import Swiper React components
@@ -9,8 +11,6 @@ import { useProducts } from "../contexts/ProductContext";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import NewlyAddedSwiper from "../components/Swipers/NewlyAddedSwiper";
-import TopContentSwiper from "../components/Swipers/TopContentSwiper";
 
 const TopContent = styled.div`
   padding: 60px;
