@@ -38,16 +38,16 @@ const SearchResult = ({ searchString, toggleSearch }: Props) => {
       <Box>
         {getByTitle().length > 0 && <Typography variant="body1">By product name:</Typography>}
         {getByTitle().map((product) => (
-          <NavLinkStyled to={`../product/${product.id}`} onClick={() => toggleSearch((prev) => !prev)}>
-            <SearchResultCard key={product.id} product={product} />
+          <NavLinkStyled key={product.id} to={`../product/${product.id}`} onClick={() => toggleSearch((prev) => !prev)}>
+            <SearchResultCard product={product} />
           </NavLinkStyled>
         ))}
       </Box>
       <Box>
         {getByDesigner().length > 0 && <Typography variant="body1">By designer:</Typography>}
         {getByDesigner().map((product) => (
-          <NavLinkStyled to={`../product/${product.id}`} onClick={() => toggleSearch((prev) => !prev)}>
-            <SearchResultCard key={product.id} product={product} />
+          <NavLinkStyled key={product.id} to={`../product/${product.id}`} onClick={() => toggleSearch((prev) => !prev)}>
+            <SearchResultCard product={product} />
           </NavLinkStyled>
         ))}
       </Box>
