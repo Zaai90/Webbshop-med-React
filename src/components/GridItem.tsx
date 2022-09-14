@@ -125,7 +125,8 @@ const GridItem = ({ product }: Props) => {
   }
 
   function handleAdd() {
-    addToCart(product, 1);
+    addToCart(product, size, 1);
+    console.log(size);
 
     // Styled toast
     enqueueSnackbar(<AddProductSnackbar product={product} />);
@@ -185,10 +186,16 @@ const GridItem = ({ product }: Props) => {
         </CardBottomStyled>
       </CardStyled>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <QuickViewModal product={product} size={size} handleChange={handleChange} toggleModal={setIsModalOpen} />
+        <QuickViewModal sizeState={size} product={product} handleChange={handleChange} toggleModal={setIsModalOpen} />
       </Modal>
       <Drawer anchor="bottom" open={isQuickViewDrawerOpen} onClose={() => setIsQuickViewDrawerOpen(false)}>
-        <QuickViewDrawer size={size} handleChange={handleChange} product={product} toggleDrawer={setIsQuickViewDrawerOpen} handleAdd={handleAdd} />
+        <QuickViewDrawer
+          sizeState={size}
+          handleChange={handleChange}
+          product={product}
+          toggleDrawer={setIsQuickViewDrawerOpen}
+          handleAdd={handleAdd}
+        />
       </Drawer>
     </>
   );

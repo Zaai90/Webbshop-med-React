@@ -69,7 +69,7 @@ const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
   }
 
   function handleAdd() {
-    addToCart(cartItem.product, 1);
+    addToCart(cartItem.product, cartItem.size, 1);
   }
 
   function handleRemove() {
@@ -89,7 +89,7 @@ const CartDrawerItem = ({ cartItem, toggleDrawer }: Props) => {
         </NavLinkStyled>
         <span style={{ fontWeight: "300", textTransform: "uppercase", fontSize: ".7rem" }}>
           ( {cartItem.product.color && cartItem.product.color}
-          {cartItem.product.size && " " + cartItem.product.size} )
+          {cartItem.size && " " + cartItem.size} )
         </span>
         <span>{convertToCurrencyValue(cartItem.product.price * cartItem.quantity)}</span>
       </InfoContainer>
