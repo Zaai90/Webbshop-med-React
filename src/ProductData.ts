@@ -12,6 +12,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.692893/carhartt-wip-ss-freight-services-t-shirt-black.jpeg",
       "https://02.cdn37.se/ak1/images/2.692898/carhartt-wip-ss-freight-services-t-shirt-black.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "Black",
   },
   {
@@ -26,6 +27,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.691148/universal-works-bakers-chore-v3-jacket-stone.jpeg",
       "https://02.cdn37.se/ak1/images/2.691143/universal-works-bakers-chore-v3-jacket-stone.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "yellow",
   },
   {
@@ -40,6 +42,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.692908/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
       "https://02.cdn37.se/ak1/images/2.677563/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "White",
   },
   {
@@ -54,6 +57,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.573995/layered-poppykalas-rug-flower-field.jpeg",
       "https://02.cdn37.se/ak1/images/2.574010/layered-poppykalas-rug-flower-field.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "Pink",
   },
   {
@@ -68,6 +72,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.667038/birkenstock-arizona-oiled-nubuck-leather-black.jpeg",
       "https://02.cdn37.se/ak1/images/2.667053/birkenstock-arizona-oiled-nubuck-leather-black.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "Black",
   },
   {
@@ -82,6 +87,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.689873/lemaire-twisted-belted-pants-misty-ivory.jpeg",
       "https://02.cdn37.se/ak1/images/2.689878/lemaire-twisted-belted-pants-misty-ivory.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "Ivory",
   },
   {
@@ -96,8 +102,10 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.672818/atelier-yuchi-capri-woven-blanket.jpeg",
       "https://02.cdn37.se/ak1/images/2.672638/atelier-yuchi-capri-woven-blanket.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "Multi colored",
   },
+  
   {
     id: 8,
     designer: "Layered",
@@ -110,6 +118,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.573975/layered-modern-oriental-rug-saffron.jpeg",
       "https://02.cdn37.se/ak1/images/2.516090/layered-modern-oriental-rug-saffron.jpeg",
     ],
+    size: ["S","M","L","XL"],
     color: "Ivory",
   },
 ];
