@@ -29,6 +29,7 @@ const PaymentProcess = () => {
     lastName: "",
     address: "",
     zipCode: "",
+    city: "",
     country: "",
     phoneNumber: "",
   });
