@@ -1,22 +1,11 @@
 import { Container, FormControl, List, ListItem, ListItemButton, ListItemText, Typography, useMediaQuery } from "@mui/material";
 import { SnackbarProvider } from "notistack";
-import { useState } from "react";
+import { NavLink, Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
-import GridItem from "../components/GridItem";
 import MainContent from "../components/MainContent";
+import StoreGrid from "../components/StoreGrid";
 import { useProducts } from "../contexts/ProductContext";
 import theme from "../utils/Theme";
-
-const StoreGridStyled = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  padding: 1rem 0;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-`;
 
 const CategoryList = styled(List)`
   li {
@@ -50,17 +39,13 @@ const CategoryList = styled(List)`
 `;
 
 const Store = () => {
+  const { category } = useParams();
   const { products } = useProducts();
-  const [value, setValue] = useState("All");
 
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const handleClickCategory = (name: string) => {
-    setValue(name);
-  };
-
-  const categories = products.filter((x, i) => products.findIndex((y) => x.category === y.category) === i);
+  const categories = products.filter((x, i) => products.findIndex((y) => x.category === y.category) === i).map((x) => x.category.toLowerCase());
+  categories.unshift("all");
 
   return (
     <>
@@ -86,40 +71,26 @@ const Store = () => {
                 padding: smScreen ? "16px" : undefined,
               }}
             >
-              <Container className={"categoryParent"} onClick={() => handleClickCategory("All")} sx={{ padding: tabletScreen ? "0" : undefined }}>
-                <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
-                  <ListItemButton selected={value === "All" ? true : false}>
-                    <ListItemText primary={"All".toUpperCase()} />
-                  </ListItemButton>
-                </ListItem>
-              </Container>
-              {categories.map((product) => (
-                <Container
-                  key={product.id}
-                  className={"categoryParent"}
-                  onClick={() => handleClickCategory(product.category)}
-                  sx={{ padding: tabletScreen ? "0" : undefined }}
-                >
-                  <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
-                    <ListItemButton selected={value === product.category ? true : false} sx={{ minWidth: "max-content !important" }}>
-                      <ListItemText sx={{wordBreak: 'keep-all'}} primary={product.category.toUpperCase()} />
-                    </ListItemButton>
-                  </ListItem>
-                </Container>
+              {categories.map((c) => (
+                <NavLink key={c} style={{ textDecoration: "none", color: "black" }} to={c === "all" ? "" : "category/" + c}>
+                  <Container className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
+                    <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
+                      <ListItemButton
+                        selected={c === category || (c === "all" && category === undefined) ? true : false}
+                        sx={{ minWidth: "max-content !important" }}
+                      >
+                        <ListItemText sx={{ wordBreak: "keep-all" }} primary={c.toUpperCase()} />
+                      </ListItemButton>
+                    </ListItem>
+                  </Container>
+                </NavLink>
               ))}
             </CategoryList>
             <Container>
               <Typography variant="h4" sx={{ borderBottom: "1px solid rgba(0,0,0,0.35)" }}>
-                {value}
+                {categories.includes(category || "") && category ? category.split("")[0].toUpperCase() + category.slice(1) : "All"}
               </Typography>
-              <StoreGridStyled>
-                {value === "All" && products.map((product) => <GridItem key={product.id} product={product} />)}
-                {products
-                  .filter((product) => product.category === value)
-                  .map((product) => (
-                    <GridItem key={product.id} product={product} />
-                  ))}
-              </StoreGridStyled>
+              {category ? <Outlet /> : <StoreGrid />}
             </Container>
           </FormControl>
         </MainContent>
