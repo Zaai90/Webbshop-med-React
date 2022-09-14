@@ -39,7 +39,6 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
         {reviews
           .filter((review) => review.productId === product.id)
           .map((review, index) => (
-            <>
               <Box key={index}>
                 <Container sx={{ margin: 0, borderBottom: "1px solid rgba(0,0,0,0.05)", padding: "15px 0" }}>
                   <Box sx={{ display: "flex", gap: "1rem" }}>
@@ -62,7 +61,6 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
                   </Box>
                 </Container>
               </Box>
-            </>
           ))}
       </Box>
       <Container>
