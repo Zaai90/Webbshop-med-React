@@ -32,10 +32,15 @@ function ReviewProvider({ children }: Props) {
 
   const calcRating = (product: Product) => {
     let total = 0;
-    const res = reviews
-      .filter((review) => review.productId === product.id)
-      .map((review) => (total += Number(ratingData.indexOf(ratingData[review.rating]))));
-    return Number((total / res.length).toFixed());
+    const findReviews = reviews.find((x) => x.productId === product.id);
+    if (findReviews) {
+      const res = reviews
+        .filter((review) => review.productId === product.id)
+        .map((review) => (total += Number(ratingData.indexOf(ratingData[review.rating]))));
+      return Number((total / res.length).toFixed());
+    }
+    // todo fix state when reviews is 0
+    else return 3;
   };
 
   return <ReviewContext.Provider value={{ reviews, addReview, calcRating }}>{children}</ReviewContext.Provider>;

@@ -25,10 +25,11 @@ const ContainerStyled = styled.div`
 `;
 
 const ProductPage = () => {
-  const { reviews, calcRating } = useReviews(); 
+  const { reviews, calcRating } = useReviews();
   const { products } = useProducts();
   const { id } = useParams();
   const product = products.find((p) => p.id === Number(id)) ?? products[0];
+  const findReviews = reviews.find((x) => x.productId === product.id);
   const [avgRating, setAvgRating] = useState<number>(calcRating(product));
   const ref = useRef<null | HTMLDivElement>(null);
 
@@ -46,12 +47,11 @@ const ProductPage = () => {
       <ContainerStyled>
         <ImagePresenter product={product} />
         <Container>
-
-      <div onClick={handleClick} style={{ cursor: "pointer" }}>
-        <ReviewRatingAvg avgRating={avgRating} />
-      </div>
-        <ProductInfo product={product} />
-      <DeliveryAndReturns />
+          <div onClick={handleClick} style={{ cursor: "pointer" }}>
+            {findReviews && <ReviewRatingAvg avgRating={avgRating} />}
+          </div>
+          <ProductInfo product={product} />
+          <DeliveryAndReturns />
         </Container>
       </ContainerStyled>
       <div ref={ref} style={{ height: "70px" }}></div>

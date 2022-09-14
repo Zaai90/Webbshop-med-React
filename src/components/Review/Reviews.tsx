@@ -18,6 +18,7 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { reviews, addReview } = useReviews();
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+  const findReviews = reviews.find((x) => x.productId === product.id);
 
   function handleModalClick() {
     setIsModalOpen(true);
@@ -32,7 +33,7 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
     <>
       <Box sx={{ display: "flex", flexDirection: "column", maxWidth: smScreen ? "100%" : "50%" }}>
         <Typography variant="h6" sx={{ borderBottom: "1px solid rgba(0,0,0,0.10)", paddingBottom: ".5rem" }}>
-          Buyers had this to say
+          {findReviews ? "Buyers had this to say" : "No reviews yet..."}
         </Typography>
 
         {reviews
