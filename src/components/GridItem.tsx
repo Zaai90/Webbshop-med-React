@@ -186,7 +186,7 @@ const GridItem = ({ product }: Props) => {
         </CardBottomStyled>
       </CardStyled>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <QuickViewModal product={product} handleChange={handleChange} toggleModal={setIsModalOpen} />
+        <QuickViewModal sizeState={size} product={product} handleChange={handleChange} toggleModal={setIsModalOpen} />
       </Modal>
       <Drawer anchor="bottom" open={isQuickViewDrawerOpen} onClose={() => setIsQuickViewDrawerOpen(false)}>
         <QuickViewDrawer
