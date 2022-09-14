@@ -5,7 +5,7 @@ import { useCurrency } from "../contexts/CurrencyContext";
 const DeliveryAndReturns = () => {
   const { convertToCurrencyValue } = useCurrency();
   return (
-    <Box sx={{ maxWidth: "250px", padding: "1rem" }}>
+    <Box sx={{ padding: "1rem" }}>
       <Typography variant="h6">Delivery and returns</Typography>
       <Box sx={{ paddingBottom: "0.5rem" }}>
         <Typography variant="body2">Free Shipping on purchases over {convertToCurrencyValue(499)}, 4-7 working days.</Typography>
