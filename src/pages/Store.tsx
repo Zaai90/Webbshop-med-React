@@ -1,9 +1,9 @@
-import { Container, FormControl, List, ListItem, ListItemButton, ListItemText, useMediaQuery } from "@mui/material";
+import { Container, FormControl, List, ListItem, ListItemButton, ListItemText, Typography, useMediaQuery } from "@mui/material";
 import { SnackbarProvider } from "notistack";
 import { NavLink, Outlet, useParams } from "react-router-dom";
 import styled from "styled-components";
 import MainContent from "../components/MainContent";
-import ProductMapper from "../components/ProductMapper";
+import StoreGrid from "../components/StoreGrid";
 import { useProducts } from "../contexts/ProductContext";
 import theme from "../utils/Theme";
 
@@ -44,9 +44,10 @@ const Store = () => {
 
   const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const categories = products.filter((x, i) => products.findIndex((y) => x.category === y.category) === i).map((x) => x.category.toLowerCase());
+  categories.unshift("all");
 
-  const categories = products.filter((x, i) => products.findIndex((y) => x.category === y.category) === i);
-
+  console.log("category", category);
   return (
     <>
       <SnackbarProvider
@@ -71,31 +72,27 @@ const Store = () => {
                 padding: smScreen ? "16px" : undefined,
               }}
             >
-              <NavLink style={{ textDecoration: "none", color: "black" }} to="">
-                <Container className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
-                  <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
-                    <ListItemButton selected={category === "all" ? true : false}>
-                      <ListItemText primary={"All"} />
-                    </ListItemButton>
-                  </ListItem>
-                </Container>
-              </NavLink>
-              {categories.map((product) => (
-                <NavLink style={{ textDecoration: "none", color: "black" }} to={product.category.toLowerCase()}>
-                  <Container key={product.id} className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
+              {categories.map((c) => (
+                <NavLink style={{ textDecoration: "none", color: "black" }} to={c === "all" ? "" : c}>
+                  <Container key={"Categoryrandom-" + c} className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
                     <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
                       <ListItemButton
-                        selected={category === product.category.toLowerCase() ? true : false}
+                        selected={c === category || (c === "all" && category === undefined) ? true : false}
                         sx={{ minWidth: "max-content !important" }}
                       >
-                        <ListItemText sx={{ wordBreak: "keep-all" }} primary={product.category.toUpperCase()} />
+                        <ListItemText sx={{ wordBreak: "keep-all" }} primary={c.toUpperCase()} />
                       </ListItemButton>
                     </ListItem>
                   </Container>
                 </NavLink>
               ))}
             </CategoryList>
-            {category ? <Outlet /> : <ProductMapper />}
+            <Container>
+              <Typography variant="h4" sx={{ borderBottom: "1px solid rgba(0,0,0,0.35)" }}>
+                {categories.includes(category || "") && category ? category.split("")[0].toUpperCase() + category.slice(1) : "All"}
+              </Typography>
+              {category ? <Outlet /> : <StoreGrid />}
+            </Container>
           </FormControl>
         </MainContent>
       </SnackbarProvider>
