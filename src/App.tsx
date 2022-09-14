@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-import ProductMapper from "./components/ProductMapper";
+import StoreGrid from "./components/StoreGrid";
 import GlobalStyle from "./globalStyles";
 import Layout from "./Layout";
 import Admin from "./pages/Admin";
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="store/" element={<Store />}>
-            <Route path=":category" element={<ProductMapper />} />
+            <Route path="category/:category" element={<StoreGrid />} />
           </Route>
           <Route path="product/:id" element={<ProductPage />} />
           <Route path="checkout" element={<Checkout />} />
