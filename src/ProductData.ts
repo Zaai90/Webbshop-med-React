@@ -1,8 +1,9 @@
+import { nanoid } from "nanoid";
 import Product from "./models/Product";
 
 export const Products: Product[] = [
   {
-    id: 1,
+    id: nanoid(),
     designer: "Carhartt",
     title: "Services T-shirt",
     description: "T-shirt from Carhartt with a small print on the chest and a large print on the back. Made from ecologial cotton.",
@@ -12,11 +13,11 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.692893/carhartt-wip-ss-freight-services-t-shirt-black.jpeg",
       "https://02.cdn37.se/ak1/images/2.692898/carhartt-wip-ss-freight-services-t-shirt-black.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "Black",
   },
   {
-    id: 2,
+    id: nanoid(),
     designer: "Universal Works",
     title: "Bakers chore jacket",
     description:
@@ -27,11 +28,11 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.691148/universal-works-bakers-chore-v3-jacket-stone.jpeg",
       "https://02.cdn37.se/ak1/images/2.691143/universal-works-bakers-chore-v3-jacket-stone.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "yellow",
   },
   {
-    id: 3,
+    id: nanoid(),
     designer: "Carne Bollente",
     title: "Life is bootie-full",
     description: "A shirt made from wool and linen, printed with people dancing naked.",
@@ -42,11 +43,11 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.692908/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
       "https://02.cdn37.se/ak1/images/2.677563/carne-bollente-life-is-bootie-full-shirt-all-over.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "White",
   },
   {
-    id: 4,
+    id: nanoid(),
     designer: "Layered",
     title: "Poppykalas rug",
     description: "A rug from layered woven by hand. Made from wool and tencel",
@@ -57,11 +58,11 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.573995/layered-poppykalas-rug-flower-field.jpeg",
       "https://02.cdn37.se/ak1/images/2.574010/layered-poppykalas-rug-flower-field.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "Pink",
   },
   {
-    id: 5,
+    id: nanoid(),
     designer: "Birkenstock",
     title: "Arizona leather black",
     description: "Black leather sandals made for people with tender little hearts. Preferably worn with multicolored socks.",
@@ -72,11 +73,11 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.667038/birkenstock-arizona-oiled-nubuck-leather-black.jpeg",
       "https://02.cdn37.se/ak1/images/2.667053/birkenstock-arizona-oiled-nubuck-leather-black.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "Black",
   },
   {
-    id: 6,
+    id: nanoid(),
     designer: "Lemaire",
     title: "Twisted belted pants",
     description: "Workwear inspired pants, designed with twisted seams alongside the outer leg which provides a fit with a lot of volume.",
@@ -87,11 +88,11 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.689873/lemaire-twisted-belted-pants-misty-ivory.jpeg",
       "https://02.cdn37.se/ak1/images/2.689878/lemaire-twisted-belted-pants-misty-ivory.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "Ivory",
   },
   {
-    id: 7,
+    id: nanoid(),
     designer: "Atelier Yuchi",
     title: "Capri woven blanket",
     description: "Blanket from Atelier Yuchi made from hand woven wool, 138 x 184cm",
@@ -102,12 +103,12 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.672818/atelier-yuchi-capri-woven-blanket.jpeg",
       "https://02.cdn37.se/ak1/images/2.672638/atelier-yuchi-capri-woven-blanket.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "Multi colored",
   },
-  
+
   {
-    id: 8,
+    id: nanoid(),
     designer: "Layered",
     title: "Modern oriental rug",
     description: "Oriental rug made from 100% wool. Inspired by the Romanian sculptor Constantin Brancusi.",
@@ -118,7 +119,7 @@ export const Products: Product[] = [
       "https://02.cdn37.se/ak1/images/2.573975/layered-modern-oriental-rug-saffron.jpeg",
       "https://02.cdn37.se/ak1/images/2.516090/layered-modern-oriental-rug-saffron.jpeg",
     ],
-    size: ["S","M","L","XL"],
+    size: ["S", "M", "L", "XL"],
     color: "Ivory",
   },
 ];

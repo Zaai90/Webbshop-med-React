@@ -22,7 +22,7 @@ const validationSchema = yup.object<YupObject>({
   category: yup.string().min(1, "Product must have a category with atleast 2 characters").required("category is required"),
   size: yup.string().min(1, "Product must have a size with atleast 1 character ").notRequired(),
   color: yup.string().min(2, "Product must have a color with atleast 2 characters").required("color is required"),
-  img: yup.array().min(1, "Product must have a valid url").required("img url is required"),
+  img: yup.string().min(1, "Product must have a valid url").required("img url is required"),
 });
 
 export default function Form({ product }: Props) {
@@ -138,7 +138,8 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e) => formik.setFieldValue("size", [e.target.value])}
+          // onChange={(e) => formik.setFieldValue("size", [e.target.value])}
+          onChange={formik.handleChange}
           error={formik.touched.size && Boolean(formik.errors.size)}
           helperText={formik.touched.size && formik.errors.size}
         />
@@ -151,7 +152,8 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e) => formik.setFieldValue("images", [e.target.value])}
+          // onChange={(e) => formik.setFieldValue("images", [e.target.value])}
+          onChange={formik.handleChange}
           error={formik.touched.img && Boolean(formik.errors.img)}
           helperText={formik.touched.img && formik.errors.img}
         />

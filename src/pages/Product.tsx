@@ -28,7 +28,7 @@ const ProductPage = () => {
   const { reviews, calcRating } = useReviews();
   const { products } = useProducts();
   const { id } = useParams();
-  const product = products.find((p) => p.id === Number(id)) ?? products[0];
+  const product = products.find((p) => p.id === id) ?? products[0];
   const findReviews = reviews.find((x) => x.productId === product.id);
   const [avgRating, setAvgRating] = useState<number>(calcRating(product));
   const ref = useRef<null | HTMLDivElement>(null);

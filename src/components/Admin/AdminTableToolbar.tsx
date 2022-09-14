@@ -2,13 +2,12 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { alpha, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
 import { useState } from "react";
-import Product from "../../models/Product";
 import DeleteDialog from "./DeleteDialog";
 
 interface Props {
   numSelected: number;
-  selectedIds: number[];
-  deleteProducts: (selectedIds: number[]) => void;
+  selectedIds: string[];
+  deleteProducts: (selectedIds: string[]) => void;
 }
 
 const AdminTableToolbar = ({ numSelected, selectedIds, deleteProducts }: Props) => {
