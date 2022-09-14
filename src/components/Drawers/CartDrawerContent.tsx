@@ -1,6 +1,6 @@
 import * as Icon from "@mui/icons-material/";
 import { Button } from "@mui/material";
-import { Box, Container } from "@mui/system";
+import { Container } from "@mui/system";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
@@ -8,6 +8,9 @@ import { useCurrency } from "../../contexts/CurrencyContext";
 import CartDrawerItem from "./CartDrawerItem";
 
 const Wrapper = styled.div`
+::-webkit-scrollbar {
+  display: none;
+}
   width: 100%;
   height: 100%;
   align-items: center;
