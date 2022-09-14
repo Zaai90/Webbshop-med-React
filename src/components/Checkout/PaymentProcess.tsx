@@ -77,7 +77,7 @@ const PaymentProcess = () => {
   const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Box>
+    <Box sx={{ marginTop: "2rem" }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};

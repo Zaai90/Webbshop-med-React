@@ -7,6 +7,10 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Urbanist', sans-serif;
 }
+
+body {
+    overflow-x: hidden;
+}
 `;
 
 export default GlobalStyle;
