@@ -1,9 +1,8 @@
-import { nanoid } from "nanoid";
 import Product from "./models/Product";
 
 export const Products: Product[] = [
   {
-    id: nanoid(),
+    id: "ADn01Y8vJio9Lonx9dp2V",
     designer: "Carhartt",
     title: "Services T-shirt",
     description: "T-shirt from Carhartt with a small print on the chest and a large print on the back. Made from ecologial cotton.",
@@ -17,7 +16,7 @@ export const Products: Product[] = [
     color: "Black",
   },
   {
-    id: nanoid(),
+    id: "37PEOTNKlp6YgSwQd4Psa",
     designer: "Universal Works",
     title: "Bakers chore jacket",
     description:
@@ -32,7 +31,7 @@ export const Products: Product[] = [
     color: "yellow",
   },
   {
-    id: nanoid(),
+    id: "W9AtzbPgdias1pm-MFzYD",
     designer: "Carne Bollente",
     title: "Life is bootie-full",
     description: "A shirt made from wool and linen, printed with people dancing naked.",
@@ -47,7 +46,7 @@ export const Products: Product[] = [
     color: "White",
   },
   {
-    id: nanoid(),
+    id: "5EjrihE9GJuV3XutXSJbV",
     designer: "Layered",
     title: "Poppykalas rug",
     description: "A rug from layered woven by hand. Made from wool and tencel",
@@ -62,7 +61,7 @@ export const Products: Product[] = [
     color: "Pink",
   },
   {
-    id: nanoid(),
+    id: "boEZcWG7c209CW3nvgrj1",
     designer: "Birkenstock",
     title: "Arizona leather black",
     description: "Black leather sandals made for people with tender little hearts. Preferably worn with multicolored socks.",
@@ -77,7 +76,7 @@ export const Products: Product[] = [
     color: "Black",
   },
   {
-    id: nanoid(),
+    id: "2kNx4obsL8FCr-ZCuRmE9",
     designer: "Lemaire",
     title: "Twisted belted pants",
     description: "Workwear inspired pants, designed with twisted seams alongside the outer leg which provides a fit with a lot of volume.",
@@ -92,7 +91,7 @@ export const Products: Product[] = [
     color: "Ivory",
   },
   {
-    id: nanoid(),
+    id: "rcjjGu1PTXS4BsaldjC2Z",
     designer: "Atelier Yuchi",
     title: "Capri woven blanket",
     description: "Blanket from Atelier Yuchi made from hand woven wool, 138 x 184cm",
@@ -108,7 +107,7 @@ export const Products: Product[] = [
   },
 
   {
-    id: nanoid(),
+    id: "g4L0204LWXHSxZXnXZrkm",
     designer: "Layered",
     title: "Modern oriental rug",
     description: "Oriental rug made from 100% wool. Inspired by the Romanian sculptor Constantin Brancusi.",
