@@ -112,7 +112,7 @@ const Favorites = () => {
                     </IconButton>
                     <IconButton
                       onClick={() => {
-                        addToCart(favorite, 1);
+                        addToCart(favorite, "M", 1);
                         toggleFavorite(favorite);
                       }}
                     >
