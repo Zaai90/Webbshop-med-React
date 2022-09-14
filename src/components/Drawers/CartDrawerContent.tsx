@@ -1,5 +1,6 @@
 import * as Icon from "@mui/icons-material/";
 import { Button } from "@mui/material";
+import { Container } from "@mui/system";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
@@ -7,17 +8,23 @@ import { useCurrency } from "../../contexts/CurrencyContext";
 import CartDrawerItem from "./CartDrawerItem";
 
 const Wrapper = styled.div`
+::-webkit-scrollbar {
+  display: none;
+}
   width: 100%;
+  height: 100%;
   align-items: center;
-  overflow: scroll;
-  padding-bottom: 162px;
+  overflow-y: scroll;
+  scrollbar-width: none;
 `;
 
 const Title = styled.div`
   text-transform: uppercase;
   font-weight: 700;
-  margin-bottom: 1rem;
-  align-self: center;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  padding: 1rem 0;
 `;
 
 const Total = styled.div`
@@ -27,12 +34,18 @@ const Total = styled.div`
 `;
 
 const CartBottom = styled.div`
-  bottom: 0;
-  position: absolute;
   width: 100%;
-  right: 0;
   padding: 1rem;
+  border-top: 1px solid rgba(0,0,0,0.15);
 `;
+
+const CartItemContainer = styled(Container)`
+div:last-child {
+  border-bottom: none;
+}
+margin-bottom: 1rem;
+margin-top: 1rem;
+`
 
 interface Props {
   toggleDrawer: () => void;
@@ -52,11 +65,13 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
         <div>Cart is empty</div>
       ) : (
         <>
-          <Title>CART</Title>
+              <Title>CART</Title>
           <Wrapper>
+              <CartItemContainer>
             {cart.map((cartItem) => (
               <CartDrawerItem key={cartItem.product.id} cartItem={cartItem} toggleDrawer={toggleDrawer} />
-            ))}
+              ))}
+              </CartItemContainer>
           </Wrapper>
           <CartBottom>
             <Button variant="outlined" color="warning" style={{ maxWidth: "max-content", gap: ".5rem", margin: ".5rem 0" }} onClick={handleClearCart}>

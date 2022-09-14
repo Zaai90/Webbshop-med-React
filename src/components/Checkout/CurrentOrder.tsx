@@ -47,7 +47,7 @@ const CurrentOrder = () => {
   }
 
   function handleAdd(cartItem: CartItem) {
-    addToCart(cartItem.product, 1);
+    addToCart(cartItem.product, cartItem.size, 1);
   }
 
   function handleRemove(cartItem: CartItem) {

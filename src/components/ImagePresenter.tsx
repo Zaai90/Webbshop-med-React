@@ -1,6 +1,6 @@
 import * as Icon from "@mui/icons-material/";
 import { Box, Fade, IconButton, Tooltip } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFavorites } from "../contexts/FavoriteContext";
 import Product from "../models/Product";
@@ -11,7 +11,6 @@ const ImagePresenterStyled = styled.div`
   flex-direction: column-reverse;
   align-items: flex-start;
   justify-content: center;
-  padding: 1rem;
 
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     width: 100%;
@@ -110,6 +109,10 @@ interface ImagePresenterProps {
 const ImagePresenter = ({ product }: ImagePresenterProps) => {
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
   const { isFavorite, toggleFavorite } = useFavorites();
+
+  useEffect(() => {
+    setSelectedImg(product.img[0]);
+  }, [product]);
 
   const images = product.img.map((img: string, index: number) => {
     return (

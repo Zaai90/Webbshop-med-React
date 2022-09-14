@@ -29,7 +29,7 @@ export default function Form({ product }: Props) {
   const { createProduct, editProduct } = useProducts();
 
   const formik = useFormik<ProductCreate>({
-    initialValues: product || { title: "", description: "", price: 0, designer: "", category: "", color: "", size: "", img: [] },
+    initialValues: product || { title: "", description: "", price: 0, designer: "", category: "", color: "", size: [], img: [] },
     validationSchema: validationSchema,
     enableReinitialize: true,
     onSubmit: (values, e) => {
@@ -138,7 +138,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={formik.handleChange}
+          onChange={(e) => formik.setFieldValue("size", [e.target.value])}
           error={formik.touched.size && Boolean(formik.errors.size)}
           helperText={formik.touched.size && formik.errors.size}
         />
@@ -151,7 +151,7 @@ export default function Form({ product }: Props) {
           InputLabelProps={{
             shrink: true,
           }}
-          onChange={(e) => formik.setFieldValue("img", [e.target.value])}
+          onChange={(e) => formik.setFieldValue("images", [e.target.value])}
           error={formik.touched.img && Boolean(formik.errors.img)}
           helperText={formik.touched.img && formik.errors.img}
         />

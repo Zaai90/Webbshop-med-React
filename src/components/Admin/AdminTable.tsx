@@ -2,9 +2,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton } from "@mui/material";
 import Box from "@mui/material/Box";
 import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Paper from "@mui/material/Paper";
-import Switch from "@mui/material/Switch";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -17,7 +15,7 @@ import styled from "styled-components";
 import { useProducts } from "../../contexts/ProductContext";
 import Product from "../../models/Product";
 import { AdminTableHead } from "./AdminTableHead";
-import { AdminTableToolbar } from "./AdminTableToolbar";
+import AdminTableToolbar from "./AdminTableToolbar";
 
 const TableCellEllipse = styled(TableCell)`
   max-width: 110px;
@@ -52,10 +50,9 @@ export default function AdminTable({ handleEditClicked }: Props) {
   const [orderBy, setOrderBy] = useState<keyof Product>("id");
   const [selected, setSelected] = useState<number[]>([]);
   const [page, setPage] = useState(0);
-  const [dense, setDense] = useState(false);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const { products, editProduct, deleteProducts } = useProducts();
+  const { products, deleteProducts } = useProducts();
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Product) => {
     const isAsc = orderBy === property && order === "asc";
@@ -98,10 +95,6 @@ export default function AdminTable({ handleEditClicked }: Props) {
     setPage(0);
   };
 
-  const handleChangeDense = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setDense(event.target.checked);
-  };
-
   const isSelected = (id: number) => selected.indexOf(id) !== -1;
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - products.length) : 0;
@@ -109,7 +102,7 @@ export default function AdminTable({ handleEditClicked }: Props) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <AdminTableToolbar products={products} deleteProducts={deleteProducts} selectedIds={selected} numSelected={selected.length} />
+        <AdminTableToolbar deleteProducts={deleteProducts} selectedIds={selected} numSelected={selected.length} />
         <TableContainer sx={{ padding: "0.5rem" }}>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle" size="small">
             <AdminTableHead
@@ -186,7 +179,7 @@ export default function AdminTable({ handleEditClicked }: Props) {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -205,7 +198,6 @@ export default function AdminTable({ handleEditClicked }: Props) {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel control={<Switch checked={dense} onChange={handleChangeDense} />} label="Dense padding" />
     </Box>
   );
 }
