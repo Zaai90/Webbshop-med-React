@@ -11,7 +11,6 @@ const images: string[] = [
 ];
 
 const TopSwiper = styled.div`
-  margin-top: 4rem;
   height: 90vw;
   position: relative;
 

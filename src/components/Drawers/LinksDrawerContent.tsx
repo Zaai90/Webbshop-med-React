@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import CurrencyChanger from "../CurrencyChanger";
@@ -34,7 +35,7 @@ interface Props {
 const LinksDrawerContent = ({ toggleDrawer }: Props) => {
   return (
     <>
-      <LogoSvg backgroundColor="#E2DDD8" forgroundColor="#383838" small={200} />
+      <LogoSvg backgroundColor="#f7f6f5" forgroundColor="#383838" small={200} />
 
       <NavLinksStyled>
         <NavLink onClick={toggleDrawer} to="">
@@ -43,14 +44,13 @@ const LinksDrawerContent = ({ toggleDrawer }: Props) => {
         <NavLink onClick={toggleDrawer} to="store">
           Store
         </NavLink>
-        <NavLink onClick={toggleDrawer} to="checkout">
-          Checkout
-        </NavLink>
         <NavLink onClick={toggleDrawer} to="admin">
           Admin
         </NavLink>
-        <CurrencyChanger />
       </NavLinksStyled>
+      <Box position={"absolute"} bottom="1rem" width={"90%"}>
+        <CurrencyChanger />
+      </Box>
     </>
   );
 };
