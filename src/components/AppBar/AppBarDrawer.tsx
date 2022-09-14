@@ -15,7 +15,6 @@ const AppBarDrawerStyled = styled(Drawer)<{ anchor: string; isphonescreen: numbe
 
 const AppBarBoxStyled = styled(Box)`
   margin-top: 64px;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   text-decoration: none;
