@@ -1,21 +1,18 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { alpha, IconButton, Toolbar, Tooltip, Typography } from "@mui/material";
+import { useState } from "react";
 import Product from "../../models/Product";
+import DeleteDialog from "./DeleteDialog";
 
 interface Props {
   numSelected: number;
   selectedIds: number[];
-  products: Product[];
   deleteProducts: (selectedIds: number[]) => void;
 }
 
-export const AdminTableToolbar = (props: Props) => {
-  const { numSelected } = props;
-
-  const handleSelectedIds = (selectedId: number[]) => {
-    props.deleteProducts(selectedId);
-  };
+const AdminTableToolbar = ({ numSelected, selectedIds, deleteProducts }: Props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <Toolbar
@@ -38,7 +35,11 @@ export const AdminTableToolbar = (props: Props) => {
       )}
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={() => handleSelectedIds(props.selectedIds)}>
+          <IconButton
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          >
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -49,6 +50,9 @@ export const AdminTableToolbar = (props: Props) => {
           </IconButton>
         </Tooltip>
       )}
+      <DeleteDialog isOpen={isOpen} handleDelete={() => deleteProducts(selectedIds)} setIsOpen={setIsOpen} />
     </Toolbar>
   );
 };
+
+export default AdminTableToolbar;
