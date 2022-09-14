@@ -1,9 +1,8 @@
 import * as Icon from "@mui/icons-material/";
-import { Badge, Box, Container, IconButton, useMediaQuery } from "@mui/material";
+import { Badge, Box, Container, IconButton } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { useCart } from "../../contexts/CartContext";
 import { useFavorites } from "../../contexts/FavoriteContext";
-import theme from "../../utils/Theme";
 
 interface Props {
   isLinkDrawerOpen: boolean;
@@ -16,8 +15,6 @@ const MiniAppBar = ({ isLinkDrawerOpen, setIsLinkDrawerOpen, setIsCartDrawerOpen
   const { cart } = useCart();
   const { favorites } = useFavorites();
 
-  const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
-
   const scrollToTop = () => {
     searchIsActive(true);
     window.scrollTo({
@@ -28,10 +25,12 @@ const MiniAppBar = ({ isLinkDrawerOpen, setIsLinkDrawerOpen, setIsCartDrawerOpen
 
   return (
     <Container maxWidth="lg" fixed>
-      <Box sx={{ width: "100%", display: "flex", padding: ".3rem", justifyContent: tabletScreen ? "space-between" : "flex-end" }}>
-        <IconButton size="small" sx={{ color: "white" }} onClick={() => setIsLinkDrawerOpen((prev) => !prev)}>
-          {isLinkDrawerOpen ? <Icon.KeyboardArrowUp /> : <Icon.KeyboardArrowDown />}
-        </IconButton>
+      <Box sx={{ width: "100%", display: "flex", padding: ".3rem" }}>
+        <Box>
+          <IconButton size="small" sx={{ color: "white" }} onClick={() => setIsLinkDrawerOpen((prev) => !prev)}>
+            {isLinkDrawerOpen ? <Icon.KeyboardArrowUp /> : <Icon.KeyboardArrowDown />}
+          </IconButton>
+        </Box>
         <IconButton size="small" sx={{ color: "white" }} onClick={scrollToTop}>
           <Icon.Search />
         </IconButton>
