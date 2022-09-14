@@ -1,7 +1,9 @@
-import { Button } from "@mui/material";
+import * as Icon from "@mui/icons-material/";
+import { Button, IconButton } from "@mui/material";
 import { Box } from "@mui/material/";
 import TextField from "@mui/material/TextField";
-import { useFormik } from "formik";
+import { FieldArray, FormikProvider, useFormik } from "formik";
+import React from "react";
 import * as yup from "yup";
 import { useProducts } from "../contexts/ProductContext";
 import Product from "../models/Product";
@@ -20,9 +22,9 @@ const validationSchema = yup.object<YupObject>({
   description: yup.string().min(2, "Product must have a description with atleast 2 characters").required("description is required"),
   price: yup.number().min(2, "Product must have a price with atleast 2 digits").required("price is required"),
   category: yup.string().min(1, "Product must have a category with atleast 2 characters").required("category is required"),
-  size: yup.string().min(1, "Product must have a size with atleast 1 character ").notRequired(),
+  size: yup.array().min(1, "Product must have a size with atleast 1 character ").notRequired(),
   color: yup.string().min(2, "Product must have a color with atleast 2 characters").required("color is required"),
-  img: yup.string().min(1, "Product must have a valid url").required("img url is required"),
+  img: yup.array().min(1, "Product must have a valid url").required("img url is required"),
 });
 
 export default function Form({ product }: Props) {
@@ -32,6 +34,7 @@ export default function Form({ product }: Props) {
     initialValues: product || { title: "", description: "", price: 0, designer: "", category: "", color: "", size: [], img: [] },
     validationSchema: validationSchema,
     enableReinitialize: true,
+
     onSubmit: (values, e) => {
       if (product) {
         editProduct({ ...values, id: product.id });
@@ -129,34 +132,110 @@ export default function Form({ product }: Props) {
           error={formik.touched.color && Boolean(formik.errors.color)}
           helperText={formik.touched.color && formik.errors.color}
         />
-        <TextField
-          id="size"
-          label="Size"
-          name="size"
-          variant="standard"
-          value={formik.values.size}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          // onChange={(e) => formik.setFieldValue("size", [e.target.value])}
-          onChange={formik.handleChange}
-          error={formik.touched.size && Boolean(formik.errors.size)}
-          helperText={formik.touched.size && formik.errors.size}
-        />
-        <TextField
-          id="img"
-          label="Img url"
-          name="img"
-          variant="standard"
-          value={formik.values.img}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          // onChange={(e) => formik.setFieldValue("images", [e.target.value])}
-          onChange={formik.handleChange}
-          error={formik.touched.img && Boolean(formik.errors.img)}
-          helperText={formik.touched.img && formik.errors.img}
-        />
+
+        <FormikProvider value={formik}>
+          {formik.values.size.length === 0 && (
+            <TextField
+              id="size"
+              label="Size"
+              name="size"
+              variant="standard"
+              value={formik.values.size}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => formik.setFieldValue("size", [e.target.value])}
+              error={formik.touched.size && Boolean(formik.errors.size)}
+              helperText={formik.touched.size && formik.errors.size}
+            />
+          )}
+          <FieldArray name="size">
+            {({ push, remove }) => (
+              <React.Fragment>
+                {formik.values.size &&
+                  formik.values.size.length > 0 &&
+                  formik.values.size.map((_img, index) => (
+                    <div key={index}>
+                      <TextField
+                        id="size"
+                        label="Size"
+                        name={`size[${index}]`}
+                        variant="standard"
+                        value={formik.values.size[index]}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        autoFocus
+                        onChange={formik.handleChange}
+                        error={formik.touched.size && Boolean(formik.errors.size)}
+                        helperText={formik.touched.size && formik.errors.size}
+                      />
+
+                      <IconButton onClick={() => remove(index)}>
+                        <Icon.RemoveCircleOutline></Icon.RemoveCircleOutline>
+                      </IconButton>
+                    </div>
+                  ))}
+
+                <Button variant="contained" color="primary" onClick={() => push("")} sx={{ padding: "2px 10px", margin: "1rem" }}>
+                  Add another size
+                </Button>
+              </React.Fragment>
+            )}
+          </FieldArray>
+        </FormikProvider>
+
+        <FormikProvider value={formik}>
+          {formik.values.img.length === 0 && (
+            <TextField
+              id="img"
+              label="Img url"
+              name="img"
+              variant="standard"
+              value={formik.values.img}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(e) => formik.setFieldValue("img", [e.target.value])}
+              error={formik.touched.img && Boolean(formik.errors.img)}
+              helperText={formik.touched.img && formik.errors.img}
+            />
+          )}
+          <FieldArray name="img">
+            {({ push, remove }) => (
+              <React.Fragment>
+                {formik.values.img &&
+                  formik.values.img.length > 0 &&
+                  formik.values.img.map((_img, index) => (
+                    <div key={index}>
+                      <TextField
+                        id="img"
+                        label="Img url"
+                        name={`img[${index}]`}
+                        variant="standard"
+                        value={formik.values.img[index]}
+                        autoFocus
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        onChange={formik.handleChange}
+                        error={formik.touched.img && Boolean(formik.errors.img)}
+                        helperText={formik.touched.img && formik.errors.img}
+                      />
+
+                      <IconButton onClick={() => remove(index)}>
+                        <Icon.RemoveCircleOutline></Icon.RemoveCircleOutline>
+                      </IconButton>
+                    </div>
+                  ))}
+
+                <Button variant="contained" color="primary" onClick={() => push("")} sx={{ padding: "2px 10px", margin: "1rem" }}>
+                  Add another url
+                </Button>
+              </React.Fragment>
+            )}
+          </FieldArray>
+        </FormikProvider>
       </div>
       <Button sx={{ margin: "1rem" }} color="primary" variant="contained" type="submit">
         {!product ? "ADD" : "UPDATE"}
