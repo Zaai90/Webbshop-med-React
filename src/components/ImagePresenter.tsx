@@ -11,7 +11,6 @@ const ImagePresenterStyled = styled.div`
   flex-direction: column-reverse;
   align-items: flex-start;
   justify-content: center;
-  padding: 1rem;
 
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     width: 100%;

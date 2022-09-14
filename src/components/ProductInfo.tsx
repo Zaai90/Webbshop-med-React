@@ -18,7 +18,6 @@ const InfoContainer = styled.div`
   @media (min-width: ${theme.breakpoints.values.lg}px) {
     width: 50%;
     justify-content: flex-start;
-    margin-top: 5rem;
   }
 `;
 
