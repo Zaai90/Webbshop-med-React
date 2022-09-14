@@ -73,7 +73,7 @@ const Store = () => {
               }}
             >
               {categories.map((c) => (
-                <NavLink style={{ textDecoration: "none", color: "black" }} to={c === "all" ? "" : c}>
+                <NavLink style={{ textDecoration: "none", color: "black" }} to={c === "all" ? "" : "category/" + c}>
                   <Container key={"Categoryrandom-" + c} className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
                     <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
                       <ListItemButton
