@@ -47,7 +47,6 @@ const Store = () => {
   const categories = products.filter((x, i) => products.findIndex((y) => x.category === y.category) === i).map((x) => x.category.toLowerCase());
   categories.unshift("all");
 
-  console.log("category", category);
   return (
     <>
       <SnackbarProvider
@@ -73,8 +72,8 @@ const Store = () => {
               }}
             >
               {categories.map((c) => (
-                <NavLink style={{ textDecoration: "none", color: "black" }} to={c === "all" ? "" : "category/" + c}>
-                  <Container key={"Categoryrandom-" + c} className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
+                <NavLink key={c} style={{ textDecoration: "none", color: "black" }} to={c === "all" ? "" : "category/" + c}>
+                  <Container className={"categoryParent"} sx={{ padding: tabletScreen ? "0" : undefined }}>
                     <ListItem disablePadding sx={{ border: smScreen ? "1px solid rgba(0,0,0,0.35)" : undefined }}>
                       <ListItemButton
                         selected={c === category || (c === "all" && category === undefined) ? true : false}
