@@ -38,7 +38,7 @@ interface Props {
 
 export default function AdminTable({ handleEditClicked }: Props) {
   const [order, setOrder] = useState<Order>("asc");
-  const [orderBy, setOrderBy] = useState<keyof Product>("id");
+  const [orderBy, setOrderBy] = useState<keyof Product>("title");
   const [selected, setSelected] = useState<string[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -132,9 +132,9 @@ export default function AdminTable({ handleEditClicked }: Props) {
                           }}
                         />
                       </TableCell>
-                      <TableCell style={{ maxWidth: "60px" }} component="th" id={labelId} scope="row" padding="none">
+                      {/* <TableCell style={{ maxWidth: "60px" }} component="th" id={labelId} scope="row" padding="none">
                         {product.id}
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell style={{ maxWidth: "69px" }} align="left">
                         {product.title}
                       </TableCell>
