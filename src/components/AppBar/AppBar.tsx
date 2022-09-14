@@ -62,7 +62,7 @@ const AppBar = () => {
 
   return (
     <>
-      <MUIAppBar position="relative" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <MUIAppBar position="absolute" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, top: 0 }}>
         <Container maxWidth="lg" fixed>
           <Toolbar sx={{ color: "white", minHeight: smScreen ? "80" : "64" }} disableGutters>
             {/* Left side AppBar */}
