@@ -27,7 +27,7 @@ const Admin = () => {
     }
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string) => {
     if (id) {
       deleteProductById(id);
     }

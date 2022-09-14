@@ -77,7 +77,7 @@ const ReviewForm = React.forwardRef(({ product, handleSubmit, toggleModal }: Pro
   }
 
   const formik = useFormik({
-    initialValues: { name: "", review: "", rating: 1, productId: 1, createdAt: today, accepted: false },
+    initialValues: { name: "", review: "", rating: 1, productId: "", createdAt: today, accepted: false },
 
     validationSchema: validationSchema,
     onSubmit: (values: ReviewModel) => {
@@ -110,9 +110,7 @@ const ReviewForm = React.forwardRef(({ product, handleSubmit, toggleModal }: Pro
       </Box>
       <Container>
         <Box>
-          <Typography variant={smScreen ? "h6" : "h5"}>
-            We're excited to hear your opinion!
-          </Typography>
+          <Typography variant={smScreen ? "h6" : "h5"}>We're excited to hear your opinion!</Typography>
         </Box>
         <form onSubmit={formik.handleSubmit} style={{ display: "flex", flexDirection: "column" }}>
           <TextField

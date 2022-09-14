@@ -7,11 +7,11 @@ import { useFavorites } from "./FavoriteContext";
 interface CartContext {
   cart: CartItem[];
   addToCart(item: Product, size: string, quantity?: number): void;
-  removeFromCart(id: number, quantity?: number): void;
+  removeFromCart(id: string, quantity?: number): void;
   clearCart(): void;
   cartQty: number;
   totalAmount: number;
-  getItemQty(id: number): number;
+  getItemQty(id: string): number;
   removeItemFromCart: (cartItem: CartItem) => void;
   addAllFavorites: () => void;
 }
@@ -60,12 +60,12 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
 
   const getCartQty = cart.reduce((acc, curr) => acc + curr.quantity, 0);
 
-  const getItemQty = (id: number): number => {
+  const getItemQty = (id: string): number => {
     const item = cart.find((i) => i.product.id === id);
     return item ? item.quantity : 0;
   };
 
-  const removeFromCart = (id: number, quantity: number = 1) => {
+  const removeFromCart = (id: string, quantity: number = 1) => {
     const index = cart.findIndex((i) => i.product.id === id);
     if (index !== -1) {
       if (cart[index].quantity > quantity) {

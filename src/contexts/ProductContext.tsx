@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid";
 import { createContext, ReactNode, useContext } from "react";
 import { ProductCreate } from "../components/Form";
 import { useLocalStorage } from "../hooks/localStorage";
@@ -7,8 +8,8 @@ import { Products } from "../ProductData";
 interface ProductContextValue {
   products: Product[];
   createProduct: (product: ProductCreate) => void;
-  deleteProductById: (id: number) => void;
-  deleteProducts: (selectedIds: number[]) => void;
+  deleteProductById: (id: string) => void;
+  deleteProducts: (selectedIds: string[]) => void;
   editProduct: (product: Product) => void;
 }
 
@@ -31,12 +32,13 @@ function ProductProvider({ children }: Props) {
   const [products, setProducts] = useLocalStorage<Product[]>("products", LoadProducts);
 
   const createProduct = (product: ProductCreate) => {
-    const productsCopy = [...products, { ...product, id: 14 }];
+    const nanoId = nanoid();
+    const productsCopy = [...products, { id: nanoId, ...product }];
 
     setProducts(productsCopy);
   };
 
-  const deleteProductById = (id: number) => {
+  const deleteProductById = (id: string) => {
     const index = products.findIndex((p) => p.id === id);
 
     const productsCopy = [...products];
@@ -45,7 +47,7 @@ function ProductProvider({ children }: Props) {
     setProducts(productsCopy);
   };
 
-  const deleteProducts = (selectedIds: number[]) => {
+  const deleteProducts = (selectedIds: string[]) => {
     const newProducts = products.filter((product) => !selectedIds.includes(product.id));
 
     setProducts(newProducts);

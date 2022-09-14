@@ -19,13 +19,13 @@ import Product from "../../models/Product";
 
 interface Props {
   handleEdit: (product: Product) => void;
-  handleDelete: (id: number) => void;
+  handleDelete: (id: string) => void;
 }
 
 interface RowProps {
   product: Product;
   handleEdit: (product: Product) => void;
-  handleDelete: (id: number) => void;
+  handleDelete: (id: string) => void;
 }
 
 function Row({ product, handleEdit, handleDelete }: RowProps) {
