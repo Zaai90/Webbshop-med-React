@@ -34,7 +34,7 @@ interface Props {
 const LinksDrawerContent = ({ toggleDrawer }: Props) => {
   return (
     <>
-      <LogoSvg backgroundColor="#E2DDD8" forgroundColor="#383838" small={200} />
+      <LogoSvg backgroundColor="#f7f6f5" forgroundColor="#383838" small={200} />
 
       <NavLinksStyled>
         <NavLink onClick={toggleDrawer} to="">
