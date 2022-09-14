@@ -77,7 +77,7 @@ const Reviews = ({ product, calcAvgRating }: Props) => {
               </Container>
             </Box>
           ))}
-        <Pagination count={count} page={page} onChange={handleChange} />
+        <Pagination style={{ marginTop: "1rem" }} count={count} page={page} onChange={handleChange} />
       </Box>
       <Container>
         <Button
