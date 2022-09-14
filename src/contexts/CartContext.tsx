@@ -6,7 +6,7 @@ import { useFavorites } from "./FavoriteContext";
 
 interface CartContext {
   cart: CartItem[];
-  addToCart(item: Product, quantity?: number): void;
+  addToCart(item: Product, size: string, quantity?: number): void;
   removeFromCart(id: number, quantity?: number): void;
   clearCart(): void;
   cartQty: number;
@@ -36,7 +36,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
   const { favorites } = useFavorites();
   const [cart, setCart] = useLocalStorage<CartItem[]>("cart", []);
 
-  const addToCart = (item: Product, quantity: number = 5) => {
+  const addToCart = (item: Product, size: string, quantity: number = 5) => {
     const existingItem = cart.find((i) => i.product.id === item.id);
     if (existingItem) {
       setCart(
@@ -46,13 +46,13 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
         })
       );
     } else {
-      setCart((prev) => [...prev, { product: item, quantity: quantity }]);
+      setCart((prev) => [...prev, { product: item, quantity: quantity, size: size }]);
     }
   };
 
-  const addAllFavorites = () => {
+  const addAllFavorites = (size: string = "M") => {
     for (let i = 0; i < favorites.length; i++) {
-      addToCart(favorites[i], 1);
+      addToCart(favorites[i], size, 1);
     }
   };
 
@@ -71,7 +71,7 @@ const CartContextProvider = ({ children }: CartProviderProps) => {
       if (cart[index].quantity > quantity) {
         setCart((prev) => [
           ...prev.slice(0, index),
-          { product: cart[index].product, quantity: cart[index].quantity - quantity },
+          { product: cart[index].product, quantity: cart[index].quantity - quantity, size: cart[index].size },
           ...prev.slice(index + 1),
         ]);
       } else {

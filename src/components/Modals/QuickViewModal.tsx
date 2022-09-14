@@ -49,12 +49,12 @@ const ButtonStyled = styled(Button)`
 
 interface Props {
   product: Product;
-  size: string;
   handleChange: (e: SelectChangeEvent) => void;
+  sizeState: string;
   toggleModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const QuickViewModal = React.forwardRef(({ product, size, handleChange, toggleModal }: Props, ref) => {
+const QuickViewModal = React.forwardRef(({ product, handleChange, toggleModal, sizeState }: Props, ref) => {
   const { convertToCurrencyValue } = useCurrency();
   const { addToCart } = useCart();
 
@@ -71,19 +71,19 @@ const QuickViewModal = React.forwardRef(({ product, size, handleChange, toggleMo
         </div>
         <FormControl fullWidth>
           <InputLabel>Size</InputLabel>
-          <Select id="demo-simple-select" value={size} label="Size" onChange={handleChange}>
-            <MenuItem value={1}>XS</MenuItem>
-            <MenuItem value={2}>S</MenuItem>
-            <MenuItem value={3}>M</MenuItem>
-            <MenuItem value={4}>L</MenuItem>
-            <MenuItem value={5}>XL</MenuItem>
+          <Select id="demo-simple-select" value={sizeState} label="Size" onChange={handleChange}>
+            {product.size.map((size, index) => (
+              <MenuItem key={index} value={size}>
+                {size}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
         <ButtonStyled
           variant="contained"
           endIcon={<Icon.AddShoppingCart />}
           onClick={() => {
-            addToCart(product, 1);
+            addToCart(product, sizeState, 1);
             toggleModal(false);
           }}
         >

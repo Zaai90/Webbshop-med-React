@@ -1,4 +1,5 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { useState } from "react";
 import styled from "styled-components";
 import { useCart } from "../contexts/CartContext";
 import { useCurrency } from "../contexts/CurrencyContext";
@@ -67,9 +68,14 @@ interface Props {
 }
 
 const ProductInfo = ({ product }: Props) => {
+  const [size, setSize] = useState<string>("");
   const { convertToCurrencyValue } = useCurrency();
   const { isFavorite, toggleFavorite } = useFavorites();
   const { addToCart } = useCart();
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setSize(event.target.value as string);
+  };
 
   return (
     <InfoContainer>
@@ -78,10 +84,28 @@ const ProductInfo = ({ product }: Props) => {
         <DesignerStyled>{product.designer}</DesignerStyled>
       </HeaderContainer>
       <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
+      <Box pb={2} pt={2}>
+        <FormControl fullWidth size="small">
+          <InputLabel>Size</InputLabel>
+          <Select id="demo-simple-select" value={size} label="Size" onChange={handleChange}>
+            {product.size.map((size, index) => (
+              <MenuItem key={index} value={size}>
+                {size}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      </Box>
       <AddToCartContainer>
-        <AddToCartStyled onClick={() => addToCart(product, 1)} size="medium" variant="contained">
-          Add to cart
-        </AddToCartStyled>
+        {size === "" ? (
+          <AddToCartStyled onClick={() => addToCart(product, size, 1)} size="medium" disabled variant="outlined">
+            Add to cart
+          </AddToCartStyled>
+        ) : (
+          <AddToCartStyled onClick={() => addToCart(product, size, 1)} size="medium" variant="contained">
+            Add to cart
+          </AddToCartStyled>
+        )}
       </AddToCartContainer>
       <DescriptionStyled>{product.description}</DescriptionStyled>
     </InfoContainer>

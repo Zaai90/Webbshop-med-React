@@ -6,6 +6,6 @@ export default interface Product {
   price: number;
   category: string;
   img: string[];
-  size?: string;
+  size: string[];
   color?: string;
 }
