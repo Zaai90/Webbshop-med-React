@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, useMediaQuery } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import styled from "styled-components";
@@ -19,7 +19,6 @@ const InfoContainer = styled.div`
   width: 100%;
 
   @media (min-width: ${theme.breakpoints.values.lg}px) {
-    width: 50%;
     justify-content: flex-start;
   }
 `;
@@ -76,6 +75,8 @@ const ProductInfo = ({ product }: Props) => {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { addToCart } = useCart();
 
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+
   const handleChange = (event: SelectChangeEvent) => {
     setSize(event.target.value as string);
   };
@@ -91,7 +92,7 @@ const ProductInfo = ({ product }: Props) => {
         <DesignerStyled>{product.designer}</DesignerStyled>
       </HeaderContainer>
       <PriceStyled>{convertToCurrencyValue(product.price)}</PriceStyled>
-      <Box pb={2} pt={2}>
+      <Box pb={2} pt={2} width={smScreen ? "100%" : "50%"}>
         <FormControl fullWidth size="small">
           <InputLabel>Size</InputLabel>
           <Select id="demo-simple-select" value={size} label="Size" onChange={handleChange}>

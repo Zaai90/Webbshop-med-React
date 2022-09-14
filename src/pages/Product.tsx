@@ -47,7 +47,7 @@ const ProductPage = () => {
       <ContainerStyled>
         <ImagePresenter product={product} />
         <Container>
-          <div onClick={handleClick} style={{ cursor: "pointer" }}>
+          <div onClick={handleClick} style={{ cursor: "pointer", width: "fit-content" }}>
             {findReviews && <ReviewRatingAvg avgRating={avgRating} />}
           </div>
           <ProductInfo product={product} />
