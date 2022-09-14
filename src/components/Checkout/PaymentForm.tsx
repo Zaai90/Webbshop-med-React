@@ -21,6 +21,7 @@ const validationSchema = yup.object({
   lastName: yup.string().min(2, "Last name should be of minimum 2 characters length").required("Last name is required"),
   address: yup.string().min(2, "Address should be of minimum 2 characters length").required("Address is required"),
   zipCode: yup.string().min(5, "Zip code should be of minimum 5 characters length").required("Zip Code is required"),
+  city: yup.string().min(2, "City should be of atleast 2 characters").required("City is required"),
   country: yup.string().min(2, "Country should be of minimum 2 characters length").required("Country is required"),
   phoneNumber: yup.string().matches(/^\d+$/).min(9, "Phone number must be 10 figures").max(10, "Phone number must be 10 figures").required(),
 });
@@ -31,6 +32,7 @@ export interface PaymentFormValues {
   lastName: string;
   address: string;
   zipCode: string;
+  city: string;
   country: string;
   phoneNumber: string;
 }
@@ -42,7 +44,7 @@ interface Props {
 
 const PaymentForm = ({ handleSubmit, setFormValues }: Props) => {
   const formik = useFormik({
-    initialValues: { email: "", firstName: "", lastName: "", address: "", zipCode: "", country: "", phoneNumber: "" },
+    initialValues: { email: "", firstName: "", lastName: "", address: "", zipCode: "", city: "", country: "", phoneNumber: "" },
 
     validationSchema: validationSchema,
     onSubmit: (values: PaymentFormValues, e) => {
@@ -108,6 +110,17 @@ const PaymentForm = ({ handleSubmit, setFormValues }: Props) => {
           onChange={formik.handleChange}
           error={formik.touched.zipCode && Boolean(formik.errors.zipCode)}
           helperText={formik.touched.zipCode && formik.errors.zipCode}
+        />
+        <TextField
+          fullWidth
+          id="city"
+          name="city"
+          label="City"
+          type="text"
+          value={formik.values.city}
+          onChange={formik.handleChange}
+          error={formik.touched.city && Boolean(formik.errors.city)}
+          helperText={formik.touched.city && formik.errors.city}
         />
         <TextField
           fullWidth
