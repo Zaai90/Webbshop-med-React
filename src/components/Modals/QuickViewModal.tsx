@@ -1,11 +1,13 @@
 import * as Icon from "@mui/icons-material";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { useSnackbar } from "notistack";
 import React from "react";
 import SimpleImageSlider from "react-simple-image-slider";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
 import { useCurrency } from "../../contexts/CurrencyContext";
 import Product from "../../models/Product";
+import AddProductSnackbar from "./AddProductSnackbar";
 
 const ModalContent = styled(Box)`
   position: absolute;
@@ -55,6 +57,7 @@ interface Props {
 }
 
 const QuickViewModal = React.forwardRef(({ product, handleChange, toggleModal, sizeState }: Props, ref) => {
+  const { enqueueSnackbar } = useSnackbar();
   const { convertToCurrencyValue } = useCurrency();
   const { addToCart } = useCart();
 
@@ -85,6 +88,7 @@ const QuickViewModal = React.forwardRef(({ product, handleChange, toggleModal, s
           onClick={() => {
             addToCart(product, sizeState, 1);
             toggleModal(false);
+            enqueueSnackbar(<AddProductSnackbar product={product} />);
           }}
         >
           Add to Cart
