@@ -62,7 +62,7 @@ const AppBar = () => {
 
   return (
     <>
-      <MUIAppBar position="absolute" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, top: 0 }}>
+      <MUIAppBar position="relative" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, top: 0, width: "100vw" }}>
         <Container maxWidth="lg" fixed>
           <Toolbar sx={{ color: "white", minHeight: smScreen ? "80" : "64" }} disableGutters>
             {/* Left side AppBar */}
@@ -114,7 +114,7 @@ const AppBar = () => {
       </MUIAppBar>
       {searchIsActive && <Searchbar toggleSearch={setSearchIsActive} />}
       <ShowOnScroll>
-        <Box width="100%" position="fixed" top={0} zIndex={1201} sx={{ backgroundColor: "#383838" }}>
+        <Box width="100%" position="fixed" top={0} zIndex={1201} sx={{ backgroundColor: "#383838", width: "100vw" }}>
           <MiniAppBar
             searchIsActive={setSearchIsActive}
             setIsCartDrawerOpen={setIsCartDrawerOpen}
