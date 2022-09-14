@@ -165,7 +165,7 @@ const GridItem = ({ product }: Props) => {
             </QuickViewButtonStyled>
           </Tooltip>
         )}
-        <NavLink to={`../product/${product.id}`}>
+        <NavLink to={`/product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
         </NavLink>
         {!touchScreen && (
