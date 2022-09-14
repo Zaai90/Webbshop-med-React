@@ -90,7 +90,13 @@ const AppBar = () => {
                   </Badge>
                 </IconButton>
               </NavLink>
-              <IconButton onClick={toggleCartDrawer} size="large" edge="start" aria-label="cart" sx={{ color: "white" }}>
+              <IconButton
+                onClick={toggleCartDrawer}
+                size="large"
+                edge="start"
+                aria-label="cart"
+                sx={{ color: "white", borderRadius: tabletScreen ? "50%" : "10px" }}
+              >
                 {isCartDrawerOpen && smScreen ? (
                   <Icon.Close sx={{ fontSize: "2rem" }} />
                 ) : (
