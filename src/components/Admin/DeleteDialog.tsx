@@ -10,7 +10,7 @@ interface Props {
 const DeleteDialog = ({ handleDelete, isOpen, setIsOpen }: Props) => {
   return (
     <Dialog open={isOpen}>
-      <DialogTitle>Are you sure you want to delete?</DialogTitle>
+      <DialogTitle>🍻 delete? 🥃 </DialogTitle>
       <DialogActions>
         <Button onClick={() => setIsOpen((prev) => !prev)}>Cancel</Button>
         <Button
