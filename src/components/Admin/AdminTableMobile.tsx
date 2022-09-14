@@ -39,7 +39,7 @@ function Row({ product, handleEdit, handleDelete }: RowProps) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell padding="none">{product.id}</TableCell>
+        {/* <TableCell padding="none">{product.id}</TableCell> */}
         <TableCell padding="none" align="left">
           {product.title}
         </TableCell>
@@ -98,9 +98,9 @@ export default function AdminTableMobile({ handleEdit, handleDelete }: Props) {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell sx={{ padding: "2px" }} align="left">
+            {/* <TableCell sx={{ padding: "2px" }} align="left">
               Id
-            </TableCell>
+            </TableCell> */}
             <TableCell sx={{ padding: "2px" }} align="left">
               Title
             </TableCell>
