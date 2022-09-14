@@ -8,6 +8,7 @@ import { useProducts } from "../contexts/ProductContext";
 // Import Swiper React components
 
 // Import Swiper styles
+import { NavLink } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -71,6 +72,11 @@ export const QuickView = styled.span`
   text-shadow: 2px 2px 4px black;
 `;
 
+const NavLinkStyled = styled(NavLink)`
+  text-decoration: none;
+  color: black;
+`;
+
 const SwiperContent = styled.div`
   align-items: center;
   margin-right: 0 auto;
@@ -114,23 +120,30 @@ const Home = () => {
       <MainContent>
         <Container>
           <TopContent>
-            <CategoryBubbleContainer>
-              <CategoryBubble></CategoryBubble>
-
-              <Typography>News</Typography>
-            </CategoryBubbleContainer>
-            <CategoryBubbleContainer>
-              <CategoryBubble></CategoryBubble>
-              <Typography>Shirts</Typography>
-            </CategoryBubbleContainer>
-            <CategoryBubbleContainer>
-              <CategoryBubble></CategoryBubble>
-              <Typography>Dresses</Typography>
-            </CategoryBubbleContainer>
-            <CategoryBubbleContainer>
-              <CategoryBubble></CategoryBubble>
-              <Typography>Textiles</Typography>
-            </CategoryBubbleContainer>
+            <NavLinkStyled to="/store/category/jacket">
+              <CategoryBubbleContainer>
+                <CategoryBubble></CategoryBubble>
+                <Typography>Jackets</Typography>
+              </CategoryBubbleContainer>
+            </NavLinkStyled>
+            <NavLinkStyled to="/store/category/rug">
+              <CategoryBubbleContainer>
+                <CategoryBubble></CategoryBubble>
+                <Typography>Rugs</Typography>
+              </CategoryBubbleContainer>
+            </NavLinkStyled>
+            <NavLinkStyled to="/store/category/t-shirt">
+              <CategoryBubbleContainer>
+                <CategoryBubble></CategoryBubble>
+                <Typography>T-Shirts</Typography>
+              </CategoryBubbleContainer>
+            </NavLinkStyled>
+            <NavLinkStyled to="/store/category/shoe">
+              <CategoryBubbleContainer>
+                <CategoryBubble></CategoryBubble>
+                <Typography>Shoes</Typography>
+              </CategoryBubbleContainer>
+            </NavLinkStyled>
           </TopContent>
           <SwiperContent>
             <h1 style={{ padding: "2rem" }}>Newly added</h1>
