@@ -43,9 +43,6 @@ const LinksDrawerContent = ({ toggleDrawer }: Props) => {
         <NavLink onClick={toggleDrawer} to="store">
           Store
         </NavLink>
-        <NavLink onClick={toggleDrawer} to="checkout">
-          Checkout
-        </NavLink>
         <NavLink onClick={toggleDrawer} to="admin">
           Admin
         </NavLink>
