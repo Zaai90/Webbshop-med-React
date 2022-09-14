@@ -1,7 +1,7 @@
 import * as Icon from "@mui/icons-material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import { Card, Drawer, Fade, IconButton, Modal, SelectChangeEvent, Tooltip, useMediaQuery } from "@mui/material";
+import { Box, Card, Drawer, Fade, Modal, SelectChangeEvent, Tooltip, useMediaQuery } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
@@ -43,13 +43,6 @@ const CardBottomStyled = styled.div`
   font-size: small;
   position: relative;
   padding: 10px;
-`;
-
-const IconButtonStyled = styled(IconButton)`
-  position: absolute !important;
-  right: 2%;
-  top: 10%;
-  color: black !important;
 `;
 
 const QuickView = styled.span`
@@ -97,7 +90,7 @@ const FavoriteButtonStyled = styled.div`
 const QuickViewButtonStyled = styled.div`
   position: absolute;
   right: 0;
-  top: 0;
+  bottom: 75px;
   z-index: 200;
   padding: 0.75rem;
   cursor: pointer;
@@ -153,9 +146,23 @@ const GridItem = ({ product }: Props) => {
           </Tooltip>
         </FavoriteButtonStyled>
         {touchScreen && (
-          <QuickViewButtonStyled onClick={() => setIsQuickViewDrawerOpen(true)}>
-            <Icon.VisibilityOutlined color={"disabled"} />
-          </QuickViewButtonStyled>
+          <Tooltip TransitionComponent={Fade} TransitionProps={{ timeout: 500 }} title={"Quick buy"} placement="left" arrow>
+            <QuickViewButtonStyled onClick={() => setIsQuickViewDrawerOpen(true)}>
+              <Box
+                sx={{
+                  background: "#E2DDD8",
+                  width: "35px",
+                  height: "35px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "50%",
+                }}
+              >
+                <Icon.LocalMallOutlined />
+              </Box>
+            </QuickViewButtonStyled>
+          </Tooltip>
         )}
         <NavLink to={`../product/${product.id}`}>
           <CardImageStyled imgUrl={product.img[0]} />
@@ -166,7 +173,7 @@ const GridItem = ({ product }: Props) => {
               handleQuickViewClick();
             }}
           >
-            Quick View
+            Quick buy
           </QuickView>
         )}
         <CardBottomStyled>
@@ -175,17 +182,13 @@ const GridItem = ({ product }: Props) => {
             <p>{product.designer}</p>
             <p>{convertToCurrencyValue(product.price)}</p>
           </div>
-
-          <IconButtonStyled onClick={() => handleAdd()} color="primary" aria-label="add to shopping cart">
-            <Icon.AddShoppingCart />
-          </IconButtonStyled>
         </CardBottomStyled>
       </CardStyled>
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <QuickViewModal product={product} size={size} handleChange={handleChange} toggleModal={setIsModalOpen} />
       </Modal>
       <Drawer anchor="bottom" open={isQuickViewDrawerOpen} onClose={() => setIsQuickViewDrawerOpen(false)}>
-        <QuickViewDrawer product={product} toggleDrawer={setIsQuickViewDrawerOpen} handleAdd={handleAdd} />
+        <QuickViewDrawer size={size} handleChange={handleChange} product={product} toggleDrawer={setIsQuickViewDrawerOpen} handleAdd={handleAdd} />
       </Drawer>
     </>
   );
