@@ -64,27 +64,32 @@ const AppBar = () => {
     <>
       <MUIAppBar position="relative" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1, top: 0, width: "100vw" }}>
         <Container maxWidth="lg" fixed>
-          <Toolbar sx={{ color: "white", minHeight: smScreen ? "80" : "64" }} disableGutters>
+          <Toolbar sx={{ color: theme.palette.common.white, minHeight: smScreen ? "80" : "64" }} disableGutters>
             {/* Left side AppBar */}
 
             <NavLink to={""}>
-              <LogoSvg backgroundColor="#42454A" forgroundColor="#FFF" small={88} large={120} />
+              <LogoSvg backgroundColor="#42454A" forgroundColor={theme.palette.common.white} small={88} large={120} />
             </NavLink>
             {desktopScreen ? (
               <AppBarLinks pages={["store", "admin"]} />
             ) : (
-              <IconButton onClick={toggleLinkDrawer} edge="start" aria-label="menu" sx={{ color: "white", marginRight: "auto", marginLeft: ".2rem" }}>
+              <IconButton
+                onClick={toggleLinkDrawer}
+                edge="start"
+                aria-label="menu"
+                sx={{ color: "inherit", marginRight: "auto", marginLeft: ".2rem" }}
+              >
                 <MenuIcon sx={{ fontSize: "2rem" }} />
               </IconButton>
             )}
             {/* Right side AppBar */}
 
             <Box>
-              <IconButton sx={{ color: "white" }} onClick={() => setSearchIsActive((prev) => !prev)}>
+              <IconButton sx={{ color: "inherit" }} onClick={() => setSearchIsActive((prev) => !prev)}>
                 <Icon.Search sx={{ fontSize: "2rem" }} />
               </IconButton>
-              <NavLink to={"wishlist"}>
-                <IconButton sx={{ color: "white" }}>
+              <NavLink style={{ color: "inherit" }} to={"wishlist"}>
+                <IconButton sx={{ color: "inherit" }}>
                   <Badge badgeContent={favorites.length} color="secondary">
                     <FavoriteBorderIcon sx={{ fontSize: "2rem" }} />
                   </Badge>
@@ -95,7 +100,7 @@ const AppBar = () => {
                 size="large"
                 edge="start"
                 aria-label="cart"
-                sx={{ color: "white", borderRadius: tabletScreen ? "50%" : "10px" }}
+                sx={{ color: "inherit", borderRadius: tabletScreen ? "50%" : "10px" }}
               >
                 {isCartDrawerOpen && smScreen ? (
                   <Icon.Close sx={{ fontSize: "2rem" }} />
