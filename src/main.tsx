@@ -8,6 +8,7 @@ import CurrencyContextProvider from "./contexts/CurrencyContext";
 import FavoritesProvider from "./contexts/FavoriteContext";
 import ProductProvider from "./contexts/ProductContext";
 import ReviewProvider from "./contexts/ReviewContext";
+import OurSnackbarProvider from "./utils/OurSnackbarProvider";
 import theme from "./utils/Theme";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
@@ -19,9 +20,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <CurrencyContextProvider>
             <ProductProvider>
               <FavoritesProvider>
-                <CartContextProvider>
-                  <App />
-                </CartContextProvider>
+                <OurSnackbarProvider>
+                  <CartContextProvider>
+                    <App />
+                  </CartContextProvider>
+                </OurSnackbarProvider>
               </FavoritesProvider>
             </ProductProvider>
           </CurrencyContextProvider>

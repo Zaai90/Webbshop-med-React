@@ -1,11 +1,12 @@
 import * as Icon from "@mui/icons-material/";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Container } from "@mui/system";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
 import { useCurrency } from "../../contexts/CurrencyContext";
 import CartDrawerItem from "./CartDrawerItem";
+import disappointed from "../Review/img/disappointed.webp";
 
 const Wrapper = styled.div`
 ::-webkit-scrollbar {
@@ -62,7 +63,11 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
   return (
     <>
       {cart.length == 0 ? (
-        <div>Cart is empty</div>
+        <Container sx={{ padding: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <Box>Cart is empty.</Box>
+          <Box><img draggable="false" width={32} src={disappointed}/></Box>
+        </Container>
+        
       ) : (
         <>
               <Title>CART</Title>

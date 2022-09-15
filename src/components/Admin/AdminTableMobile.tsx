@@ -14,8 +14,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useState } from "react";
 import { useProducts } from "../../contexts/ProductContext";
 import Product from "../../models/Product";
+import DeleteDialog from "./DeleteDialog";
 
 interface Props {
   handleEdit: (product: Product) => void;
@@ -28,8 +30,11 @@ interface RowProps {
   handleDelete: (id: string) => void;
 }
 
+// BREAK OUT TO ITS OWN COMPONENT; ADMINTABLE MOBILE ROW
 function Row({ product, handleEdit, handleDelete }: RowProps) {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState<boolean>(false);
+
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
   return (
     <React.Fragment>
@@ -39,7 +44,7 @@ function Row({ product, handleEdit, handleDelete }: RowProps) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell padding="none">{product.id}</TableCell>
+        {/* <TableCell padding="none">{product.id}</TableCell> */}
         <TableCell padding="none" align="left">
           {product.title}
         </TableCell>
@@ -78,10 +83,11 @@ function Row({ product, handleEdit, handleDelete }: RowProps) {
               <IconButton onClick={() => handleEdit(product)}>
                 <Edit />
               </IconButton>
-              <IconButton onClick={() => handleDelete(product.id)}>
+              <IconButton onClick={() => setDialogOpen(true)}>
                 <DeleteIcon />
               </IconButton>
             </Box>
+            <DeleteDialog isOpen={dialogOpen} handleDelete={() => handleDelete(product.id)} setIsOpen={setDialogOpen} />
           </Collapse>
         </TableCell>
       </TableRow>
@@ -98,9 +104,9 @@ export default function AdminTableMobile({ handleEdit, handleDelete }: Props) {
         <TableHead>
           <TableRow>
             <TableCell />
-            <TableCell sx={{ padding: "2px" }} align="left">
+            {/* <TableCell sx={{ padding: "2px" }} align="left">
               Id
-            </TableCell>
+            </TableCell> */}
             <TableCell sx={{ padding: "2px" }} align="left">
               Title
             </TableCell>
