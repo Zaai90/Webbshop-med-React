@@ -17,7 +17,7 @@ their designs and brand to larger brands, and to make some money - skipping ever
 - <a href="#search">Search functionality</a>
 - <a href="#modals">Modals, drawers and snacks</a>
 - <a href="#currency">Currency converter</a>
-- <a href="#admin">Localstorage</a>
+- <a href="#localstorage">Localstorage</a>
 - <a href="#about">About the project</a>
 - <a href="#requirements">Requirements</a>
 
