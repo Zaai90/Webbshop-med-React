@@ -10,10 +10,8 @@ import Product from "../models/Product";
 import theme from "../utils/Theme";
 
 const Admin = () => {
-  // const [productsState, setProductsState] = useState<Product[]>();
   const [formIsOpen, setFormIsOpen] = useState<boolean>(false);
-  // const [editFormIsOpen, setEditFormIsOpen] = useState<boolean>(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>();
+  const [selectedProduct, setSelectedProduct] = useState<Product | undefined>(undefined);
 
   const { deleteProductById } = useProducts();
 
@@ -22,8 +20,10 @@ const Admin = () => {
   const handleEdit = (product: Product) => {
     if (selectedProduct === product) {
       setSelectedProduct(undefined);
+      setFormIsOpen(false);
     } else {
       setSelectedProduct(product);
+      setFormIsOpen(true);
     }
   };
 
@@ -37,18 +37,32 @@ const Admin = () => {
     <div style={{ margin: "5rem 1rem 0 1rem" }}>
       <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "2rem" }}>
         <Typography variant="h5">Admin</Typography>
-        <Fab
-          onClick={() => {
-            setFormIsOpen(!formIsOpen);
-            setSelectedProduct(undefined);
-          }}
-          color="primary"
-          aria-label="add"
-        >
-          <Icon.Add />
-        </Fab>
+        {!formIsOpen ? (
+          <Fab
+            onClick={() => {
+              setFormIsOpen(true);
+              setSelectedProduct(undefined);
+            }}
+            color="primary"
+            aria-label="add"
+          >
+            <Icon.Add />
+          </Fab>
+        ) : (
+          <Fab
+            onClick={() => {
+              setFormIsOpen(false);
+              setSelectedProduct(undefined);
+            }}
+            color="primary"
+            aria-label="add"
+          >
+            <Icon.HighlightOff />
+          </Fab>
+        )}
       </Box>
-      {(selectedProduct || formIsOpen) && (
+
+      {(formIsOpen || selectedProduct) && (
         <Box sx={{ maxWidth: "360px" }}>
           <Form product={selectedProduct} />
         </Box>

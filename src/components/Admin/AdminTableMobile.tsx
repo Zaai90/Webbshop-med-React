@@ -96,7 +96,7 @@ function Row({ product, handleEdit, handleDelete }: RowProps) {
 }
 
 export default function AdminTableMobile({ handleEdit, handleDelete }: Props) {
-  const { products, editProduct, deleteProducts } = useProducts();
+  const { products } = useProducts();
 
   return (
     <TableContainer sx={{ marginBottom: "1rem" }} component={Paper}>
