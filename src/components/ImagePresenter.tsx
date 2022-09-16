@@ -11,7 +11,7 @@ const ImagePresenterStyled = styled.div`
   flex-direction: column-reverse;
   align-items: flex-start;
   justify-content: center;
-  gap: .5rem;
+  gap: 0.5rem;
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     height: 300px;
   }
@@ -21,7 +21,7 @@ const ImagePresenterStyled = styled.div`
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     flex-direction: row;
   }
-  `;
+`;
 
 const ImageContainer = styled.div`
   display: grid;
@@ -32,8 +32,7 @@ const ImageContainer = styled.div`
   ::-webkit-scrollbar {
     display: none;
   }
-  
-  
+
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     display: flex;
     flex-direction: column;
@@ -98,10 +97,9 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
 
   const images = product.img.map((img: string, index: number) => {
     return (
-      <div style={{ height: "200px", width: "150px" }}>
+      <div key={index} style={{ height: "200px", width: "150px" }}>
         <ThumbNailImg
           src={img}
-          key={index}
           onMouseEnter={() => {
             setSelectedImg(img);
           }}
@@ -115,8 +113,14 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
 
   return (
     <ImagePresenterStyled style={{ flexWrap: smScreen ? "wrap" : undefined }}>
-      {smScreen ? <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}>{images}</ImageContainer> : <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)`}}><div style={{height: theme.breakpoints.values.tablet ? 'max-height: 300px' : undefined}}>{images}</div></ImageContainer>}
-      <SelectedImageContainer style={{minHeight: '300px', alignSelf: 'stretch', height: 'auto !important'}}>
+      {smScreen ? (
+        <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length + 1}, 1fr)` }}>{images}</ImageContainer>
+      ) : (
+        <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}>
+          <div style={{ height: theme.breakpoints.values.tablet ? "max-height: 300px" : undefined }}>{images}</div>
+        </ImageContainer>
+      )}
+      <SelectedImageContainer style={{ minHeight: "300px", alignSelf: "stretch", height: "auto !important" }}>
         <ImagePreview src={selectedImg}>
           <FavoriteContainer>
             <IconButton onClick={() => toggleFavorite(product)}>
