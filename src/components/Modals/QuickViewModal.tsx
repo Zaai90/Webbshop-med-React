@@ -1,5 +1,5 @@
 import * as Icon from "@mui/icons-material";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useSnackbar } from "notistack";
 import React from "react";
 import SimpleImageSlider from "react-simple-image-slider";
@@ -82,17 +82,24 @@ const QuickViewModal = React.forwardRef(({ product, handleChange, toggleModal, s
             ))}
           </Select>
         </FormControl>
-        <ButtonStyled
-          variant="contained"
-          endIcon={<Icon.AddShoppingCart />}
-          onClick={() => {
-            addToCart(product, sizeState, 1);
-            toggleModal(false);
-            enqueueSnackbar(<AddProductSnackbar product={product} />);
-          }}
-        >
-          Add to Cart
-        </ButtonStyled>
+        {sizeState === "" ? (
+          <Button sx={{ mt: "1.2rem", p: "1rem" }} variant="contained" color="primary" disabled>
+            <Typography variant="body2">Pick a size</Typography>
+          </Button>
+        ) : (
+          <ButtonStyled
+            type="submit"
+            variant="contained"
+            endIcon={<Icon.AddShoppingCart />}
+            onClick={() => {
+              addToCart(product, sizeState, 1);
+              toggleModal(false);
+              enqueueSnackbar(<AddProductSnackbar product={product} />);
+            }}
+          >
+            Add to Cart
+          </ButtonStyled>
+        )}
       </div>
     </ModalContent>
   );
