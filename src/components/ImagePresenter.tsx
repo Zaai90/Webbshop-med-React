@@ -1,5 +1,5 @@
 import * as Icon from "@mui/icons-material/";
-import { Box, Fade, IconButton, Tooltip } from "@mui/material";
+import { Box, Fade, IconButton, Tooltip, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFavorites } from "../contexts/FavoriteContext";
@@ -11,35 +11,30 @@ const ImagePresenterStyled = styled.div`
   flex-direction: column-reverse;
   align-items: flex-start;
   justify-content: center;
-
+  gap: .5rem;
+  @media (min-width: ${theme.breakpoints.values.lg}px) {
+    max-height: 500px;
+    overflow: clip;
+  }
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    width: 100%;
     flex-direction: row;
   }
-  @media (min-width: ${theme.breakpoints.values.lg}px) {
-    flex-direction: column-reverse;
-  }
-`;
+  `;
 
 const ImageContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  height: 100%;
+  display: grid;
+  overflow-x: scroll;
   width: 100%;
-
+  gap: 0.5rem;
+  margin-top: -6px;
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    width: 30%;
+    display: flex;
     flex-direction: column;
+    max-width: fit-content;
+    scrollbar-width: none;
   }
-  @media (min-width: ${theme.breakpoints.values.lg}px) {
-    flex-direction: row;
-    width: 100%;
-    margin-top: 1rem;
-    gap: 0;
-  }
+  height: calc(100% + 12px);
+  overflow-y: scroll;
 `;
 
 const SelectedImageContainer = styled.div`
@@ -47,6 +42,11 @@ const SelectedImageContainer = styled.div`
   width: 100%;
   height: 100%;
   position: relative;
+
+  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    height: 100% !important;
+    min-width: 500px;
+  }
 `;
 
 const FavoriteContainer = styled(Box)`
@@ -60,46 +60,18 @@ const ThumbNailImg = styled(Box)<{ src: string }>`
   background-position: center 50%;
   background-repeat: no-repeat;
   width: 100%;
-  min-height: 55vw;
-
+  height: 100%;
   cursor: pointer;
-
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
-    background-size: contain;
-    background-color: #f8f6f8;
-    gap: 0.5rem;
-    min-height: 20vw;
-    margin-right: 1rem;
-  }
-
-  @media (min-width: ${theme.breakpoints.values.lg}px) {
-    min-height: 250px;
-  }
-  @media (min-width: ${theme.breakpoints.values.lg}px) {
-    min-height: 15vw;
-  }
 `;
 
 const ImagePreview = styled(Box)<{ src: string }>`
   background: url(${(props) => props.src});
   position: relative;
-  /* margin-bottom: 0.5rem; */
   background-size: contain;
   background-position: center center;
   background-repeat: no-repeat;
   background-color: #f8f6f8;
   width: 100%;
-  min-height: 80vw;
-
-  @media (min-width: ${theme.breakpoints.values.md}px) {
-    min-height: 70vw;
-  }
-  @media (min-width: ${theme.breakpoints.values.lg}px) and (max-width: ${theme.breakpoints.values.xl}px) {
-    min-height: 50vw;
-  }
-  @media (min-width: ${theme.breakpoints.values.xl}px) {
-    min-height: 40rem;
-  }
 `;
 
 interface ImagePresenterProps {
@@ -109,6 +81,9 @@ interface ImagePresenterProps {
 const ImagePresenter = ({ product }: ImagePresenterProps) => {
   const [selectedImg, setSelectedImg] = useState<string>(product.img[0]);
   const { isFavorite, toggleFavorite } = useFavorites();
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
+  const tabletScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const desktopScreen = useMediaQuery(theme.breakpoints.up("md"));
 
   useEffect(() => {
     setSelectedImg(product.img[0]);
@@ -116,20 +91,23 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
 
   const images = product.img.map((img: string, index: number) => {
     return (
-      <ThumbNailImg
-        src={img}
-        key={index}
-        onMouseEnter={() => {
-          setSelectedImg(img);
-        }}
-      />
+      <div style={{ height: "200px", width: "150px" }}>
+        <ThumbNailImg
+          src={img}
+          key={index}
+          onMouseEnter={() => {
+            setSelectedImg(img);
+          }}
+        />
+      </div>
     );
   });
 
   return (
-    <ImagePresenterStyled>
-      <ImageContainer>{images}</ImageContainer>
-      <SelectedImageContainer>
+    <ImagePresenterStyled style={{ flexWrap: smScreen ? "wrap" : undefined }}>
+      {!tabletScreen ? <ImageContainer style={{ gridTemplateColumns: tabletScreen?  `repeat(${images.length}, 1fr)` : undefined }}><div style={{height: theme.breakpoints.values.tablet ? 'max-height: 300px' : undefined}}>{images}</div></ImageContainer> : 
+      <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}>{images}</ImageContainer>}
+      <SelectedImageContainer style={{minHeight: '300px', alignSelf: 'stretch', height: 'auto !important'}}>
         <ImagePreview src={selectedImg}>
           <FavoriteContainer>
             <IconButton onClick={() => toggleFavorite(product)}>
