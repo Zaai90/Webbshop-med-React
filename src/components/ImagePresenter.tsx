@@ -12,9 +12,6 @@ const ImagePresenterStyled = styled.div`
   align-items: flex-start;
   justify-content: center;
   gap: .5rem;
-  @media (min-width: ${theme.breakpoints.values.xs}px) {
-    overflow: clip;
-  }
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     height: 300px;
   }
@@ -32,6 +29,11 @@ const ImageContainer = styled.div`
   width: 100%;
   gap: 0.5rem;
   margin-top: -6px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     display: flex;
     flex-direction: column;
