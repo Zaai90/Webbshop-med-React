@@ -23,7 +23,12 @@ const validationSchema = yup.object({
   zipCode: yup.string().min(5, "Zip code should be of minimum 5 characters length").required("Zip Code is required"),
   city: yup.string().min(2, "City should be of atleast 2 characters").required("City is required"),
   country: yup.string().min(2, "Country should be of minimum 2 characters length").required("Country is required"),
-  phoneNumber: yup.string().matches(/^\d+$/).min(9, "Phone number must be 10 figures").max(10, "Phone number must be 10 figures").required(),
+  phoneNumber: yup
+    .string()
+    .matches(/^\+?[0-9]\d{1,13}$/)
+    .min(9, "Phone number must be 10 figures")
+    .max(13, "Phone number must be 10 figures")
+    .required(),
 });
 
 export interface PaymentFormValues {
