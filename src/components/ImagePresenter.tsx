@@ -103,6 +103,9 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
           onMouseEnter={() => {
             setSelectedImg(img);
           }}
+          onClick={() => {
+            setSelectedImg(img);
+          }}
         />
       </div>
     );
