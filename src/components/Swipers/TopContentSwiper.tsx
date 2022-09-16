@@ -21,9 +21,6 @@ const TopSwiper = styled.div`
   .topSwiper {
     height: 100%;
   }
-  .swiper-slide {
-    background: orange;
-  }
 `;
 
 const SliderText = styled.div`
