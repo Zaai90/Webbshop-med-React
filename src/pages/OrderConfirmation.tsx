@@ -67,6 +67,8 @@ const OrderConfirmation = ({ orders }: Props) => {
         <Typography sx={{ my: "2rem" }} variant="h6">
           An email will be sent to {latestOrder?.paymentFormInfo.email} with your order details
         </Typography>
+        {latestOrder?.swishInfo?.phoneNumber && <Typography>You paid with swish: {latestOrder.swishInfo.phoneNumber}</Typography>}
+        {latestOrder?.creditInfo?.cardNumber && <Typography>You paid with credit card: {latestOrder.creditInfo.cardNumber}</Typography>}
       </OrderSummaryHeader>
       <OrderSummary>
         {latestOrder?.cartItems.map((cartItem) => (
