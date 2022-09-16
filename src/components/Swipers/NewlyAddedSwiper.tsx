@@ -37,14 +37,6 @@ const ItemContentBottom = styled.div`
   margin-top: -10px;
 `;
 
-const StyledSwiperSlide = styled(SwiperSlide)<{ test: string }>`
-  position: relative;
-  background-image: url(${(props) => props.test});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-`;
-
 interface Props {
   items: Product[];
 }
