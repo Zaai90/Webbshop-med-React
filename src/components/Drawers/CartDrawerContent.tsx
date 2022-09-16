@@ -5,13 +5,13 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useCart } from "../../contexts/CartContext";
 import { useCurrency } from "../../contexts/CurrencyContext";
-import CartDrawerItem from "./CartDrawerItem";
 import disappointed from "../Review/img/disappointed.webp";
+import CartDrawerItem from "./CartDrawerItem";
 
 const Wrapper = styled.div`
-::-webkit-scrollbar {
-  display: none;
-}
+  ::-webkit-scrollbar {
+    display: none;
+  }
   width: 100%;
   height: 100%;
   align-items: center;
@@ -24,7 +24,7 @@ const Title = styled.div`
   font-weight: 700;
   width: 100%;
   text-align: center;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
   padding: 1rem 0;
 `;
 
@@ -37,16 +37,16 @@ const Total = styled.div`
 const CartBottom = styled.div`
   width: 100%;
   padding: 1rem;
-  border-top: 1px solid rgba(0,0,0,0.15);
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 `;
 
 const CartItemContainer = styled(Container)`
-div:last-child {
-  border-bottom: none;
-}
-margin-bottom: 1rem;
-margin-top: 1rem;
-`
+  div:last-child {
+    border-bottom: none;
+  }
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+`;
 
 interface Props {
   toggleDrawer: () => void;
@@ -63,20 +63,21 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
   return (
     <>
       {cart.length == 0 ? (
-        <Container sx={{ padding: '2rem', display: 'flex', gap: '1rem', alignItems: 'center' }}>
+        <Container sx={{ padding: "2rem", display: "flex", gap: "1rem", alignItems: "center" }}>
           <Box>Cart is empty.</Box>
-          <Box><img draggable="false" width={32} src={disappointed}/></Box>
+          <Box>
+            <img draggable="false" width={32} src={disappointed} />
+          </Box>
         </Container>
-        
       ) : (
         <>
-              <Title>CART</Title>
+          <Title>CART</Title>
           <Wrapper>
-              <CartItemContainer>
-            {cart.map((cartItem) => (
-              <CartDrawerItem key={cartItem.product.id} cartItem={cartItem} toggleDrawer={toggleDrawer} />
+            <CartItemContainer>
+              {cart.map((cartItem) => (
+                <CartDrawerItem key={cartItem.product.id} cartItem={cartItem} toggleDrawer={toggleDrawer} />
               ))}
-              </CartItemContainer>
+            </CartItemContainer>
           </Wrapper>
           <CartBottom>
             <Button variant="outlined" color="warning" style={{ maxWidth: "max-content", gap: ".5rem", margin: ".5rem 0" }} onClick={handleClearCart}>
@@ -86,7 +87,7 @@ const CartDrawerContent = ({ toggleDrawer }: Props) => {
               <span style={{ fontWeight: 500 }}>Total: </span>
               <span>{convertToCurrencyValue(totalAmount)} </span>
             </Total>
-            <NavLink onClick={toggleDrawer} to="checkout">
+            <NavLink style={{ textDecoration: "none" }} onClick={toggleDrawer} to="checkout">
               <Button variant="contained" fullWidth>
                 CHECKOUT
               </Button>

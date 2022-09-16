@@ -83,7 +83,7 @@ const OrderConfirmation = ({ orders }: Props) => {
         <Typography variant="h5"> + {latestOrder?.cartItems.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0)}</Typography>
       </CalculatingTotal>
       <ButtonBox>
-        <NavLink to={"/store"}>
+        <NavLink style={{ textDecoration: "none" }} to={"/store"}>
           <Button variant="contained">Continue shopping</Button>
         </NavLink>
       </ButtonBox>
