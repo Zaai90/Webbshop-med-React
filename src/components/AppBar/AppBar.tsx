@@ -102,7 +102,13 @@ const AppBar = () => {
               {/* Right side AppBar */}
 
               <Box>
-                <IconButton sx={{ color: "inherit" }} onClick={() => setSearchIsActive((prev) => !prev)}>
+                <IconButton
+                  sx={{ color: "inherit" }}
+                  onClick={() => {
+                    setSearchIsActive((prev) => !prev);
+                    if (isCartDrawerOpen) setIsCartDrawerOpen(false);
+                  }}
+                >
                   <Icon.Search sx={{ fontSize: "2rem" }} />
                 </IconButton>
                 <NavLink
