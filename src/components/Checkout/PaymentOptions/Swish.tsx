@@ -10,7 +10,12 @@ interface Props {
 type YupObject = Record<keyof SwishModel, yup.AnySchema>;
 
 const validationSchema = yup.object<YupObject>({
-  phoneNumber: yup.string().matches(/^\d+$/).min(9, "Phone number must be 10 figures").max(10, "Phone number must be 10 figures").required(),
+  phoneNumber: yup
+    .string()
+    .matches(/^\+?[0-9]\d{1,13}$/)
+    .min(10, "Phone number must be atleast 10 figures")
+    .max(13, "Phone number must be  max 13 figures")
+    .required(),
 });
 
 const Swish = ({ handleSubmit, handleFormValue }: Props) => {
