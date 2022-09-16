@@ -27,7 +27,7 @@ const validationSchema = yup.object({
     .string()
     .matches(/^\+?[0-9]\d{1,13}$/)
     .min(9, "Phone number must be 10 figures")
-    .max(12, "Phone number must be 10 figures")
+    .max(13, "Phone number must be 10 figures")
     .required(),
 });
 
