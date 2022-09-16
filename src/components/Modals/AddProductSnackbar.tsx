@@ -8,13 +8,12 @@ interface Props {
   product: Product;
 }
 
-
 const AddProductSnackbar = ({ product }: Props) => {
   const { convertToCurrencyValue } = useCurrency();
 
   return (
-    <Container sx={{display: "flex", flexDirection: "column", width: "300px", userSelect: 'none'}}>
-      <div style={{ display: "flex", gap: "1rem", justifyContent: 'center', alignItems: "center" }}>
+    <Container sx={{ display: "flex", flexDirection: "column", width: "300px", userSelect: "none" }}>
+      <div style={{ display: "flex", gap: "1rem", justifyContent: "center", alignItems: "center" }}>
         <Icon.AddShoppingCart />
         <Box>Added to cart!</Box>
       </div>
@@ -27,7 +26,7 @@ const AddProductSnackbar = ({ product }: Props) => {
         </div>
       </div>
       <div style={{ display: "flex", justifyContent: "center", margin: "0.5rem 0", width: "100%" }}>
-        <NavLink style={{ width: "100%" }} to="/checkout">
+        <NavLink style={{ width: "100%", textDecoration: "none" }} to="/checkout">
           <Button variant="contained" color="success" fullWidth>
             CHECKOUT
           </Button>
