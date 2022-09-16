@@ -85,7 +85,6 @@ function NewlyAddedSwiper({ items }: Props) {
             <a href={"product/" + product.id}>
               <SliderImage src={product.img[0]} />
             </a>
-            {/* TODO: Clean up */}
             <QuickView
               onClick={() => {
                 handleQuickViewClick();
