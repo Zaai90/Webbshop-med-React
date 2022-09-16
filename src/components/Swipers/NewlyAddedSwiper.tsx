@@ -5,13 +5,14 @@ import styled from "styled-components";
 import { Navigation } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useCurrency } from "../../contexts/CurrencyContext";
+import { useFavorites } from "../../contexts/FavoriteContext";
 import Product from "../../models/Product";
 import { QuickView } from "../../pages/Home";
 
 const FavContainer = styled.div`
   .hearted {
     color: #ff5cbb;
-    transition: 1s ease all;
+    transition: 0.2s ease all;
   }
   &:hover {
     cursor: pointer;
@@ -52,6 +53,7 @@ interface Props {
 function NewlyAddedSwiper({ items }: Props) {
   const { convertToCurrencyValue } = useCurrency();
   const [isHearted, setHearted] = useState(false);
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   function handleQuickViewClick() {
     console.log("I'm here!");
@@ -107,7 +109,7 @@ function NewlyAddedSwiper({ items }: Props) {
                   <Typography variant="h6">{product.title}</Typography>
                 </div>{" "}
                 <FavContainer>
-                  <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
+                  <FavoriteIcon onClick={() => toggleFavorite(product)} className={isFavorite(product) ? "hearted" : undefined} />
                 </FavContainer>
               </div>
               <div style={{ textAlign: "left" }}>
