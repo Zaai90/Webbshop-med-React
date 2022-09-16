@@ -35,7 +35,7 @@ const CardImageStyled = styled.div<{ imgUrl: string }>`
 const CardBottomStyled = styled.div`
   position: relative;
   z-index: 100;
-  background-color: white;
+  background-color: ${theme.palette.common.white};
   display: flex;
   justify-content: center;
   flex-direction: row;
@@ -57,7 +57,7 @@ const QuickView = styled.span`
   text-align: center;
   cursor: pointer;
   font-size: 12px;
-  color: white;
+  color: ${theme.palette.common.white};
   text-shadow: 2px 2px 4px black;
 `;
 

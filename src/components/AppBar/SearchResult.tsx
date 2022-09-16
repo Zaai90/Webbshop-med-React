@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useProducts } from "../../contexts/ProductContext";
+import theme from "../../utils/Theme";
 import SearchResultCard from "./SearchResultCard";
 
 const NavLinkStyled = styled(NavLink)`
@@ -18,10 +19,12 @@ const NavLinkStyled = styled(NavLink)`
 interface Props {
   searchString: string;
   toggleSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  headerWidth: number;
 }
 
-const SearchResult = ({ searchString, toggleSearch }: Props) => {
+const SearchResult = ({ searchString, toggleSearch, headerWidth }: Props) => {
   const { products } = useProducts();
+  const smScreen = useMediaQuery(theme.breakpoints.down("tablet"));
 
   if (searchString === "") return null;
 
@@ -34,9 +37,9 @@ const SearchResult = ({ searchString, toggleSearch }: Props) => {
   }
 
   const productBoxes = (
-    <Box>
+    <Box sx={{ width: `${headerWidth}px` }}>
       <Box>
-        {getByTitle().length > 0 && <Typography variant="body1">By product name:</Typography>}
+        {getByTitle().length > 0 && <Typography variant={smScreen ? "body1" : "h6"}>By product name:</Typography>}
         {getByTitle().map((product) => (
           <NavLinkStyled key={product.id} to={`../product/${product.id}`} onClick={() => toggleSearch((prev) => !prev)}>
             <SearchResultCard product={product} />
@@ -44,7 +47,7 @@ const SearchResult = ({ searchString, toggleSearch }: Props) => {
         ))}
       </Box>
       <Box>
-        {getByDesigner().length > 0 && <Typography variant="body1">By designer:</Typography>}
+        {getByDesigner().length > 0 && <Typography variant={smScreen ? "body1" : "h6"}>By designer:</Typography>}
         {getByDesigner().map((product) => (
           <NavLinkStyled key={product.id} to={`../product/${product.id}`} onClick={() => toggleSearch((prev) => !prev)}>
             <SearchResultCard product={product} />
