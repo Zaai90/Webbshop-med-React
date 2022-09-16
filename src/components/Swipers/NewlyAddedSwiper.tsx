@@ -1,5 +1,5 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import styled from "styled-components";
 import { Navigation } from "swiper";
@@ -35,14 +35,6 @@ const ItemContentBottom = styled.div`
   padding: 20px 5px;
   background: white;
   margin-top: -10px;
-`;
-
-const StyledSwiperSlide = styled(SwiperSlide)<{ test: string }>`
-  position: relative;
-  background-image: url(${(props) => props.test});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 `;
 
 interface Props {
@@ -93,7 +85,6 @@ function NewlyAddedSwiper({ items }: Props) {
             <a href={"product/" + product.id}>
               <SliderImage src={product.img[0]} />
             </a>
-            {/* TODO: Clean up */}
             <QuickView
               onClick={() => {
                 handleQuickViewClick();
@@ -102,17 +93,17 @@ function NewlyAddedSwiper({ items }: Props) {
               <Typography>Quick View</Typography>
             </QuickView>
             <ItemContentBottom>
-              <div style={{ display: "flex", background: "white" }}>
-                <div style={{ marginRight: "auto" }}>
+              <Box sx={{ display: "flex", background: "white" }}>
+                <Box sx={{ marginRight: "auto" }}>
                   <Typography variant="h6">{product.title}</Typography>
-                </div>{" "}
+                </Box>
                 <FavContainer>
                   <FavoriteIcon onClick={toggleHearted} className={isHearted ? "hearted" : undefined} />
                 </FavContainer>
-              </div>
-              <div style={{ textAlign: "left" }}>
+              </Box>
+              <Box sx={{ textAlign: "left" }}>
                 <Typography variant="h6">{convertToCurrencyValue(product.price)}</Typography>
-              </div>{" "}
+              </Box>
             </ItemContentBottom>
           </SwiperSlide>
         ))}
