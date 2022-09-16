@@ -12,9 +12,14 @@ const ImagePresenterStyled = styled.div`
   align-items: flex-start;
   justify-content: center;
   gap: .5rem;
-  @media (min-width: ${theme.breakpoints.values.lg}px) {
-    max-height: 500px;
+  @media (min-width: ${theme.breakpoints.values.xs}px) {
     overflow: clip;
+  }
+  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+    height: 300px;
+  }
+  @media (min-width: ${theme.breakpoints.values.lg}px) {
+    height: 500px;
   }
   @media (min-width: ${theme.breakpoints.values.tablet}px) {
     flex-direction: row;
@@ -43,7 +48,7 @@ const SelectedImageContainer = styled.div`
   height: 100%;
   position: relative;
 
-  @media (min-width: ${theme.breakpoints.values.tablet}px) {
+  @media (min-width: ${theme.breakpoints.values.sm}px) {
     height: 100% !important;
     min-width: 500px;
   }
@@ -105,8 +110,7 @@ const ImagePresenter = ({ product }: ImagePresenterProps) => {
 
   return (
     <ImagePresenterStyled style={{ flexWrap: smScreen ? "wrap" : undefined }}>
-      {!tabletScreen ? <ImageContainer style={{ gridTemplateColumns: tabletScreen?  `repeat(${images.length}, 1fr)` : undefined }}><div style={{height: theme.breakpoints.values.tablet ? 'max-height: 300px' : undefined}}>{images}</div></ImageContainer> : 
-      <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}>{images}</ImageContainer>}
+      {smScreen ? <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)` }}>{images}</ImageContainer> : <ImageContainer style={{ gridTemplateColumns: `repeat(${images.length}, 1fr)`}}><div style={{height: theme.breakpoints.values.tablet ? 'max-height: 300px' : undefined}}>{images}</div></ImageContainer>}
       <SelectedImageContainer style={{minHeight: '300px', alignSelf: 'stretch', height: 'auto !important'}}>
         <ImagePreview src={selectedImg}>
           <FavoriteContainer>
